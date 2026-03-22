@@ -317,9 +317,9 @@
             <table class="tide-table">
                 <thead>大学<th>FECHA</th><th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th> </thead>
                 <tbody>
-                     <tr><td>DOM 22</td><td>5:12 / 17:31</td><td>11:12 / 23:33</td></tr>
-                     <tr><td>LUN 23</td><td>5:55 / 18:15</td><td>11:53</td></tr>
-                     <tr><td>MAR 24</td><td>6:46 / 19:09</td><td>0:20 / 12:41</td></tr>
+                    <tr><td>DOM 22</td><td>5:12 / 17:31</td><td>11:12 / 23:33</td></tr>
+                    <tr><td>LUN 23</td><td>5:55 / 18:15</td><td>11:53</td></tr>
+                    <tr><td>MAR 24</td><td>6:46 / 19:09</td><td>0:20 / 12:41</td></tr>
                 </tbody>
              </table>
             <div style="background:#0ff1; border-radius: 16px; padding: 8px; margin-top: 8px;">
@@ -341,7 +341,7 @@
         </div>
     </div>
 
-    <!-- FILA 3: PESCA ULTRA DETALLADA - APARTADO A FULL -->
+    <!-- FILA 3: PESCA ULTRA DETALLADA -->
     <div class="grid">
         <div class="card">
             <div class="card-header"><span>🎣</span><h2>PESCA · ÍNDICE GENERAL</h2></div>
@@ -684,6 +684,7 @@
     
     function exportPDF() { html2pdf().set({ margin:0.5, filename:'CYBER_METEO_FINAL.pdf', image:{ quality:0.9 }, jsPDF:{ unit:'in', format:'a4', orientation:'landscape' } }).from(document.getElementById('dashboardContent')).save(); }
     
+    // ==================== FUNCIÓN COMPARTIR CORREGIDA ====================
     function shareWhatsApp() {
         const temp = document.getElementById('tempActual').innerText;
         const feels = document.getElementById('feelActual').innerText;
@@ -691,13 +692,14 @@
         const pressure = document.getElementById('presion').innerText;
         const wind = document.getElementById('windMedio').innerText;
         const windGust = document.getElementById('windRacha').innerText;
+        const windDir = document.getElementById('windDir').innerText;
         const ola = document.getElementById('olaAltura').innerText;
         const seaTemp = document.getElementById('seaTemp').innerText;
         const fishing = document.getElementById('fishingIndex').innerText;
         const bestTime = document.getElementById('bestFishingTime').innerText;
         const fishActivity = document.getElementById('fishActivity').innerText;
         const tide = document.getElementById('currentTide').innerText;
-        const bait = document.getElementById('baitRec').innerText;
+        const enlace = "https://supertilla-code.github.io/cybermeteo/cyber_meteo.html";
         
         const text = `⚡ *CYBER_METEO* ⚡
 📍 *EL PUERTO DE SANTA MARÍA* (CÁDIZ)
@@ -705,22 +707,24 @@
 🌡️ *METEOROLOGÍA*
 ▸ Temperatura: ${temp} (sensación ${feels})
 ▸ Humedad: ${humidity}% · Presión: ${pressure} hPa
-▸ Viento: ${wind} km/h (rachas ${windGust})
+▸ Viento: ${wind} km/h (rachas ${windGust}) · ${windDir}
 
 🌊 *ESTADO DEL MAR*
-▸ Altura ola: ${ola} m · Temp. agua: ${seaTemp}°C
+▸ Altura ola: ${ola} · Temp. agua: ${seaTemp}
 ▸ Marea actual: ${tide}
 
 🎣 *PESCA*
-▸ Índice de pesca: ${fishing}/100
+▸ Índice de pesca: ${fishing}
 ▸ Mejor momento: ${bestTime}
 ▸ Actividad: ${fishActivity}
-▸ Cebo recomendado: ${bait}
 ▸ Especies: Lubina, Sargo, Dorada, Choco, Corvina
 ▸ Zonas: Escollera Puerto Sherry · Río Guadalete · Valdelagrana
 
 🐵 *SUPERTILLA_DEVELOPER*
-🔮 Datos AEMET · Instituto Hidrográfico · Pesca PRO`;
+🔮 Datos AEMET · Instituto Hidrográfico
+
+🔗 Accede en directo:
+${enlace}`;
         
         window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     }
