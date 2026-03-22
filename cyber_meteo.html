@@ -7,7 +7,6 @@
     <title>⚡ CYBER_METEO ⚡ | El Puerto de Santa María · Pesca PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -146,6 +145,17 @@
             border-color: #25D366; 
             color: #25D366;
         }
+        /* NUEVO BOTÓN CONTADOR - ESTILO ESPECIAL */
+        .btn-counter {
+            background: linear-gradient(135deg, #ff00ff30, #ff660030);
+            border-color: #ff00ff;
+            color: #ff00ff;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
         @media (min-width: 640px) {
             .btn { padding: 12px 24px; font-size: 0.85rem; min-width: 130px; }
             .hero { flex-direction: row; align-items: center; justify-content: space-between; }
@@ -259,11 +269,12 @@
         <div class="action-buttons">
             <button class="btn" id="refreshBtn">🔄 ACTUALIZAR</button>
             <button class="btn btn-wa" id="whatsappBtn">💬 COMPARTIR</button>
-            <button class="btn" id="pdfBtn">📄 PDF</button>
+            <button class="btn btn-counter" id="counterBtn">👁️ VISITAS: <span id="visitCounter">0</span></button>
         </div>
     </div>
     <div class="last-update" id="lastUpdateTime">🕒 ÚLTIMA ACTUALIZACIÓN: --:--</div>
 
+    <!-- EL RESTO DEL CONTENIDO ES EXACTAMENTE IGUAL AL ORIGINAL -->
     <!-- FILA 1: METEOROLOGÍA COMPLETA -->
     <div class="grid">
         <div class="card">
@@ -571,6 +582,18 @@
         el.addEventListener('touchstart', (e) => { const touch = e.touches[0]; createSplash(touch.clientX, touch.clientY); });
     });
 
+    // ==================== CONTADOR DE VISITAS PERSISTENTE ====================
+    function initVisitCounter() {
+        let visits = localStorage.getItem('cybermeteo_visitas');
+        if (visits === null) {
+            visits = 0;
+        }
+        visits = parseInt(visits) + 1;
+        localStorage.setItem('cybermeteo_visitas', visits);
+        document.getElementById('visitCounter').innerText = visits;
+    }
+    initVisitCounter();
+
     let charts = {};
     function generateData() {
         return {
@@ -682,8 +705,6 @@
         charts.windGust = new Chart(document.getElementById('windGustChart'), { type:'line', data:{ labels:['DOM','LUN','MAR'], datasets:[{ label:'VIENTO MEDIO', data:[18,16,32], borderColor:'#0ff' },{ label:'RACHAS', data:[28,30,50], borderColor:'#f0f' }] }, options:{ responsive:true } });
     }
     
-    function exportPDF() { html2pdf().set({ margin:0.5, filename:'CYBER_METEO_FINAL.pdf', image:{ quality:0.9 }, jsPDF:{ unit:'in', format:'a4', orientation:'landscape' } }).from(document.getElementById('dashboardContent')).save(); }
-    
     // ==================== FUNCIÓN COMPARTIR CORREGIDA ====================
     function shareWhatsApp() {
         const temp = document.getElementById('tempActual').innerText;
@@ -729,7 +750,7 @@ ${enlace}`;
         window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     }
     
-    document.addEventListener('DOMContentLoaded', () => { initCharts(); updateDashboard(); setInterval(updateDashboard, 8000); document.getElementById('refreshBtn').onclick = () => { updateDashboard(); createSplash(window.innerWidth/2, window.innerHeight/2); }; document.getElementById('pdfBtn').onclick = exportPDF; document.getElementById('whatsappBtn').onclick = shareWhatsApp; });
+    document.addEventListener('DOMContentLoaded', () => { initCharts(); updateDashboard(); setInterval(updateDashboard, 8000); document.getElementById('refreshBtn').onclick = () => { updateDashboard(); createSplash(window.innerWidth/2, window.innerHeight/2); }; document.getElementById('whatsappBtn').onclick = shareWhatsApp; });
 </script>
 </body>
 </html>
