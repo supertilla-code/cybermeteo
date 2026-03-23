@@ -124,6 +124,27 @@
             .title-section h1 { font-size: 1.5rem; text-align: left; }
             .title-section p { justify-content: flex-start; }
         }
+        @media (max-width: 640px) {
+            body { padding: 8px; }
+            .btn { padding: 8px 12px; font-size: 0.7rem; min-width: 80px; }
+            .hero { padding: 12px; gap: 8px; }
+            .title-section h1 { font-size: 1rem; }
+            .badge { padding: 4px 8px; font-size: 0.55rem; }
+            .card { padding: 10px; }
+            .card-header h2 { font-size: 0.85rem; }
+            .data-row { font-size: 0.65rem; }
+            .chart-container { height: 120px; }
+            .wave-box, .fishing-box { padding: 6px; font-size: 0.65rem; }
+            .species-tag { font-size: 0.55rem; padding: 2px 6px; }
+            .fishing-tip-card { font-size: 0.6rem; }
+            footer { font-size: 0.45rem; }
+            .tide-table { font-size: 0.6rem; }
+            .tide-table td, .tide-table th { padding: 4px 2px; }
+        }
+        @media (max-width: 480px) {
+            .tide-table td, .tide-table th { padding: 3px 1px; font-size: 0.55rem; }
+            .tide-table { font-size: 0.55rem; }
+        }
         .grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 14px; }
         @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } body { padding: 20px; } .title-section h1 { font-size: 1.8rem; } }
@@ -186,7 +207,6 @@
         }
         @media (max-width: 600px) {
             .easter-message { font-size: 0.85rem; padding: 12px 16px; white-space: normal; width: 90%; border-radius: 30px; line-height: 1.4; }
-            .tide-table td, .tide-table th { padding: 4px 2px; font-size: 0.6rem; }
         }
         .record-badge { background: linear-gradient(135deg, gold, orange); color: #000; font-weight: bold; padding: 2px 8px; border-radius: 20px; margin-left: 5px; }
         .modal {
@@ -252,7 +272,6 @@
                 <div>🌡️ TEMP. AGUA: <span id="seaTemp">--°C</span></div>
                 <div>💎 TRANSPARENCIA: <span id="visibilidadAgua">-- m</span></div>
             </div>
-            <!-- GRÁFICO DE TEMPERATURA CON DOS LÍNEAS (AGUA VERDE - TIERRA ROSA) -->
             <div class="chart-container"><canvas id="tempChartDouble"></canvas></div>
             <div class="warning" id="avisoMar">🌊 CARGANDO DATOS DE OLEAJE...</div>
         </div>
@@ -291,15 +310,17 @@
     <div class="grid">
         <div class="card">
             <div class="card-header"><span>🌙</span><h2>MAREAS OFICIALES · INSTITUTO HIDROGRÁFICO MARINA</h2></div>
-            <table class="tide-table" id="tideTable">
-                <thead> <th>HORA</th><th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th> </thead>
-                <tbody id="tideTableBody">
-                    32d  path04:52<th>3.334m 🌊<th>--<th>
-                    32d  path10:46<th>--<th>0.678m 🌊<th>
-                    32d  path17:12<th>3.215m 🌊<th>--<th>
-                    32d  path23:16<th>--<th>0.696m 🌊<th>
+            <table class="tide-table">
+                <thead>
+                    <tr><th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>3.334m 🌊</td><td>--</td><td>04:52</td></tr>
+                    <tr><td>--</td><td>0.678m 🌊</td><td>10:46</td></tr>
+                    <tr><td>3.215m 🌊</td><td>--</td><td>17:12</td></tr>
+                    <tr><td>--</td><td>0.696m 🌊</td><td>23:16</td></tr>
                 </tbody>
-             m²
+            </table>
             <div style="background:#0ff1; border-radius: 16px; padding: 8px; margin-top: 8px;">
                 <div>🌙 FASE LUNAR: <strong id="faseLuna">--</strong> | 💡 ILUMINACIÓN: <span id="iluminacionLuna">--%</span></div>
                 <div>🌅 AMANECER: <span id="sunrise">--</span> · 🌇 ATARDECER: <span id="sunset">--</span></div>
@@ -984,7 +1005,7 @@
     }
     
     // ============================================
-    // 🐵 HUEVO DE PASCUA Y RAINMATRIX PERSONALIZADO EN CIAN
+    // 🐵 HUEVO DE PASCUA Y RAINMATRIX PERSONALIZADO EN CIAN CON EMOJIS
     // ============================================
     function initEasterEgg() {
         const easterTrigger = document.getElementById('easterEggTrigger');
