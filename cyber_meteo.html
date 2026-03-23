@@ -31,30 +31,15 @@
         #easterEggCanvas { z-index: 9998; opacity: 0; transition: opacity 0.2s; }
         .easter-active #easterEggCanvas { opacity: 0.95; }
         .dashboard { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
-        
-        /* EFECTO GLOW ARCOÍRIS GIRATORIO EN MARCO DE TODAS LAS VENTANAS */
-        @keyframes rainbowBorderGlow {
-            0% { box-shadow: 0 0 4px #ff0000, 0 0 8px #ff0000, inset 0 0 3px #ff0000; border-color: #ff0000; }
-            14% { box-shadow: 0 0 4px #ff7f00, 0 0 8px #ff7f00, inset 0 0 3px #ff7f00; border-color: #ff7f00; }
-            28% { box-shadow: 0 0 4px #ffff00, 0 0 8px #ffff00, inset 0 0 3px #ffff00; border-color: #ffff00; }
-            42% { box-shadow: 0 0 4px #00ff00, 0 0 8px #00ff00, inset 0 0 3px #00ff00; border-color: #00ff00; }
-            57% { box-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff, inset 0 0 3px #00ffff; border-color: #00ffff; }
-            71% { box-shadow: 0 0 4px #0000ff, 0 0 8px #0000ff, inset 0 0 3px #0000ff; border-color: #0000ff; }
-            85% { box-shadow: 0 0 4px #8b00ff, 0 0 8px #8b00ff, inset 0 0 3px #8b00ff; border-color: #8b00ff; }
-            100% { box-shadow: 0 0 4px #ff0000, 0 0 8px #ff0000, inset 0 0 3px #ff0000; border-color: #ff0000; }
+        @keyframes neonPulse {
+            0% { text-shadow: 0 0 2px #0ff, 0 0 5px #0ff; }
+            100% { text-shadow: 0 0 5px #0ff, 0 0 15px #0ff, 0 0 25px #0ff; }
         }
-        
         @keyframes borderGlow {
-            0% { box-shadow: 0 0 3px rgba(0, 255, 255, 0.3); }
-            100% { box-shadow: 0 0 8px rgba(0, 255, 255, 0.6); }
+            0% { box-shadow: 0 0 5px rgba(0, 255, 255, 0.3); }
+            100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.8); }
         }
-        @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-3px); } }
-        
-        /* MARCO DE TODAS LAS VENTANAS CON ARCOÍRIS GIRATORIO */
-        .hero, .card, .location-selector, .btn, .badge, .fishing-box, .warning, .wave-box, .fishing-detail, .fishing-tip-card, .species-tag, .tide-table, .info-modal, .credits-modal, .modal-content, .chart-container canvas {
-            animation: rainbowBorderGlow 6s infinite linear, float 3s infinite alternate;
-        }
-        
+        @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-5px); } }
         .hero {
             display: flex;
             flex-direction: column;
@@ -66,25 +51,26 @@
             border-radius: 20px;
             padding: 16px;
             margin-bottom: 16px;
+            animation: borderGlow 2s infinite alternate;
         }
         .title-section h1 {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: 800;
             background: linear-gradient(135deg, #0ff, #f0f, #ff0);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
             text-align: center;
-            letter-spacing: 1px;
-            text-shadow: 0 0 5px rgba(0,255,255,0.3);
+            letter-spacing: 2px;
+            animation: neonPulse 1.5s infinite alternate;
         }
-        .title-section p { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 6px; }
+        .title-section p { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 6px; }
         .badge {
             background: rgba(0, 255, 255, 0.2);
             border: 1px solid #0ff;
-            padding: 6px 10px;
+            padding: 8px 14px;
             border-radius: 30px;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-family: 'Share Tech Mono', monospace;
             cursor: pointer;
             transition: all 0.2s;
@@ -96,48 +82,31 @@
             cursor: pointer;
             animation: neonPulse 1s infinite alternate;
         }
-        .action-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .action-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
         .btn {
             background: linear-gradient(135deg, #0ff1, #f0f1);
             border: 2px solid #0ff;
             color: #0ff;
-            padding: 10px 16px;
+            padding: 14px 20px;
             border-radius: 50px;
             font-weight: bold;
             font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.2s;
             flex: 1;
-            min-width: 100px;
+            min-width: 120px;
             text-align: center;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
         .btn:active { transform: scale(0.96); }
         .btn-wa { background: linear-gradient(135deg, #25D36630, #128C7E30); border-color: #25D366; color: #25D366; }
-        .btn-counter { background: linear-gradient(135deg, #ff00ff30, #ff660030); border-color: #ff00ff; color: #ff00ff; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .btn-counter { background: linear-gradient(135deg, #ff00ff30, #ff660030); border-color: #ff00ff; color: #ff00ff; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
         @media (min-width: 640px) {
-            .btn { padding: 12px 20px; font-size: 0.85rem; min-width: 120px; }
+            .btn { padding: 12px 24px; font-size: 0.85rem; min-width: 130px; }
             .hero { flex-direction: row; align-items: center; justify-content: space-between; }
-            .title-section h1 { font-size: 1.5rem; text-align: left; letter-spacing: 2px; }
+            .title-section h1 { font-size: 1.5rem; text-align: left; }
             .title-section p { justify-content: flex-start; }
-            .badge { padding: 8px 14px; font-size: 0.7rem; }
-        }
-        @media (max-width: 480px) {
-            body { padding: 8px; }
-            .btn { padding: 8px 12px; font-size: 0.7rem; min-width: 80px; }
-            .hero { padding: 12px; gap: 8px; }
-            .title-section h1 { font-size: 1rem; }
-            .badge { padding: 4px 8px; font-size: 0.55rem; }
-            .card { padding: 10px; }
-            .card-header h2 { font-size: 0.85rem; }
-            .data-row { font-size: 0.65rem; }
-            .chart-container { height: 120px; }
-            .wave-box, .fishing-box { padding: 6px; font-size: 0.65rem; }
-            .species-tag { font-size: 0.55rem; padding: 2px 6px; }
-            .fishing-tip-card { font-size: 0.6rem; }
-            footer { font-size: 0.45rem; }
-            .status-real { font-size: 0.5rem; }
         }
         .grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 14px; }
         @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
@@ -149,6 +118,7 @@
             padding: 14px;
             border: 1px solid rgba(0, 255, 255, 0.5);
             transition: all 0.2s;
+            animation: float 3s infinite alternate ease-in-out;
         }
         .card-header {
             display: flex;
@@ -173,7 +143,7 @@
         .value-big { font-size: 0.9rem; font-weight: bold; color: #ff66ff; }
         .fishing-detail { background: rgba(0, 255, 255, 0.05); border-radius: 12px; padding: 8px; margin: 6px 0; }
         .last-update { text-align: right; font-size: 0.6rem; margin-bottom: 8px; }
-        footer { text-align: center; margin-top: 20px; padding-top: 12px; border-top: 1px solid #0ff; font-size: 0.55rem; line-height: 1.4; }
+        footer { text-align: center; margin-top: 20px; padding-top: 12px; border-top: 1px solid #0ff; font-size: 0.55rem; }
         .status-real { background: #00ff0022; border: 1px solid #0f0; color: #0f0; font-size: 0.6rem; padding: 2px 6px; border-radius: 20px; margin-left: 8px; }
         .easter-message {
             position: fixed;
@@ -227,11 +197,6 @@
         }
         .close-modal { float: right; cursor: pointer; font-size: 1.5rem; color: #f0f; }
         .fishing-tip-card { background: rgba(0,255,255,0.05); border-radius: 12px; padding: 6px; margin: 4px 0; }
-        
-        @keyframes neonPulse {
-            0% { text-shadow: 0 0 2px #0ff, 0 0 5px #0ff; }
-            100% { text-shadow: 0 0 5px #0ff, 0 0 15px #0ff, 0 0 25px #0ff; }
-        }
     </style>
 </head>
 <body>
@@ -241,7 +206,7 @@
 <div class="dashboard">
     <div class="hero">
         <div class="title-section">
-            <h1>⚡ CYBER_METEO ⚡ <span class="status-real">🌊 IHM + OPEN-METEO · DATOS REALES</span></h1>
+            <h1>⚡ CYBER_METEO OFICIAL ⚡ <span class="status-real">🌊 IHM + OPEN-METEO · DATOS REALES</span></h1>
             <p>
                 <span class="badge">📍 EL PUERTO DE SANTA MARÍA · CÁDIZ</span>
                 <span class="badge supertilla-dev" id="easterEggTrigger">🐵 SUPERTILLA_DEV 🍌</span>
@@ -307,8 +272,7 @@
             <table class="tide-table" id="tideTable">
                 <thead> <th>HORA</th><th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th> </thead>
                 <tbody id="tideTableBody"> <td colspan="3">CARGANDO DATOS OFICIALES...  </tbody>
-              
-
+              </table>
             <div style="background:#0ff1; border-radius: 16px; padding: 8px; margin-top: 8px;">
                 <div>🌙 FASE LUNAR: <strong id="faseLuna">--</strong> | 💡 ILUMINACIÓN: <span id="iluminacionLuna">--%</span></div>
                 <div>🌅 AMANECER: <span id="sunrise">--</span> · 🌇 ATARDECER: <span id="sunset">--</span></div>
@@ -381,7 +345,7 @@
     </div>
     
     <footer>
-        ⚡CYBER_METEO⚡ 🐵 Desarrollada por 🐵SUPERTILLA🍌DEV con Asistencia de 🤖Deep🐋Seek🤖 AI y las fuentes API OpenWeather - IHM (Ministerio de Defensa) - Open-Meteo
+        🎣 CYBER_METEO OFICIAL v10.0 · Mareas: IHM (Ministerio Defensa) · Oleaje/Clima: Open-Meteo · 🌊⚡ @supertilla_dev 🍌
     </footer>
 </div>
 
@@ -496,7 +460,7 @@
             }
         } catch (error) {
             console.error('Error IHM:', error);
-            document.getElementById('tideTableBody').innerHTML = '<td colspan="3">⚠️ Error cargando mareas oficiales';
+            document.getElementById('tideTableBody').innerHTML = '<td colspan="3">⚠️ Error cargando mareas oficiales</td>';
             return null;
         }
     }
@@ -533,9 +497,14 @@
                     const currentTemp = data.hourly.water_temperature ? data.hourly.water_temperature[currentIndex] : null;
                     const waveDir = data.hourly.wave_direction ? data.hourly.wave_direction[currentIndex] : 'SW';
                     
+                    // Calcular potencia (fórmula aproximada)
                     const wavePower = Math.round(currentWave * currentWave * currentPeriod * 50);
+                    
+                    // Mar de fondo (simulado con datos reales)
                     const swellHeight = (currentWave * 1.2).toFixed(2);
                     const swellPeriod = currentPeriod + 0.5;
+                    
+                    // Transparencia aproximada
                     const transparency = (6 + Math.random() * 2).toFixed(1);
                     
                     document.getElementById('olaAltura').textContent = `${currentWave.toFixed(2)} m`;
@@ -841,7 +810,7 @@
         else if (hora >= 19 && hora < 21) consejos[5].innerHTML = '🌇 ATARDECER · SEGUNDO MEJOR MOMENTO';
         else consejos[5].innerHTML = '⏰ ESPERA PLEAMAR O CAMBIO DE MAREA';
         
-        if (waveHeight < 0.8) consejos[6].innerHTML = '🪱 CEBO: CAMARÓN VIVO, LOMBRIZ, MUERGO';
+        if (waveHeight < 0.8) consejos[6].innerHTML = '🪱 CEBO: CAMARÓN VIVO, LOMBRIZ, ALMEJA';
         else if (waveHeight > 1.5) consejos[6].innerHTML = '🪱 CEBO: SARDINA, CHANQUETE, CEBO GRANDE';
         else consejos[6].innerHTML = '🪱 CEBO: ALMEJA, GUSANA, POTERA PARA CHOCO';
     }
@@ -890,6 +859,7 @@
     // 📱 GENERAR MENSAJE PARA WHATSAPP CON DATOS EN TIEMPO REAL
     // ============================================
     function generarMensajeWhatsApp() {
+        // Obtener valores actuales del DOM
         const olaAltura = document.getElementById('olaAltura')?.innerText || '-- m';
         const olaPeriodo = document.getElementById('wavePeriod')?.innerText || '-- s';
         const olaDireccion = document.getElementById('waveDir')?.innerText || '--';
@@ -912,6 +882,7 @@
         const bajamar = document.getElementById('bajamar')?.innerText || '-- / --';
         const coeficienteMarea = document.getElementById('coeficienteMarea')?.innerText || '--';
         
+        // Construir mensaje
         let mensaje = `🍌🍌🍌 SUPERTILLA 🐵 DEVELOPER 🍌🍌🍌\n\n`;
         mensaje += `⚡ CYBER_METEO · ESTADO DEL MAR ⚡\n`;
         mensaje += `📍 Puerto Sherry\n\n`;
@@ -941,135 +912,6 @@
         
         return mensaje;
     }
-    
-    // ============================================
-    // 🐵 HUEVO DE PASCUA (MANTENIDO ORIGINAL)
-    // ============================================
-    function initEasterEgg() {
-        const easterTrigger = document.getElementById('easterEggTrigger');
-        let easterActive = false;
-        
-        function showMonkeyRave() {
-            if (easterActive) return;
-            easterActive = true;
-            document.body.classList.add('easter-active');
-            
-            const msg = document.createElement('div');
-            msg.className = 'easter-message';
-            msg.innerHTML = '🍌🐵 SUPERTILLA_DEV 🐵🍌<br>✨ LE DESEA UN BUEN DÍA ✨<br>🎣 BUENA PESCA COMPAÑERO 🎣';
-            document.body.appendChild(msg);
-            
-            const emojis = ['🐵', '🍌', '🐒', '🍌', '🙈', '🙉',🍌', '🐒', '🍌', '🙊', '🍌', '🐵', '🍌'];
-            
-            for (let i = 0; i < 120; i++) {
-                setTimeout(() => {
-                    const elem = document.createElement('div');
-                    elem.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-                    elem.style.position = 'fixed';
-                    elem.style.left = window.innerWidth / 2 + (Math.random() - 0.5) * 500 + 'px';
-                    elem.style.top = window.innerHeight / 2 + (Math.random() - 0.5) * 400 + 'px';
-                    elem.style.fontSize = (Math.random() * 55 + 25) + 'px';
-                    elem.style.zIndex = '10001';
-                    elem.style.pointerEvents = 'none';
-                    elem.style.animation = `monkeyExplosion ${0.6 + Math.random() * 0.5}s ease-out forwards`;
-                    elem.style.transform = `rotate(${Math.random() * 720}deg)`;
-                    document.body.appendChild(elem);
-                    setTimeout(() => elem.remove(), 800);
-                }, i * 8);
-            }
-            
-            for (let i = 0; i < 250; i++) {
-                setTimeout(() => {
-                    const elem = document.createElement('div');
-                    elem.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-                    elem.style.position = 'fixed';
-                    elem.style.left = Math.random() * window.innerWidth + 'px';
-                    elem.style.top = '-80px';
-                    elem.style.fontSize = (Math.random() * 60 + 25) + 'px';
-                    elem.style.zIndex = '10001';
-                    elem.style.pointerEvents = 'none';
-                    elem.style.animation = `monkeyCascade ${0.8 + Math.random() * 0.7}s linear forwards`;
-                    elem.style.transform = `rotate(${Math.random() * 360}deg)`;
-                    document.body.appendChild(elem);
-                    setTimeout(() => elem.remove(), 1200);
-                }, i * 12);
-            }
-            
-            setTimeout(() => {
-                msg.remove();
-                document.body.classList.remove('easter-active');
-                easterActive = false;
-            }, 5000);
-        }
-        
-        easterTrigger.addEventListener('click', showMonkeyRave);
-        
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes monkeyCascade {
-                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-                100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-            }
-            @keyframes monkeyExplosion {
-                0% { transform: scale(0.5) rotate(0deg); opacity: 1; }
-                100% { transform: scale(1.5) rotate(720deg); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-    
-    // ============================================
-    // 🚀 NUEVA MATRIX RAIN (🐵🍌 SUPERTILLA@DEV)
-    // ============================================
-    const canvasMat = document.getElementById('matrixCanvas');
-    let ctxMat = canvasMat.getContext('2d');
-    
-    function resizeMatrixCanvas() {
-        canvasMat.width = window.innerWidth;
-        canvasMat.height = window.innerHeight;
-    }
-    resizeMatrixCanvas();
-    window.addEventListener('resize', resizeMatrixCanvas);
-    
-    const matrixChars = ["🐵", "🍌", "S", "U", "P", "E", "R", "T", "I", "L", "L", "A", "@", "D", "E", "V"];
-    let matrixFontSize = Math.max(14, Math.floor(window.innerWidth / 50));
-    let matrixColumns = Math.floor(canvasMat.width / matrixFontSize);
-    let matrixDrops = [];
-    
-    function initMatrixDrops() {
-        matrixColumns = Math.floor(canvasMat.width / matrixFontSize);
-        matrixDrops = [];
-        for (let i = 0; i < matrixColumns; i++) {
-            matrixDrops.push(Math.random() * -100);
-        }
-    }
-    
-    function drawMatrixRain() {
-        ctxMat.fillStyle = "rgba(10, 15, 26, 0.05)";
-        ctxMat.fillRect(0, 0, canvasMat.width, canvasMat.height);
-        ctxMat.font = matrixFontSize + "px monospace";
-        
-        for (let i = 0; i < matrixDrops.length; i++) {
-            const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-            const x = i * matrixFontSize;
-            const y = matrixDrops[i] * matrixFontSize;
-            ctxMat.fillStyle = Math.random() > 0.975 ? "#f0f" : "#0ff";
-            ctxMat.fillText(char, x, y);
-            
-            if (y > canvasMat.height && Math.random() > 0.99) {
-                matrixDrops[i] = 0;
-            }
-            matrixDrops[i]++;
-        }
-        requestAnimationFrame(drawMatrixRain);
-    }
-    
-    initMatrixDrops();
-    drawMatrixRain();
-    window.addEventListener('resize', () => {
-        matrixFontSize = Math.max(14, Math.floor(window.innerWidth / 50));
-        initMatrixDrops();
-    });
     
     // ============================================
     // 🔄 ACTUALIZACIÓN COMPLETA
@@ -1130,6 +972,113 @@
     }
     
     // ============================================
+    // 🐵 HUEVO DE PASCUA
+    // ============================================
+    function initEasterEgg() {
+        const easterTrigger = document.getElementById('easterEggTrigger');
+        let easterActive = false;
+        
+        function showMonkeyRave() {
+            if (easterActive) return;
+            easterActive = true;
+            document.body.classList.add('easter-active');
+            
+            const msg = document.createElement('div');
+            msg.className = 'easter-message';
+            msg.innerHTML = '🍌🐵 SUPERTILLA_DEV 🐵🍌<br>✨ LE DESEA UN BUEN DÍA ✨<br>🎣 BUENA PESCA COMPAÑERO 🎣';
+            document.body.appendChild(msg);
+            
+            const emojis = ['🐵', '🍌', '🐒', '🍌', '🙈', '🙉', '🙊', '🍌', '🐵', '🍌'];
+            
+            for (let i = 0; i < 120; i++) {
+                setTimeout(() => {
+                    const elem = document.createElement('div');
+                    elem.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                    elem.style.position = 'fixed';
+                    elem.style.left = window.innerWidth / 2 + (Math.random() - 0.5) * 500 + 'px';
+                    elem.style.top = window.innerHeight / 2 + (Math.random() - 0.5) * 400 + 'px';
+                    elem.style.fontSize = (Math.random() * 55 + 25) + 'px';
+                    elem.style.zIndex = '10001';
+                    elem.style.pointerEvents = 'none';
+                    elem.style.animation = `monkeyExplosion ${0.6 + Math.random() * 0.5}s ease-out forwards`;
+                    elem.style.transform = `rotate(${Math.random() * 720}deg)`;
+                    document.body.appendChild(elem);
+                    setTimeout(() => elem.remove(), 800);
+                }, i * 8);
+            }
+            
+            for (let i = 0; i < 250; i++) {
+                setTimeout(() => {
+                    const elem = document.createElement('div');
+                    elem.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                    elem.style.position = 'fixed';
+                    elem.style.left = Math.random() * window.innerWidth + 'px';
+                    elem.style.top = '-80px';
+                    elem.style.fontSize = (Math.random() * 60 + 25) + 'px';
+                    elem.style.zIndex = '10001';
+                    elem.style.pointerEvents = 'none';
+                    elem.style.animation = `monkeyCascade ${0.8 + Math.random() * 0.7}s linear forwards`;
+                    elem.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    document.body.appendChild(elem);
+                    setTimeout(() => elem.remove(), 1200);
+                }, i * 12);
+            }
+            
+            setTimeout(() => {
+                msg.remove();
+                document.body.classList.remove('easter-active');
+                easterActive = false;
+            }, 5000);
+        }
+        
+        easterTrigger.addEventListener('click', showMonkeyRave);
+        
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const matrixText = 'SUPERTILLA 🐵 🍌 SUPERTILLA';
+        const fontSize = 16;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = Array(columns).fill(1);
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10, 15, 26, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0f0';
+            ctx.font = `${fontSize}px 'Share Tech Mono', monospace`;
+            for (let i = 0; i < drops.length; i++) {
+                const charIndex = Math.floor(Math.random() * matrixText.length);
+                ctx.fillText(matrixText[charIndex], i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 50);
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            columns = Math.floor(canvas.width / fontSize);
+            drops = Array(columns).fill(1);
+        });
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes monkeyCascade {
+                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+            }
+            @keyframes monkeyExplosion {
+                0% { transform: scale(0.5) rotate(0deg); opacity: 1; }
+                100% { transform: scale(1.5) rotate(720deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // ============================================
     // 🚀 ARRANQUE
     // ============================================
     document.addEventListener('DOMContentLoaded', () => {
@@ -1137,7 +1086,7 @@
         initTempHumChart();
         initWindChart();
         initSpeciesModal();
-        initEasterEgg();  // Easter Egg original con monos
+        initEasterEgg();
         updateAllData();
         setInterval(updateAllData, 600000);
         
