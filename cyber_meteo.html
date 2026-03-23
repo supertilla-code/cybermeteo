@@ -32,16 +32,16 @@
         .easter-active #easterEggCanvas { opacity: 0.95; }
         .dashboard { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
         
-        /* EFECTO GLOW ARCOÍRIS GIRATORIO */
-        @keyframes rainbowGlow {
-            0% { box-shadow: 0 0 3px #ff0000, 0 0 5px #ff0000, inset 0 0 2px #ff0000; border-color: #ff0000; }
-            14% { box-shadow: 0 0 3px #ff7f00, 0 0 5px #ff7f00, inset 0 0 2px #ff7f00; border-color: #ff7f00; }
-            28% { box-shadow: 0 0 3px #ffff00, 0 0 5px #ffff00, inset 0 0 2px #ffff00; border-color: #ffff00; }
-            42% { box-shadow: 0 0 3px #00ff00, 0 0 5px #00ff00, inset 0 0 2px #00ff00; border-color: #00ff00; }
-            57% { box-shadow: 0 0 3px #00ffff, 0 0 5px #00ffff, inset 0 0 2px #00ffff; border-color: #00ffff; }
-            71% { box-shadow: 0 0 3px #0000ff, 0 0 5px #0000ff, inset 0 0 2px #0000ff; border-color: #0000ff; }
-            85% { box-shadow: 0 0 3px #8b00ff, 0 0 5px #8b00ff, inset 0 0 2px #8b00ff; border-color: #8b00ff; }
-            100% { box-shadow: 0 0 3px #ff0000, 0 0 5px #ff0000, inset 0 0 2px #ff0000; border-color: #ff0000; }
+        /* EFECTO GLOW ARCOÍRIS GIRATORIO EN MARCO DE TODAS LAS VENTANAS */
+        @keyframes rainbowBorderGlow {
+            0% { box-shadow: 0 0 4px #ff0000, 0 0 8px #ff0000, inset 0 0 3px #ff0000; border-color: #ff0000; }
+            14% { box-shadow: 0 0 4px #ff7f00, 0 0 8px #ff7f00, inset 0 0 3px #ff7f00; border-color: #ff7f00; }
+            28% { box-shadow: 0 0 4px #ffff00, 0 0 8px #ffff00, inset 0 0 3px #ffff00; border-color: #ffff00; }
+            42% { box-shadow: 0 0 4px #00ff00, 0 0 8px #00ff00, inset 0 0 3px #00ff00; border-color: #00ff00; }
+            57% { box-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff, inset 0 0 3px #00ffff; border-color: #00ffff; }
+            71% { box-shadow: 0 0 4px #0000ff, 0 0 8px #0000ff, inset 0 0 3px #0000ff; border-color: #0000ff; }
+            85% { box-shadow: 0 0 4px #8b00ff, 0 0 8px #8b00ff, inset 0 0 3px #8b00ff; border-color: #8b00ff; }
+            100% { box-shadow: 0 0 4px #ff0000, 0 0 8px #ff0000, inset 0 0 3px #ff0000; border-color: #ff0000; }
         }
         
         @keyframes borderGlow {
@@ -50,8 +50,9 @@
         }
         @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-3px); } }
         
-        .hero, .card, .location-selector, .btn, .badge, .fishing-box, .warning {
-            animation: rainbowGlow 8s infinite linear, float 3s infinite alternate;
+        /* MARCO DE TODAS LAS VENTANAS CON ARCOÍRIS GIRATORIO */
+        .hero, .card, .location-selector, .btn, .badge, .fishing-box, .warning, .wave-box, .fishing-detail, .fishing-tip-card, .species-tag, .tide-table, .info-modal, .credits-modal, .modal-content, .chart-container canvas {
+            animation: rainbowBorderGlow 6s infinite linear, float 3s infinite alternate;
         }
         
         .hero {
@@ -67,23 +68,23 @@
             margin-bottom: 16px;
         }
         .title-section h1 {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 800;
             background: linear-gradient(135deg, #0ff, #f0f, #ff0);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
             text-align: center;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-shadow: 0 0 5px rgba(0,255,255,0.3);
         }
-        .title-section p { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 6px; }
+        .title-section p { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 6px; }
         .badge {
             background: rgba(0, 255, 255, 0.2);
             border: 1px solid #0ff;
-            padding: 8px 14px;
+            padding: 6px 10px;
             border-radius: 30px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-family: 'Share Tech Mono', monospace;
             cursor: pointer;
             transition: all 0.2s;
@@ -95,31 +96,48 @@
             cursor: pointer;
             animation: neonPulse 1s infinite alternate;
         }
-        .action-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .action-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
         .btn {
             background: linear-gradient(135deg, #0ff1, #f0f1);
             border: 2px solid #0ff;
             color: #0ff;
-            padding: 14px 20px;
+            padding: 10px 16px;
             border-radius: 50px;
             font-weight: bold;
             font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.2s;
             flex: 1;
-            min-width: 120px;
+            min-width: 100px;
             text-align: center;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         .btn:active { transform: scale(0.96); }
         .btn-wa { background: linear-gradient(135deg, #25D36630, #128C7E30); border-color: #25D366; color: #25D366; }
-        .btn-counter { background: linear-gradient(135deg, #ff00ff30, #ff660030); border-color: #ff00ff; color: #ff00ff; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-counter { background: linear-gradient(135deg, #ff00ff30, #ff660030); border-color: #ff00ff; color: #ff00ff; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 6px; }
         @media (min-width: 640px) {
-            .btn { padding: 12px 24px; font-size: 0.85rem; min-width: 130px; }
+            .btn { padding: 12px 20px; font-size: 0.85rem; min-width: 120px; }
             .hero { flex-direction: row; align-items: center; justify-content: space-between; }
-            .title-section h1 { font-size: 1.5rem; text-align: left; }
+            .title-section h1 { font-size: 1.5rem; text-align: left; letter-spacing: 2px; }
             .title-section p { justify-content: flex-start; }
+            .badge { padding: 8px 14px; font-size: 0.7rem; }
+        }
+        @media (max-width: 480px) {
+            body { padding: 8px; }
+            .btn { padding: 8px 12px; font-size: 0.7rem; min-width: 80px; }
+            .hero { padding: 12px; gap: 8px; }
+            .title-section h1 { font-size: 1rem; }
+            .badge { padding: 4px 8px; font-size: 0.55rem; }
+            .card { padding: 10px; }
+            .card-header h2 { font-size: 0.85rem; }
+            .data-row { font-size: 0.65rem; }
+            .chart-container { height: 120px; }
+            .wave-box, .fishing-box { padding: 6px; font-size: 0.65rem; }
+            .species-tag { font-size: 0.55rem; padding: 2px 6px; }
+            .fishing-tip-card { font-size: 0.6rem; }
+            footer { font-size: 0.45rem; }
+            .status-real { font-size: 0.5rem; }
         }
         .grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 14px; }
         @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
@@ -155,7 +173,7 @@
         .value-big { font-size: 0.9rem; font-weight: bold; color: #ff66ff; }
         .fishing-detail { background: rgba(0, 255, 255, 0.05); border-radius: 12px; padding: 8px; margin: 6px 0; }
         .last-update { text-align: right; font-size: 0.6rem; margin-bottom: 8px; }
-        footer { text-align: center; margin-top: 20px; padding-top: 12px; border-top: 1px solid #0ff; font-size: 0.55rem; }
+        footer { text-align: center; margin-top: 20px; padding-top: 12px; border-top: 1px solid #0ff; font-size: 0.55rem; line-height: 1.4; }
         .status-real { background: #00ff0022; border: 1px solid #0f0; color: #0f0; font-size: 0.6rem; padding: 2px 6px; border-radius: 20px; margin-left: 8px; }
         .easter-message {
             position: fixed;
@@ -223,7 +241,7 @@
 <div class="dashboard">
     <div class="hero">
         <div class="title-section">
-            <h1>⚡ CYBER_METEO OFICIAL ⚡ <span class="status-real">🌊 IHM + OPEN-METEO · DATOS REALES</span></h1>
+            <h1>⚡ CYBER_METEO ⚡ <span class="status-real">🌊 IHM + OPEN-METEO · DATOS REALES</span></h1>
             <p>
                 <span class="badge">📍 EL PUERTO DE SANTA MARÍA · CÁDIZ</span>
                 <span class="badge supertilla-dev" id="easterEggTrigger">🐵 SUPERTILLA_DEV 🍌</span>
@@ -363,7 +381,7 @@
     </div>
     
     <footer>
-        🎣 CYBER_METEO OFICIAL v10.0 · Mareas: IHM (Ministerio Defensa) · Oleaje/Clima: Open-Meteo · 🌊⚡ @supertilla_dev 🍌
+        ⚡CYBER_METEO⚡ 🐵 Desarrollada por 🐵SUPERTILLA🍌DEV con Asistencia de 🤖Deep🐋Seek🤖 AI y las fuentes API OpenWeather - IHM (Ministerio de Defensa) - Open-Meteo
     </footer>
 </div>
 
@@ -823,7 +841,7 @@
         else if (hora >= 19 && hora < 21) consejos[5].innerHTML = '🌇 ATARDECER · SEGUNDO MEJOR MOMENTO';
         else consejos[5].innerHTML = '⏰ ESPERA PLEAMAR O CAMBIO DE MAREA';
         
-        if (waveHeight < 0.8) consejos[6].innerHTML = '🪱 CEBO: CAMARÓN VIVO, LOMBRIZ, ALMEJA';
+        if (waveHeight < 0.8) consejos[6].innerHTML = '🪱 CEBO: CAMARÓN VIVO, LOMBRIZ, MUERGO';
         else if (waveHeight > 1.5) consejos[6].innerHTML = '🪱 CEBO: SARDINA, CHANQUETE, CEBO GRANDE';
         else consejos[6].innerHTML = '🪱 CEBO: ALMEJA, GUSANA, POTERA PARA CHOCO';
     }
@@ -941,7 +959,7 @@
             msg.innerHTML = '🍌🐵 SUPERTILLA_DEV 🐵🍌<br>✨ LE DESEA UN BUEN DÍA ✨<br>🎣 BUENA PESCA COMPAÑERO 🎣';
             document.body.appendChild(msg);
             
-            const emojis = ['🐵', '🍌', '🐒', '🍌', '🙈', '🙉', '🙊', '🍌', '🐵', '🍌'];
+            const emojis = ['🐵', '🍌', '🐒', '🍌', '🙈', '🙉',🍌', '🐒', '🍌', '🙊', '🍌', '🐵', '🍌'];
             
             for (let i = 0; i < 120; i++) {
                 setTimeout(() => {
