@@ -90,7 +90,6 @@
             font-family: 'Share Tech Mono', monospace;
             cursor: pointer;
             transition: all 0.2s;
-            color: #0ff;
         }
         .badge:active { transform: scale(0.96); }
         .supertilla-dev {
@@ -169,25 +168,20 @@
         .card-header h2 { font-size: 1rem; font-weight: 700; color: #0ff; text-shadow: 0 0 3px #0ff; }
         .chart-container { height: 160px; margin: 8px 0; }
         .data-row { display: flex; justify-content: space-between; margin: 6px 0; font-family: 'Share Tech Mono', monospace; border-bottom: 1px dashed rgba(0, 255, 255, 0.2); padding: 4px 0; font-size: 0.7rem; }
-        .data-row span:first-child { color: #0ff; }
-        .data-row .value-big, .data-row .value, .data-row span:last-child, .data-row strong:last-child { color: #ff00ff; }
         .wave-box, .fishing-box { background: rgba(0, 255, 255, 0.1); border-radius: 16px; padding: 8px; text-align: center; border: 1px solid #0ff; margin: 8px 0; font-size: 0.7rem; }
-        .wave-box div, .fishing-box div { color: #0ff; }
-        .wave-box strong, .wave-box span, .fishing-box strong, .fishing-box span { color: #ff00ff; }
-        .warning { background: rgba(255, 0, 255, 0.15); border-left: 3px solid #f0f; padding: 6px; border-radius: 10px; margin-top: 8px; font-size: 0.65rem; color: #0ff; }
+        .warning { background: rgba(255, 0, 255, 0.15); border-left: 3px solid #f0f; padding: 6px; border-radius: 10px; margin-top: 8px; font-size: 0.65rem; }
         .tide-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
         .tide-table td, .tide-table th { padding: 8px 4px; border-bottom: 1px solid #0ff3; color: #0ff; text-align: center; }
-        .tide-table td { color: #ff00ff; }
-        .tide-table th { background: rgba(0, 255, 255, 0.2); font-weight: bold; color: #0ff; }
+        .tide-table th { background: rgba(0, 255, 255, 0.2); font-weight: bold; }
         .species-list { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0; }
-        .species-tag { background: #0ff2; border-radius: 20px; padding: 3px 8px; font-size: 0.6rem; border: 1px solid #0ff; cursor: pointer; transition: all 0.2s; color: #ff00ff; }
+        .species-tag { background: #0ff2; border-radius: 20px; padding: 3px 8px; font-size: 0.6rem; border: 1px solid #0ff; cursor: pointer; transition: all 0.2s; }
         .species-tag:hover { background: #f0f2; transform: scale(1.05); }
         .gauge { background: #0a0f1a; border-radius: 20px; height: 6px; margin: 6px 0; overflow: hidden; }
         .gauge-fill { height: 100%; background: linear-gradient(90deg, #0ff, #f0f); width: 0%; border-radius: 20px; transition: width 0.3s; }
         .value-big { font-size: 0.9rem; font-weight: bold; color: #ff66ff; }
         .fishing-detail { background: rgba(0, 255, 255, 0.05); border-radius: 12px; padding: 8px; margin: 6px 0; }
-        .last-update { text-align: right; font-size: 0.6rem; margin-bottom: 8px; color: #0ff; }
-        footer { text-align: center; margin-top: 20px; padding-top: 12px; border-top: 1px solid #0ff; font-size: 0.55rem; line-height: 1.4; color: #0ff; }
+        .last-update { text-align: right; font-size: 0.6rem; margin-bottom: 8px; }
+        footer { text-align: center; margin-top: 20px; padding-top: 12px; border-top: 1px solid #0ff; font-size: 0.55rem; line-height: 1.4; }
         .easter-message {
             position: fixed;
             top: 50%;
@@ -239,7 +233,7 @@
             font-family: 'Share Tech Mono', monospace;
         }
         .close-modal { float: right; cursor: pointer; font-size: 1.5rem; color: #f0f; }
-        .fishing-tip-card { background: rgba(0,255,255,0.05); border-radius: 12px; padding: 6px; margin: 4px 0; color: #0ff; }
+        .fishing-tip-card { background: rgba(0,255,255,0.05); border-radius: 12px; padding: 6px; margin: 4px 0; }
         .fishing-index-detail { display: flex; justify-content: space-between; margin: 4px 0; font-size: 0.65rem; }
         .fishing-factor { color: #ffaa00; }
     </style>
@@ -318,17 +312,17 @@
             <div class="card-header"><span>🌙</span><h2>MAREAS OFICIALES · INSTITUTO HIDROGRÁFICO MARINA</h2></div>
             <table class="tide-table">
                 <thead>
-                    32d<th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th> </thead>
+                    <tr><th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th></tr>
+                </thead>
                 <tbody>
-                    32d<td>3.334m 🌊<td>--<td>04:52</tr>
-                    32d<td>--<td>0.678m 🌊<td>10:46</tr>
-                    32d<td>3.215m 🌊<td>--<td>17:12</tr>
-                    32d<td>--<td>0.696m 🌊<td>23:16</tr>
+                    <tr><td>3.334m 🌊</td><td>--</td><td>04:52</td></tr>
+                    <tr><td>--</td><td>0.678m 🌊</td><td>10:46</td></tr>
+                    <tr><td>3.215m 🌊</td><td>--</td><td>17:12</td></tr>
+                    <tr><td>--</td><td>0.696m 🌊</td><td>23:16</td></tr>
                 </tbody>
-             m²
+            </table>
             <div style="background:#0ff1; border-radius: 16px; padding: 8px; margin-top: 8px;">
                 <div>🌙 FASE LUNAR: <strong id="faseLuna">--</strong> | 💡 ILUMINACIÓN: <span id="iluminacionLuna">--%</span></div>
-                <div>📊 COEFICIENTE MAREA: <strong id="coeficienteMarea">77</strong></div>
                 <div>🌅 AMANECER: <span id="sunrise">--</span> · 🌇 ATARDECER: <span id="sunset">--</span></div>
                 <div>📅 PRÓXIMA PLEAMAR: <span id="nextHigh">--</span> · PRÓXIMA BAJAMAR: <span id="nextLow">--</span></div>
                 <div>🎣 MEJOR MUELLE SEGÚN MAREA: <span id="bestPier">--</span></div>
@@ -955,7 +949,7 @@
     }
     
     // ============================================
-    // 📱 GENERAR MENSAJE PARA WHATSAPP CON COEFICIENTE DE MAREA
+    // 📱 GENERAR MENSAJE PARA WHATSAPP
     // ============================================
     function generarMensajeWhatsApp() {
         const olaAltura = document.getElementById('olaAltura')?.innerText || '-- m';
@@ -978,7 +972,6 @@
         const pleamar = document.getElementById('pleamar')?.innerText || '04:52 / 17:12';
         const bajamar = document.getElementById('bajamar')?.innerText || '10:46 / 23:16';
         const fishingIdx = document.getElementById('fishingIndex')?.innerText || '--';
-        const coeficienteMarea = document.getElementById('coeficienteMarea')?.innerText || '77';
         
         let mensaje = `🍌🍌🍌 SUPERTILLA 🐵 DEVELOPER 🍌🍌🍌\n\n`;
         mensaje += `⚡ CYBER_METEO · ESTADO DEL MAR ⚡\n`;
@@ -998,8 +991,7 @@
         mensaje += `▸ Temperatura Superficie: ${tempAgua} · Transparencia: ${transparencia}\n\n`;
         
         mensaje += `🌙 MAREAS\n`;
-        mensaje += `▸ Coeficiente: ${coeficienteMarea} · Fase: ${faseLuna}\n`;
-        mensaje += `▸ Iluminación: ${iluminacion}\n`;
+        mensaje += `▸ Fase: ${faseLuna} · Iluminación: ${iluminacion}\n`;
         mensaje += `▸ Pleamar: ${pleamar} · Bajamar: ${bajamar}\n\n`;
         
         mensaje += `🎣 ÍNDICE DE PESCA: ${fishingIdx}/100\n`;
