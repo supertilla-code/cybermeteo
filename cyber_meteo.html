@@ -31,6 +31,23 @@
         #easterEggCanvas { z-index: 9998; opacity: 0; transition: opacity 0.2s; }
         .easter-active #easterEggCanvas { opacity: 0.95; }
         .dashboard { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
+        
+        /* EFECTO GLOW ARCOÍRIS GIRATORIO */
+        @keyframes rainbowBorderGlow {
+            0% { box-shadow: 0 0 3px #ff0000, 0 0 5px #ff0000, inset 0 0 2px #ff0000; border-color: #ff0000; }
+            14% { box-shadow: 0 0 3px #ff7f00, 0 0 5px #ff7f00, inset 0 0 2px #ff7f00; border-color: #ff7f00; }
+            28% { box-shadow: 0 0 3px #ffff00, 0 0 5px #ffff00, inset 0 0 2px #ffff00; border-color: #ffff00; }
+            42% { box-shadow: 0 0 3px #00ff00, 0 0 5px #00ff00, inset 0 0 2px #00ff00; border-color: #00ff00; }
+            57% { box-shadow: 0 0 3px #00ffff, 0 0 5px #00ffff, inset 0 0 2px #00ffff; border-color: #00ffff; }
+            71% { box-shadow: 0 0 3px #0000ff, 0 0 5px #0000ff, inset 0 0 2px #0000ff; border-color: #0000ff; }
+            85% { box-shadow: 0 0 3px #8b00ff, 0 0 5px #8b00ff, inset 0 0 2px #8b00ff; border-color: #8b00ff; }
+            100% { box-shadow: 0 0 3px #ff0000, 0 0 5px #ff0000, inset 0 0 2px #ff0000; border-color: #ff0000; }
+        }
+        
+        .hero, .card, .location-selector, .btn, .badge, .fishing-box, .warning, .wave-box, .fishing-detail, .fishing-tip-card, .species-tag, .tide-table, .modal-content, .chart-container canvas {
+            animation: rainbowBorderGlow 8s infinite linear;
+        }
+        
         @keyframes neonPulse {
             0% { text-shadow: 0 0 2px #0ff, 0 0 5px #0ff; }
             100% { text-shadow: 0 0 5px #0ff, 0 0 15px #0ff, 0 0 25px #0ff; }
@@ -143,7 +160,7 @@
         .value-big { font-size: 0.9rem; font-weight: bold; color: #ff66ff; }
         .fishing-detail { background: rgba(0, 255, 255, 0.05); border-radius: 12px; padding: 8px; margin: 6px 0; }
         .last-update { text-align: right; font-size: 0.6rem; margin-bottom: 8px; }
-        footer { text-align: center; margin-top: 20px; padding-top: 12px; border-top: 1px solid #0ff; font-size: 0.55rem; }
+        footer { text-align: center; margin-top: 20px; padding-top: 12px; border-top: 1px solid #0ff; font-size: 0.55rem; line-height: 1.4; }
         .status-real { background: #00ff0022; border: 1px solid #0f0; color: #0f0; font-size: 0.6rem; padding: 2px 6px; border-radius: 20px; margin-left: 8px; }
         .easter-message {
             position: fixed;
@@ -268,20 +285,12 @@
     <!-- FILA 2: MAREAS OFICIALES IHM + ESPECIES COMPLETAS -->
     <div class="grid">
         <div class="card">
-            <div class="card-header"><span>🌙</span><h2>MAREAS OFICIALES · INSTITUTO HIDROGRÁFICO MARINA</h2></div>
-            <table class="tide-table" id="tideTable">
-                <thead> <th>HORA</th><th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th> </thead>
-                <tbody id="tideTableBody"> <td colspan="3">CARGANDO DATOS OFICIALES...  </tbody>
-              </table>
-            <div style="background:#0ff1; border-radius: 16px; padding: 8px; margin-top: 8px;">
-                <div>🌙 FASE LUNAR: <strong id="faseLuna">--</strong> | 💡 ILUMINACIÓN: <span id="iluminacionLuna">--%</span></div>
-                <div>🌅 AMANECER: <span id="sunrise">--</span> · 🌇 ATARDECER: <span id="sunset">--</span></div>
-                <div>📅 PRÓXIMA PLEAMAR: <span id="nextHigh">--</span> · PRÓXIMA BAJAMAR: <span id="nextLow">--</span></div>
-                <div>🎣 MEJOR MUELLE SEGÚN MAREA: <span id="bestPier">--</span></div>
-                <div style="display:none;">📊 COEFICIENTE MAREA: <span id="coeficienteMarea">77</span></div>
-                <div style="display:none;">📅 PLEAMARES: <span id="pleamar">05:12 / 17:31</span></div>
-                <div style="display:none;">📅 BAJAMARES: <span id="bajamar">11:12 / 23:33</span></div>
-            </div>
+            <div class="card-header"><span>🌊</span><h2>SWELL · MAR DE FONDO</h2></div>
+            <div class="data-row"><span>📏 ALTURA M.FONDO:</span><span id="swellHeight">-- m</span></div>
+            <div class="data-row"><span>⏱️ PERÍODO M.FONDO:</span><span id="swellPeriod">-- s</span></div>
+            <div class="data-row"><span>🧭 DIRECCIÓN M.FONDO:</span><span id="swellDir">--</span></div>
+            <div class="data-row"><span>🌊 ENERGÍA M.FONDO:</span><span id="swellEnergy">-- kJ/m²</span></div>
+            <div class="data-row"><span>📊 CLASIFICACIÓN:</span><span id="swellClass">--</span></div>
         </div>
         
         <div class="card">
@@ -313,7 +322,7 @@
             <div class="fishing-tip-card">📍 <strong>ZONAS TOP:</strong> Escollera Puerto Sherry · Desembocadura Guadalete · Playa Valdelagrana · Punta del Boquerón · Frente al Castillo · Muelle de Rota</div>
             <div class="fishing-tip-card">⚓ <strong>ARTES PERMITIDAS:</strong> Caña (hasta 3 por persona) · Surfcasting · Spinning · Pesca submarina (licencia) · Volanta (autorización) · Nasa para cefalópodos</div>
             <div class="fishing-tip-card">🚫 <strong>ARTES PROHIBIDAS:</strong> Redes fijas sin permiso · Arrastre desde costa · Explosivos · Electrocusión</div>
-            <div class="fishing-tip-card">🪱 <strong>CEBO NATURAL:</strong> Camarón vivo (anzuelo Nº6-8) · Lombriz roja (Nº4-6) · Almeja (Nº2-4) · Gusana (Nº6-8) · Chanquete (Nº2-4) · Sardina (Nº1-2)</div>
+            <div class="fishing-tip-card">🪱 <strong>CEBO NATURAL:</strong> Camarón vivo (anzuelo Nº6-8) · Lombriz roja (Nº4-6) · Muergo (Nº2-4) · Gusana (Nº6-8) · Chanquete (Nº2-4) · Sardina (Nº1-2)</div>
             <div class="fishing-tip-card">🎣 <strong>CEBO ARTIFICIAL:</strong> Popper (10-20g) · Jig metálico (20-60g) · Poteras para choco · Cucharillas (15-30g) · Vinilos (7-15cm)</div>
             <div class="fishing-tip-card">📏 <strong>TALLAS MÍNIMAS:</strong> Lubina 36cm · Dorada 28cm · Sargo 23cm · Pargo 32cm · Mero 45cm · Corvina 45cm · Pulpo 50cm · Choco 20cm</div>
             <div class="warning">⚠️ VEDAS ACTIVAS 2026: Lubina (15 ene-28 feb) · Corvina (15 may-15 jul) · Choco (junio) · Besugo (1 dic-31 ene)</div>
@@ -345,7 +354,7 @@
     </div>
     
     <footer>
-        🎣 CYBER_METEO OFICIAL v10.0 · Mareas: IHM (Ministerio Defensa) · Oleaje/Clima: Open-Meteo · 🌊⚡ @supertilla_dev 🍌
+        ⚡CYBER_METEO⚡ 🐵 Desarrollada por 🐵SUPERTILLA🍌DEV con Asistencia de 🤖Deep🐋Seek🤖 AI y las fuentes API OpenWeather - IHM (Ministerio de Defensa) - Open-Meteo
     </footer>
 </div>
 
@@ -460,7 +469,7 @@
             }
         } catch (error) {
             console.error('Error IHM:', error);
-            document.getElementById('tideTableBody').innerHTML = '<td colspan="3">⚠️ Error cargando mareas oficiales</td>';
+            document.getElementById('tideTableBody').innerHTML = '<td colspan="3">⚠️ Error cargando mareas oficiales';
             return null;
         }
     }
@@ -497,14 +506,9 @@
                     const currentTemp = data.hourly.water_temperature ? data.hourly.water_temperature[currentIndex] : null;
                     const waveDir = data.hourly.wave_direction ? data.hourly.wave_direction[currentIndex] : 'SW';
                     
-                    // Calcular potencia (fórmula aproximada)
                     const wavePower = Math.round(currentWave * currentWave * currentPeriod * 50);
-                    
-                    // Mar de fondo (simulado con datos reales)
                     const swellHeight = (currentWave * 1.2).toFixed(2);
                     const swellPeriod = currentPeriod + 0.5;
-                    
-                    // Transparencia aproximada
                     const transparency = (6 + Math.random() * 2).toFixed(1);
                     
                     document.getElementById('olaAltura').textContent = `${currentWave.toFixed(2)} m`;
@@ -515,6 +519,17 @@
                     document.getElementById('swellPeriod').textContent = swellPeriod.toFixed(1);
                     if (currentTemp) document.getElementById('seaTemp').textContent = `${currentTemp.toFixed(1)}°C`;
                     document.getElementById('visibilidadAgua').textContent = `${transparency} m`;
+                    
+                    // Actualizar también la tarjeta SWELL
+                    document.getElementById('swellHeight').innerHTML = swellHeight;
+                    document.getElementById('swellPeriod').innerHTML = swellPeriod.toFixed(1);
+                    document.getElementById('swellDir').innerHTML = waveDir;
+                    const swellEnergy = Math.round(parseFloat(swellHeight) * parseFloat(swellPeriod) * 50);
+                    document.getElementById('swellEnergy').innerHTML = swellEnergy;
+                    let swellClass = 'SUAVE';
+                    if (parseFloat(swellHeight) > 1.2) swellClass = 'MODERADO';
+                    if (parseFloat(swellHeight) > 2) swellClass = 'FUERTE';
+                    document.getElementById('swellClass').innerHTML = swellClass;
                     
                     const futureIndex = Math.min(currentIndex + 6, data.hourly.wave_height.length - 1);
                     const futureWave = data.hourly.wave_height[futureIndex];
@@ -562,6 +577,10 @@
                 document.getElementById('seaTemp').textContent = '15.2°C';
                 document.getElementById('visibilidadAgua').textContent = '6.7 m';
                 document.getElementById('avisoMar').innerHTML = '✅ CONDICIONES FAVORABLES (datos de respaldo)';
+                document.getElementById('swellHeight').innerHTML = '0.8';
+                document.getElementById('swellDir').innerHTML = 'SW';
+                document.getElementById('swellEnergy').innerHTML = '320';
+                document.getElementById('swellClass').innerHTML = 'SUAVE';
                 resolve({ currentWave: 0.45, currentPeriod: 4.2, currentTemp: 15.2, wavePower: 125, swellHeight: 0.8, swellPeriod: 8.5, transparency: 6.7 });
             }
         });
@@ -762,7 +781,7 @@
     const speciesDB = {
         lubina: { nombre: '🐟 LUBINA', epoca: 'Todo el año (mejor primavera-otoño)', cebo: 'Camarón vivo, chanquete, señuelos', zonas: 'Escolleras, desembocaduras', tecnica: 'Spinning, surfcasting', record: '18.2 kg', talla: '36 cm', tip: 'Pesca al amanecer. Usa señuelos que imiten alevines.' },
         sargo: { nombre: '🐠 SARGO', epoca: 'Primavera-Otoño', cebo: 'Gusana roja, pan, cangrejo', zonas: 'Fondos rocosos', tecnica: 'Fondo con caña ligera', record: '3.1 kg', talla: '23 cm', tip: 'Activo en bajamar. Usa cebos pequeños.' },
-        dorada: { nombre: '🐡 DORADA', epoca: 'Verano', cebo: 'Almeja, lombriz, camarón', zonas: 'Desembocadura, playas', tecnica: 'Surfcasting', record: '7.5 kg', talla: '28 cm', tip: 'Pesca al crepúsculo. Busca zonas con rompiente.' },
+        dorada: { nombre: '🐡 DORADA', epoca: 'Verano', cebo: 'Muergo, lombriz, camarón', zonas: 'Desembocadura, playas', tecnica: 'Surfcasting', record: '7.5 kg', talla: '28 cm', tip: 'Pesca al crepúsculo. Busca zonas con rompiente.' },
         pargo: { nombre: '🐙 PARGO', epoca: 'Verano-Otoño', cebo: 'Cangrejo, gamba, calamar', zonas: 'Fondos rocosos', tecnica: 'Fondo con carnada grande', record: '6.8 kg', talla: '32 cm', tip: 'Pesca nocturna. Usa cangrejo vivo.' },
         choco: { nombre: '🦑 CHOCO', epoca: 'Otoño-Invierno', cebo: 'Potera artificial', zonas: 'Fondos arenosos', tecnica: 'Potera desde costa', record: '3.2 kg', talla: '20 cm', tip: 'Activo al atardecer. Recogida lenta.' },
         corvina: { nombre: '🐟 CORVINA', epoca: 'Primavera-Verano', cebo: 'Camarón, sardina', zonas: 'Desembocadura, playas', tecnica: 'Spinning nocturno', record: '25.1 kg', talla: '45 cm', tip: 'Pesca nocturna. Atrae con ruido.' },
@@ -810,9 +829,9 @@
         else if (hora >= 19 && hora < 21) consejos[5].innerHTML = '🌇 ATARDECER · SEGUNDO MEJOR MOMENTO';
         else consejos[5].innerHTML = '⏰ ESPERA PLEAMAR O CAMBIO DE MAREA';
         
-        if (waveHeight < 0.8) consejos[6].innerHTML = '🪱 CEBO: CAMARÓN VIVO, LOMBRIZ, ALMEJA';
+        if (waveHeight < 0.8) consejos[6].innerHTML = '🪱 CEBO: CAMARÓN VIVO, LOMBRIZ, MUERGO';
         else if (waveHeight > 1.5) consejos[6].innerHTML = '🪱 CEBO: SARDINA, CHANQUETE, CEBO GRANDE';
-        else consejos[6].innerHTML = '🪱 CEBO: ALMEJA, GUSANA, POTERA PARA CHOCO';
+        else consejos[6].innerHTML = '🪱 CEBO: MUERGO, GUSANA, POTERA PARA CHOCO';
     }
     
     // ============================================
@@ -859,7 +878,6 @@
     // 📱 GENERAR MENSAJE PARA WHATSAPP CON DATOS EN TIEMPO REAL
     // ============================================
     function generarMensajeWhatsApp() {
-        // Obtener valores actuales del DOM
         const olaAltura = document.getElementById('olaAltura')?.innerText || '-- m';
         const olaPeriodo = document.getElementById('wavePeriod')?.innerText || '-- s';
         const olaDireccion = document.getElementById('waveDir')?.innerText || '--';
@@ -882,7 +900,6 @@
         const bajamar = document.getElementById('bajamar')?.innerText || '-- / --';
         const coeficienteMarea = document.getElementById('coeficienteMarea')?.innerText || '--';
         
-        // Construir mensaje
         let mensaje = `🍌🍌🍌 SUPERTILLA 🐵 DEVELOPER 🍌🍌🍌\n\n`;
         mensaje += `⚡ CYBER_METEO · ESTADO DEL MAR ⚡\n`;
         mensaje += `📍 Puerto Sherry\n\n`;
@@ -891,7 +908,7 @@
         mensaje += `▸ Altura significativa: ${olaAltura}\n`;
         mensaje += `▸ Período: ${olaPeriodo} · Dirección: ${olaDireccion}\n`;
         mensaje += `▸ Potencia: ${wavePower}\n`;
-        mensaje += `▸ Mar de fondo (M.Fondo): ${marFondo} / ${marFondoPeriodo}\n\n`;
+        mensaje += `▸ SWELL (Mar de fondo): ${marFondo} / ${marFondoPeriodo}\n\n`;
         
         mensaje += `🌬️ VIENTO\n`;
         mensaje += `▸ Velocidad: ${vientoVel} (rachas ${vientoRacha})\n`;
@@ -942,7 +959,7 @@
             
             let bait = '', hotZone = '', keySpecies = '';
             if (waveData.currentWave < 0.8) {
-                bait = '🪱 CAMARÓN VIVO · LOMBRIZ · ALMEJA';
+                bait = '🪱 CAMARÓN VIVO · LOMBRIZ · MUERGO';
                 hotZone = 'Playa Valdelagrana · Desembocadura Guadalete';
                 keySpecies = 'DORADA · LUBINA · SARGO';
             } else if (waveData.currentWave > 1.5) {
@@ -950,7 +967,7 @@
                 hotZone = 'Escollera Puerto Sherry · Punta Boquerón';
                 keySpecies = 'CORVINA · PARGO · MERO';
             } else {
-                bait = '⚖️ ALMEJA · GUSANA · POTERA PARA CHOCO';
+                bait = '⚖️ MUERGO · GUSANA · POTERA PARA CHOCO';
                 hotZone = 'Muelle de Rota · Frente al Castillo';
                 keySpecies = 'CHOCO · LUBINA · SARGO';
             }
@@ -1038,7 +1055,7 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         
-        const matrixText = 'SUPERTILLA 🐵 🍌 SUPERTILLA';
+        const matrixText = '🐵 🍌 SUPERTILLA@DEV 🍌 🐵';
         const fontSize = 16;
         let columns = Math.floor(canvas.width / fontSize);
         let drops = Array(columns).fill(1);
