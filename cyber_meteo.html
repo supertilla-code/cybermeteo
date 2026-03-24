@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <meta name="theme-color" content="#0a0f1a">
-    <title>⚡ CYBER_METEO ⚡                El Puerto de Santa María 🎣Pesca Edition</title>
+    <title>⚡ CYBER_METEO ⚡               🐟El Puerto de Santa María🎣Pesca</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
@@ -17,8 +17,6 @@
             position: relative;
             overflow-x: hidden;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
         #matrixCanvas, #easterEggCanvas {
             position: fixed;
@@ -32,14 +30,7 @@
         }
         #easterEggCanvas { z-index: 9998; opacity: 0; transition: opacity 0.2s; }
         .easter-active #easterEggCanvas { opacity: 0.95; }
-        .dashboard {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            flex: 1;
-            width: 100%;
-        }
+        .dashboard { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
         
         @keyframes rainbowBorderGlow {
             0% { box-shadow: 0 0 3px #ff0000, 0 0 5px #ff0000, inset 0 0 2px #ff0000; border-color: #ff0000; }
@@ -129,7 +120,6 @@
         .btn-wa { background: linear-gradient(135deg, #25D36630, #128C7E30); border-color: #25D366; color: #25D366; }
         .btn-counter { background: linear-gradient(135deg, #ff00ff30, #ff660030); border-color: #ff00ff; color: #ff00ff; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
         
-        /* ADAPTACIÓN MÓVIL MEJORADA */
         @media (max-width: 768px) {
             body { padding: 8px; }
             .btn { padding: 10px 14px; font-size: 0.75rem; min-width: 90px; }
@@ -149,7 +139,6 @@
             footer { font-size: 0.45rem; }
             .action-buttons { gap: 8px; }
         }
-        
         @media (max-width: 480px) {
             .btn { padding: 8px 10px; font-size: 0.65rem; min-width: 70px; }
             .title-section h1 { font-size: 1rem; }
@@ -161,7 +150,6 @@
             .value-big { font-size: 0.7rem; }
             footer { font-size: 0.4rem; }
         }
-        
         @media (min-width: 640px) {
             .btn { padding: 12px 24px; font-size: 0.85rem; min-width: 130px; }
             .hero { flex-direction: row; align-items: center; justify-content: space-between; }
@@ -230,8 +218,6 @@
             line-height: 1.4; 
             color: #0ff;
             width: 100%;
-            position: relative;
-            bottom: 0;
         }
         .easter-message {
             position: fixed;
@@ -363,19 +349,14 @@
             <div class="card-header"><span>🌙</span><h2>MAREAS OFICIALES · INSTITUTO HIDROGRÁFICO MARINA</h2></div>
             <table class="tide-table">
                 <thead>
-                    <tr>
-                        <th>🌕 PLEAMAR</th>
-                        <th>🌑 BAJAMAR</th>
-                        <th>HORA</th>
-                    </tr>
-                </thead>
+                    32d<th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th> </thead>
                 <tbody>
-                    <tr><td>3.334m 🌊</td><td>--</td><td>04:52</td></tr>
-                    <tr><td>--</td><td>0.678m 🌊</td><td>10:46</td></tr>
-                    <tr><td>3.215m 🌊</td><td>--</td><td>17:12</td></tr>
-                    <tr><td>--</td><td>0.696m 🌊</td><td>23:16</td></tr>
+                    32d path3.334m 🌊<th>--<th>04:52<th>
+                    32d path--<th>0.678m 🌊<th>10:46<th>
+                    32d path3.215m 🌊<th>--<th>17:12<th>
+                    32d path--<th>0.696m 🌊<th>23:16<th>
                 </tbody>
-            </table>
+             m²
             <div style="background:#0ff1; border-radius: 16px; padding: 8px; margin-top: 8px;">
                 <div>🌙 FASE LUNAR: <strong id="faseLuna">--</strong> | 💡 ILUMINACIÓN: <span id="iluminacionLuna">--%</span></div>
                 <div>📊 COEFICIENTE MAREA: <strong id="coeficienteMarea" style="color:#00ff66">77</strong></div>
@@ -460,6 +441,60 @@
 </div>
 
 <script>
+    // ============================================
+    // 🐵🍌 MATRIX RAIN - ORBITRON CON EMOJIS VISIBLES
+    // ============================================
+    const canvasMat = document.getElementById('matrixCanvas');
+    let ctxMat = canvasMat.getContext('2d');
+    
+    function resizeMatrixCanvas() {
+        canvasMat.width = window.innerWidth;
+        canvasMat.height = window.innerHeight;
+    }
+    resizeMatrixCanvas();
+    window.addEventListener('resize', resizeMatrixCanvas);
+    
+    const matrixChars = ["🐵", "🍌", "S", "U", "P", "E", "R", "T", "I", "L", "L", "A", "@", "D", "E", "V"];
+    let matrixFontSize = Math.max(16, Math.floor(window.innerWidth / 45));
+    let matrixColumns = Math.floor(canvasMat.width / matrixFontSize);
+    let matrixDrops = [];
+    
+    function initMatrixDrops() {
+        matrixColumns = Math.floor(canvasMat.width / matrixFontSize);
+        matrixDrops = [];
+        for (let i = 0; i < matrixColumns; i++) {
+            matrixDrops.push(Math.random() * -100);
+        }
+    }
+    
+    function drawMatrixRain() {
+        ctxMat.fillStyle = "rgba(10, 15, 26, 0.05)";
+        ctxMat.fillRect(0, 0, canvasMat.width, canvasMat.height);
+        // FUENTE ORBITRON PARA EMOJIS VISIBLES
+        ctxMat.font = `${matrixFontSize}px "Orbitron", "Segoe UI Emoji", "Apple Color Emoji", monospace`;
+        
+        for (let i = 0; i < matrixDrops.length; i++) {
+            const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+            const x = i * matrixFontSize;
+            const y = matrixDrops[i] * matrixFontSize;
+            ctxMat.fillStyle = Math.random() > 0.975 ? "#f0f" : "#0ff";
+            ctxMat.fillText(char, x, y);
+            
+            if (y > canvasMat.height && Math.random() > 0.99) {
+                matrixDrops[i] = 0;
+            }
+            matrixDrops[i]++;
+        }
+        requestAnimationFrame(drawMatrixRain);
+    }
+    
+    initMatrixDrops();
+    drawMatrixRain();
+    window.addEventListener('resize', () => {
+        matrixFontSize = Math.max(16, Math.floor(window.innerWidth / 45));
+        initMatrixDrops();
+    });
+    
     // ============================================
     // 🔑 CONFIGURACIÓN
     // ============================================
@@ -930,7 +965,7 @@
     }
     
     // ============================================
-    // 🐟 BASE DE DATOS DE ESPECIES
+    // 🐟 BASE DE DATOS DE ESPECIES (con MUERGO)
     // ============================================
     const speciesDB = {
         lubina: { nombre: '🐟 LUBINA', epoca: 'Todo el año (mejor primavera-otoño)', cebo: 'Camarón vivo, chanquete, señuelos', zonas: 'Escolleras, desembocaduras', tecnica: 'Spinning, surfcasting', record: '18.2 kg', talla: '36 cm', tip: 'Pesca al amanecer. Usa señuelos que imiten alevines.' },
@@ -1067,132 +1102,82 @@
     }
     
     // ============================================
-    // 🐵 RAINMATRIX CON EMOJIS 🐵🍌SUPERTILLA@DEV🍌🐵
+    // 🥚 EASTER EGG
     // ============================================
-    function initEasterEgg() {
-        const easterTrigger = document.getElementById('easterEggTrigger');
-        let easterActive = false;
-        
-        function showMonkeyRave() {
-            if (easterActive) return;
-            easterActive = true;
-            document.body.classList.add('easter-active');
-            
-            const msg = document.createElement('div');
-            msg.className = 'easter-message';
-            msg.innerHTML = '🍌🐵 SUPERTILLA_DEV 🐵🍌<br>✨ LE DESEA UN BUEN DÍA ✨<br>🎣 BUENA PESCA COMPAÑERO 🎣';
-            document.body.appendChild(msg);
-            
-            const emojis = ['🐵', '🍌', '🐒', '🍌', '🙈', '🙉', '🙊', '🍌', '🐵', '🍌'];
-            
-            for (let i = 0; i < 120; i++) {
-                setTimeout(() => {
-                    const elem = document.createElement('div');
-                    elem.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-                    elem.style.position = 'fixed';
-                    elem.style.left = window.innerWidth / 2 + (Math.random() - 0.5) * 500 + 'px';
-                    elem.style.top = window.innerHeight / 2 + (Math.random() - 0.5) * 400 + 'px';
-                    elem.style.fontSize = (Math.random() * 55 + 25) + 'px';
-                    elem.style.zIndex = '10001';
-                    elem.style.pointerEvents = 'none';
-                    elem.style.animation = `monkeyExplosion ${0.6 + Math.random() * 0.5}s ease-out forwards`;
-                    elem.style.transform = `rotate(${Math.random() * 720}deg)`;
-                    document.body.appendChild(elem);
-                    setTimeout(() => elem.remove(), 800);
-                }, i * 8);
-            }
-            
-            for (let i = 0; i < 250; i++) {
-                setTimeout(() => {
-                    const elem = document.createElement('div');
-                    elem.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-                    elem.style.position = 'fixed';
-                    elem.style.left = Math.random() * window.innerWidth + 'px';
-                    elem.style.top = '-80px';
-                    elem.style.fontSize = (Math.random() * 60 + 25) + 'px';
-                    elem.style.zIndex = '10001';
-                    elem.style.pointerEvents = 'none';
-                    elem.style.animation = `monkeyCascade ${0.8 + Math.random() * 0.7}s linear forwards`;
-                    elem.style.transform = `rotate(${Math.random() * 360}deg)`;
-                    document.body.appendChild(elem);
-                    setTimeout(() => elem.remove(), 1200);
-                }, i * 12);
-            }
-            
+    function triggerLluviaMonosPlatanos() {
+        for (let i = 0; i < 30; i++) {
             setTimeout(() => {
-                msg.remove();
-                document.body.classList.remove('easter-active');
-                easterActive = false;
-            }, 5000);
+                const monkey = document.createElement('div');
+                monkey.className = 'monkey-burst';
+                monkey.textContent = ['🐵', '🙈', '🙉', '🙊', '🐒'][Math.floor(Math.random() * 5)];
+                monkey.style.left = Math.random() * 100 + '%';
+                monkey.style.top = -10 + '%';
+                monkey.style.fontSize = (24 + Math.random() * 35) + 'px';
+                monkey.style.animationDuration = (0.8 + Math.random() * 0.5) + 's';
+                document.body.appendChild(monkey);
+                setTimeout(() => monkey.remove(), 1000);
+            }, i * 50);
         }
-        
-        easterTrigger.addEventListener('click', showMonkeyRave);
-        
-        const canvas = document.getElementById('matrixCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        for (let i = 0; i < 30; i++) {
+            setTimeout(() => {
+                const banana = document.createElement('div');
+                banana.className = 'banana-burst';
+                banana.textContent = ['🍌', '🍌💥', '💥🍌', '🍌✨'][Math.floor(Math.random() * 4)];
+                banana.style.left = Math.random() * 100 + '%';
+                banana.style.top = -10 + '%';
+                banana.style.fontSize = (22 + Math.random() * 40) + 'px';
+                banana.style.animationDuration = (0.8 + Math.random() * 0.6) + 's';
+                document.body.appendChild(banana);
+                setTimeout(() => banana.remove(), 1000);
+            }, i * 60);
         }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        
-        // MATRIX RAIN CON EMOJIS 🐵🍌SUPERTILLA@DEV🍌🐵
-        const matrixText = '🐵🍌SUPERTILLA@DEV🍌🐵';
-        const fontSize = 28;
-        let columns = Math.floor(canvas.width / fontSize);
-        let drops = [];
-        
-        function initDrops() {
-            columns = Math.floor(canvas.width / fontSize);
-            drops = [];
-            for (let i = 0; i < columns; i++) {
-                drops.push(Math.random() * -100);
-            }
-        }
-        initDrops();
-        
-        function drawMatrixRain() {
-            ctx.fillStyle = 'rgba(10, 15, 26, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.font = `${fontSize}px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", "Orbitron", monospace`;
-            
-            for (let i = 0; i < drops.length; i++) {
-                const charIndex = Math.floor(Math.random() * matrixText.length);
-                const char = matrixText[charIndex];
-                ctx.fillStyle = Math.random() > 0.97 ? '#ff66cc' : '#0ff';
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = '#0ff';
-                ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-                
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-            requestAnimationFrame(drawMatrixRain);
-        }
-        
-        drawMatrixRain();
-        
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initDrops();
-        });
-        
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes monkeyCascade {
-                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-                100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-            }
-            @keyframes monkeyExplosion {
-                0% { transform: scale(0.5) rotate(0deg); opacity: 1; }
-                100% { transform: scale(1.5) rotate(720deg); opacity: 0; }
-            }
+    }
+    
+    function triggerMensajeTecnico() {
+        const msg = document.createElement('div');
+        msg.innerHTML = '🐵<strong style="text-shadow:0 0 15px #0ff;">SUPERTILLA🐵DEVELOPER🐵</strong> · 🍌<strong style="text-shadow:0 0 15px #ffaa00;">Sergio_Pepinelli_Edition🍌</strong>';
+        msg.style.position = 'fixed';
+        msg.style.bottom = '30%';
+        msg.style.left = '50%';
+        msg.style.transform = 'translateX(-50%)';
+        msg.style.background = 'linear-gradient(135deg, #000000cc, #0a0f1acc)';
+        msg.style.color = '#0ff';
+        msg.style.padding = '20px 40px';
+        msg.style.borderRadius = '60px';
+        msg.style.fontFamily = 'Orbitron';
+        msg.style.fontWeight = 'bold';
+        msg.style.fontSize = '1.1rem';
+        msg.style.textAlign = 'center';
+        msg.style.zIndex = '10001';
+        msg.style.boxShadow = '0 0 40px #0ff, 0 0 20px #f0f';
+        msg.style.border = '2px solid #0ff';
+        msg.style.whiteSpace = 'nowrap';
+        msg.style.backdropFilter = 'blur(20px)';
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), 3500);
+    }
+    
+    function showInfo() {
+        const modal = document.createElement('div');
+        modal.className = 'info-modal';
+        modal.innerHTML = `
+            <h2>⚡ CYBER_METEO ⚡</h2>
+            <p>🌊 Aplicación de predicción marina en tiempo real</p>
+            <p>📡 Datos obtenidos vía Open-Meteo API</p>
+            <p>📍 El Puerto de Santa María · Cádiz</p>
+            <p>📊 8 gráficos interactivos con historial 24h</p>
+            <p>💾 Persistencia local: guarda los últimos 24 registros</p>
+            <p>🎣 Especializada en pesca deportiva</p>
+            <p>🐵 Desarrollada por 🍌SUPERTILLA🐵DEV con asistencia de DeepSeek AI</p>
+            <p>🍌 Edición Especial Pesca Sergio Pepinelli</p>
+            <button id="closeInfoModal">🍌 CERRAR 🍌</button>
         `;
-        document.head.appendChild(style);
+        document.body.appendChild(modal);
+        document.getElementById('closeInfoModal').addEventListener('click', () => {
+            modal.remove();
+            triggerLluviaMonosPlatanos();
+            triggerMensajeTecnico();
+        });
     }
     
     // ============================================
@@ -1218,7 +1203,6 @@
             document.getElementById('fishGauge').style.width = `${fishingIdx}%`;
             applyFishingIndexColor(document.getElementById('fishingIndex'), fishingIdx);
             
-            // Guardar en historial
             historicoFishingIndex.push(fishingIdx);
             historicoFishingLabels.push(nowHour);
             if (historicoFishingIndex.length > 24) { historicoFishingIndex.shift(); historicoFishingLabels.shift(); }
@@ -1330,15 +1314,38 @@
         initTempHumChart();
         initWindChart();
         initSpeciesModal();
-        initEasterEgg();
-        updateAllData();
-        setInterval(updateAllData, 600000);
         
         document.getElementById('refreshBtn').addEventListener('click', () => updateAllData());
         document.getElementById('whatsappBtn').addEventListener('click', () => {
             const mensaje = generarMensajeWhatsApp();
             window.open(`https://wa.me/?text=${encodeURIComponent(mensaje)}`, '_blank');
         });
+        document.getElementById('counterBtn').addEventListener('click', () => {});
+        document.getElementById('infoBtn').addEventListener('click', showInfo);
+        
+        document.getElementById('creditsBtn').addEventListener('click', () => {
+            const modal = document.createElement('div');
+            modal.className = 'credits-modal';
+            modal.innerHTML = `
+                <h2>⚡ CYBER_METEO ⚡</h2>
+                <p>🍌 EDICIÓN ESPECIAL SERGIO PEPINELLI</p>
+                <p>🐵 DESARROLLO: 🍌SUPERTILLA🐵DEVELOPER🍌</p>
+                <p>🤖 ASISTENCIA: DeepSeek AI</p>
+                <p>🌊 DATOS EN TIEMPO REAL: Open-Meteo</p>
+                <p>📊 8 GRÁFICOS INTERACTIVOS · PERSISTENCIA LOCAL 24h</p>
+                <p>🍌🐵🍌🐵🍌🐵🍌🐵🍌🐵🍌🐵</p>
+                <button id="closeModal">🍌✨ CERRAR ✨🍌</button>
+            `;
+            document.body.appendChild(modal);
+            document.getElementById('closeModal').addEventListener('click', () => {
+                modal.remove();
+                triggerLluviaMonosPlatanos();
+                triggerMensajeTecnico();
+            });
+        });
+        
+        updateAllData();
+        setInterval(updateAllData, 600000);
     });
 </script>
 </body>
