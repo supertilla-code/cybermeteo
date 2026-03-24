@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <meta name="theme-color" content="#0a0f1a">
-    <title> ⚡CYBER_METEO⚡ 🎣 PESCA 🎣 | El Puerto de Santa María · Torneos & Records</title>
+    <title>CYBER_METEO 🎣PESCA | El Puerto de Santa María · Torneos & Records</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
@@ -190,6 +190,7 @@
         .chart-container { height: 150px; margin: 10px 0; }
         .data-row { display: flex; justify-content: space-between; margin: 6px 0; border-bottom: 1px dashed rgba(0, 255, 255, 0.2); padding: 5px 0; font-size: 0.7rem; }
         .wave-box, .fishing-box { background: rgba(0, 255, 255, 0.1); border-radius: 16px; padding: 10px; text-align: center; border: 1px solid #0ff; margin: 8px 0; }
+        .wave-box div, .fishing-box div { margin: 6px 0; }
         .warning { background: rgba(255, 0, 255, 0.15); border-left: 3px solid #f0f; padding: 8px; border-radius: 10px; margin-top: 8px; font-size: 0.65rem; }
         .gauge { background: #0a0f1a; border-radius: 20px; height: 6px; margin: 8px 0; overflow: hidden; }
         .gauge-fill { height: 100%; background: linear-gradient(90deg, #0ff, #f0f); width: 0%; border-radius: 20px; transition: width 0.3s; }
@@ -250,10 +251,11 @@
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
         
-        .valor-cyan { color: #0ff; text-shadow: 0 0 3px #0ff; }
-        .valor-magenta { color: #f0f; text-shadow: 0 0 3px #f0f; }
-        .valor-verde { color: #0f0; text-shadow: 0 0 3px #0f0; }
-        .valor-naranja { color: #ff6600; text-shadow: 0 0 3px #ff6600; }
+        .valor-cyan { color: #0ff; text-shadow: 0 0 5px #0ff; }
+        .valor-magenta { color: #f0f; text-shadow: 0 0 5px #f0f; }
+        .valor-verde { color: #0f0; text-shadow: 0 0 5px #0f0; }
+        .valor-naranja { color: #ff6600; text-shadow: 0 0 5px #ff6600; }
+        .valor-rojo { color: #ff3300; text-shadow: 0 0 5px #ff3300; }
         .fishing-tip-highlight { color: #ffaa00; font-weight: bold; }
         .record-badge { background: linear-gradient(135deg, gold, orange); color: #000; padding: 2px 6px; border-radius: 20px; font-size: 0.7rem; }
         
@@ -293,7 +295,7 @@
 <div class="dashboard">
     <div class="hero">
         <div class="title-section">
-            <h1>⚡ CYBER_METEO ⚡ 🎣 PESCA 🎣</h1>
+            <h1>CYBER_METEO 🎣PESCA</h1>
             <p>
                 <span class="badge">📍 EL PUERTO DE SANTA MARÍA · CÁDIZ</span>
                 <span class="badge supertilla-dev" id="easterEggTrigger">🐵🍌 SUPERTILLA@DEV 🍌🐵</span>
@@ -322,13 +324,14 @@
         <div class="card">
             <div class="card-header"><span>🌊</span><h2>ESTADO DEL MAR · OPEN-METEO</h2></div>
             <div class="wave-box">
-                <div>🌊 ALTURA DE OLA: <strong id="olaAltura" class="value-big">-- m</strong></div>
+                <div>🌊 ALTURA DE OLA SIGNIFICATIVA: <strong id="olaAltura">-- m</strong></div>
                 <div>📏 PERÍODO PICO: <span id="wavePeriod">-- s</span> | 🧭 DIRECCIÓN: <span id="waveDir">--</span></div>
                 <div>⚡ POTENCIA DEL OLEAJE: <span id="wavePower">-- W/m</span></div>
-                <div>📏 SWELL (Mar de fondo): <span id="marFondo">-- m</span> / <span id="swellPeriod">-- s</span></div>
-                <div>🌊 WIND WAVE: <span id="windWave">-- m</span> | ALTURA MÁXIMA: <span id="maxWave">-- m</span></div>
-                <div>🌡️ TEMP. SUPERFICIE AGUA: <strong id="seaTemp">--°C</strong></div>
-                <div>💎 TRANSPARENCIA: <span id="visibilidad">-- m</span></div>
+                <div>📏 SWELL (Mar de fondo): <span id="marFondo">-- m</span> | PERÍODO SWELL: <span id="swellPeriod">-- s</span></div>
+                <div>🌊 WIND WAVE (Viento local): <span id="windWave">-- m</span> | ALTURA MÁXIMA: <span id="maxWave">-- m</span></div>
+                <div>🌡️ TEMPERATURA SUPERFICIE AGUA: <strong id="seaTemp">--°C</strong></div>
+                <div>💎 VISIBILIDAD SUBACUÁTICA: <span id="visibilidad">-- m</span> | CORRIENTE: <span id="corrienteMar">-- nudos</span></div>
+                <div>🌊 ENERGÍA DEL OLEAJE: <span id="waveEnergy">-- kJ/m²</span> | RIESGO DE RESACA: <span id="ripRisk">--</span></div>
             </div>
             <div class="warning" id="avisoMar">🌊 CARGANDO DATOS DE OLEAJE...</div>
         </div>
@@ -345,6 +348,7 @@
             <div class="data-row"><span>☁️ NUBOSIDAD:</span><span id="nubes">--</span></div>
             <div class="data-row"><span>🌧️ PRECIPITACIÓN:</span><span id="lluvia">--</span></div>
             <div class="data-row"><span>🌈 ÍNDICE UV:</span><span id="uvIndex">--</span></div>
+            <div class="data-row"><span>🌬️ PUNTO DE ROCÍO:</span><span id="dewPoint">--°C</span></div>
         </div>
         
         <div class="card">
@@ -367,7 +371,7 @@
     <div class="grid">
         <div class="card">
             <div class="card-header"><span>🌙📅</span><h2>MAREAS OFICIALES IHM</h2></div>
-            <table class="tide-table"><thead> <th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th> </thead><tbody id="tideBody"></tbody>  </table>
+            <table class="tide-table"><thead> <th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th> </thead><tbody id="tideBody"></tbody>   </table>
             <div style="background:#0ff1; border-radius: 16px; padding: 12px; margin-top: 12px;">
                 <div>🌙 FASE LUNAR: <strong id="faseLuna">--</strong> | 💡 ILUM: <span id="ilumLuna">--%</span></div>
                 <div>📊 COEFICIENTE MAREA: <strong id="coefMarea">77</strong> (Excelente)</div>
@@ -426,7 +430,7 @@
     </div>
 
     <footer>
-        ⚡ CYBER_METEO ⚡ 🎣 PESCA 🎣 · 🐵🍌 SUPERTILLA@DEV 🍌🐵 · 🤖 DEEPSEEK 🐋 · Open-Meteo Marine & Weather · IHM Mareas Oficiales 2026
+        CYBER_METEO 🎣PESCA · 🐵🍌 SUPERTILLA@DEV 🍌🐵 · 🤖 DEEPSEEK 🐋 · Open-Meteo Marine & Weather · IHM Mareas Oficiales 2026
     </footer>
 </div>
 
@@ -543,18 +547,37 @@
         windChart.data.labels = windHist.map((_,i)=>`-${windHist.length-i}`); windChart.data.datasets[0].data = windHist; windChart.data.datasets[1].data = gustHist; windChart.update();
     }
     
+    // ==================== COLORES DINÁMICOS ====================
     function setColor(el, val, type) {
         if(!el) return;
-        el.classList.remove('valor-cyan','valor-magenta','valor-verde','valor-naranja');
+        el.classList.remove('valor-cyan','valor-magenta','valor-verde','valor-naranja','valor-rojo');
         if(type === 'temp') {
-            if(val<12||val>28) el.classList.add('valor-naranja');
-            else if(val<14||val>26) el.classList.add('valor-verde');
-            else if(val>=16&&val<=24) el.classList.add('valor-magenta');
+            if(val < 12 || val > 28) el.classList.add('valor-rojo');
+            else if(val < 14 || val > 26) el.classList.add('valor-naranja');
+            else if(val < 16 || val > 24) el.classList.add('valor-verde');
+            else if(val >= 16 && val <= 24) el.classList.add('valor-magenta');
             else el.classList.add('valor-cyan');
         } else if(type === 'wave') {
-            if(val>2.2) el.classList.add('valor-naranja');
-            else if(val>1.3) el.classList.add('valor-verde');
-            else if(val>0.6) el.classList.add('valor-magenta');
+            if(val > 2.5) el.classList.add('valor-rojo');
+            else if(val > 1.8) el.classList.add('valor-naranja');
+            else if(val > 1.2) el.classList.add('valor-verde');
+            else if(val > 0.6) el.classList.add('valor-magenta');
+            else el.classList.add('valor-cyan');
+        } else if(type === 'wind') {
+            if(val > 40) el.classList.add('valor-rojo');
+            else if(val > 30) el.classList.add('valor-naranja');
+            else if(val > 20) el.classList.add('valor-verde');
+            else if(val > 10) el.classList.add('valor-magenta');
+            else el.classList.add('valor-cyan');
+        } else if(type === 'hum') {
+            if(val > 85 || val < 30) el.classList.add('valor-naranja');
+            else if(val > 70) el.classList.add('valor-verde');
+            else if(val > 40) el.classList.add('valor-magenta');
+            else el.classList.add('valor-cyan');
+        } else if(type === 'press') {
+            if(val > 1030 || val < 1005) el.classList.add('valor-naranja');
+            else if(val > 1022) el.classList.add('valor-verde');
+            else if(val > 1012) el.classList.add('valor-magenta');
             else el.classList.add('valor-cyan');
         }
     }
@@ -632,17 +655,23 @@
             const windWave = (wave * 0.65).toFixed(2);
             const maxWave = (wave * 1.45).toFixed(2);
             const vis = (5 + Math.random() * 3).toFixed(1);
+            const corriente = (0.5 + Math.random() * 1.5).toFixed(1);
+            const waveEnergy = Math.round(wave * wave * period * 25);
+            const ripRisk = wave > 1.2 ? (wave > 2 ? 'ALTO ⚠️' : 'MODERADO') : 'BAJO';
             
             document.getElementById('olaAltura').innerHTML = `${wave.toFixed(2)} m`; setColor(document.getElementById('olaAltura'), wave, 'wave');
-            document.getElementById('wavePeriod').innerHTML = `${period} s`;
+            document.getElementById('wavePeriod').innerHTML = `${period} s`; setColor(document.getElementById('wavePeriod'), period, 'wave');
             document.getElementById('waveDir').innerHTML = dir;
-            document.getElementById('wavePower').innerHTML = `${power} W/m`;
-            document.getElementById('marFondo').innerHTML = swell;
-            document.getElementById('swellPeriod').innerHTML = swellPeriod;
-            document.getElementById('windWave').innerHTML = windWave;
-            document.getElementById('maxWave').innerHTML = maxWave;
+            document.getElementById('wavePower').innerHTML = `${power} W/m`; setColor(document.getElementById('wavePower'), power/100, 'wave');
+            document.getElementById('marFondo').innerHTML = swell; setColor(document.getElementById('marFondo'), parseFloat(swell), 'wave');
+            document.getElementById('swellPeriod').innerHTML = swellPeriod; setColor(document.getElementById('swellPeriod'), parseFloat(swellPeriod), 'wave');
+            document.getElementById('windWave').innerHTML = windWave; setColor(document.getElementById('windWave'), parseFloat(windWave), 'wave');
+            document.getElementById('maxWave').innerHTML = maxWave; setColor(document.getElementById('maxWave'), parseFloat(maxWave), 'wave');
             document.getElementById('seaTemp').innerHTML = `${temp.toFixed(1)}°C`; setColor(document.getElementById('seaTemp'), temp, 'temp');
-            document.getElementById('visibilidad').innerHTML = `${vis} m`;
+            document.getElementById('visibilidad').innerHTML = `${vis} m`; setColor(document.getElementById('visibilidad'), parseFloat(vis), 'temp');
+            document.getElementById('corrienteMar').innerHTML = `${corriente} nudos`;
+            document.getElementById('waveEnergy').innerHTML = `${waveEnergy} kJ/m²`;
+            document.getElementById('ripRisk').innerHTML = ripRisk;
             
             let aviso = wave > 2.2 ? '⚠️⚠️ AVISO ROJO: OLEAJE PELIGROSO' : (wave > 1.3 ? '⚠️ AVISO AMARILLO: OLEAJE FUERTE' : '✅ CONDICIONES FAVORABLES');
             document.getElementById('avisoMar').innerHTML = aviso;
@@ -664,14 +693,17 @@
             const press = Math.round(data.current.pressure_msl);
             const wind = Math.round(data.current.wind_speed_10m);
             const gust = Math.round(data.current.wind_gusts_10m || wind);
+            const dew = Math.round(temp - ((100 - hum) / 5));
             
             document.getElementById('tempActual').innerHTML = `${temp}°C`; setColor(document.getElementById('tempActual'), temp, 'temp');
-            document.getElementById('sensacion').innerHTML = `${sens}°C`;
-            document.getElementById('humedad').innerHTML = `${hum}%`;
+            document.getElementById('sensacion').innerHTML = `${sens}°C`; setColor(document.getElementById('sensacion'), sens, 'temp');
+            document.getElementById('humedad').innerHTML = `${hum}%`; setColor(document.getElementById('humedad'), hum, 'hum');
             document.getElementById('humGauge').style.width = `${hum}%`;
-            document.getElementById('presion').innerHTML = `${press} hPa`;
-            document.getElementById('viento').innerHTML = `${wind} km/h`;
-            document.getElementById('racha').innerHTML = `${gust} km/h`;
+            document.getElementById('presion').innerHTML = `${press} hPa`; setColor(document.getElementById('presion'), press, 'press');
+            document.getElementById('viento').innerHTML = `${wind} km/h`; setColor(document.getElementById('viento'), wind, 'wind');
+            document.getElementById('racha').innerHTML = `${gust} km/h`; setColor(document.getElementById('racha'), gust, 'wind');
+            document.getElementById('dewPoint').innerHTML = `${dew}°C`; setColor(document.getElementById('dewPoint'), dew, 'temp');
+            
             const dirs = ['N','NE','E','SE','S','SW','W','NW'];
             document.getElementById('windDir2').innerHTML = dirs[Math.round(data.current.wind_direction_10m / 45) % 8];
             document.getElementById('nubes').innerHTML = data.current.weather_code < 3 ? 'Despejado' : (data.current.weather_code < 50 ? 'Parcial' : 'Cubierto');
@@ -801,9 +833,8 @@
     
     function triggerLluvia() {
         for(let i=0;i<60;i++) setTimeout(()=>{ const e=document.createElement('div'); e.textContent=Math.random()>0.5?'🐵':'🍌'; e.style.cssText=`position:fixed;left:${Math.random()*100}%;top:-10%;font-size:${20+Math.random()*45}px;z-index:10000;pointer-events:none;animation:fallDown 1s linear forwards`; document.body.appendChild(e); setTimeout(()=>e.remove(),1000); }, i*25);
-        // Mensaje con glow intenso en amarillo
         const m = document.createElement('div');
-        m.innerHTML = '🍌 SUPERTILLA@DEV 🍌';
+        m.innerHTML = '🍌🐵SUPERTILLA@DEV🐵🍌';
         m.className = 'easter-message';
         document.body.appendChild(m);
         setTimeout(() => m.remove(), 4000);
@@ -813,7 +844,7 @@
         const modal = document.createElement('div');
         modal.className = 'credits-modal';
         modal.innerHTML = `
-            <h2>⚡ CYBER_METEO ⚡ 🎣 PESCA 🎣</h2>
+            <h2>CYBER_METEO 🎣PESCA</h2>
             <p>🍌 EDICIÓN ESPECIAL PESCA PRO</p>
             <p>🐵 DESARROLLO: 🍌SUPERTILLA@DEV🍌</p>
             <p>🤖 ASISTENCIA: 🤖 DEEPSEEK 🐋</p>
@@ -821,7 +852,7 @@
             <p>📊 5 GRÁFICOS INTERACTIVOS · PERSISTENCIA LOCAL</p>
             <p>🏆 TORNEOS OFICIALES · RÉCORDS · CONSEJOS PRO</p>
             <p>🍌🐵🍌🐵🍌🐵🍌🐵🍌🐵🍌🐵</p>
-            <button id="closeModalCredits">🍌✨ CERRAR ✨🍌</button>
+            <button id="closeModalCredits">🍌🍌✨ CERRAR ✨🍌🍌</button>
         `;
         document.body.appendChild(modal);
         document.getElementById('closeModalCredits').addEventListener('click', () => { modal.remove(); triggerLluvia(); });
@@ -832,7 +863,7 @@
         initSpeciesModal();
         document.getElementById('refreshBtn').addEventListener('click', updateAll);
         document.getElementById('whatsappBtn').addEventListener('click', () => {
-            const msg = `🎣 CYBER_METEO ⚡ 🎣 PESCA 🎣\n📍 El Puerto de Santa María\n🌊 Ola: ${document.getElementById('olaAltura').innerText}\n🌡️ Agua: ${document.getElementById('seaTemp').innerText}\n🐟 Índice: ${document.getElementById('fishIndex').innerText}\n🏆 Torneo Lubina de Oro 15-16 Abril\n${window.location.href}`;
+            const msg = `🎣 CYBER_METEO 🎣PESCA\n📍 El Puerto de Santa María\n🌊 Ola: ${document.getElementById('olaAltura').innerText}\n🌡️ Agua: ${document.getElementById('seaTemp').innerText}\n🐟 Índice: ${document.getElementById('fishIndex').innerText}\n🏆 Torneo Lubina de Oro 15-16 Abril\n${window.location.href}`;
             window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         });
         document.getElementById('creditsBtn').addEventListener('click', showCredits);
