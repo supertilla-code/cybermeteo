@@ -170,21 +170,30 @@
         .chart-container { height: 160px; margin: 8px 0; }
         .data-row { display: flex; justify-content: space-between; margin: 6px 0; font-family: 'Share Tech Mono', monospace; border-bottom: 1px dashed rgba(0, 255, 255, 0.2); padding: 4px 0; font-size: 0.7rem; }
         .data-row span:first-child { color: #0ff; }
-        .data-row .value-big, .data-row .value, .data-row span:last-child, .data-row strong:last-child, .data-row .valor-medida { color: #00ff66; text-shadow: 0 0 5px #00ff66; }
+        /* Estilos base para valores con glow */
+        .data-row .value-big, .data-row .value, .data-row span:last-child, .data-row strong:last-child,
+        .wave-box strong, .wave-box span, .fishing-box strong, .fishing-box span,
+        .tide-table td, .species-tag, .value-big {
+            transition: all 0.2s;
+            font-weight: bold;
+        }
+        /* Clases de colores dinámicos */
+        .valor-cyan { color: #0ff; text-shadow: 0 0 5px #0ff; }
+        .valor-magenta { color: #f0f; text-shadow: 0 0 8px #f0f; }
+        .valor-amarillo { color: #ff0; text-shadow: 0 0 10px #ff0; }
+        .valor-rojo { color: #f00; text-shadow: 0 0 12px #f00; }
+        
         .wave-box, .fishing-box { background: rgba(0, 255, 255, 0.1); border-radius: 16px; padding: 8px; text-align: center; border: 1px solid #0ff; margin: 8px 0; font-size: 0.7rem; }
         .wave-box div, .fishing-box div { color: #0ff; }
-        .wave-box strong, .wave-box span, .fishing-box strong, .fishing-box span { color: #00ff66; text-shadow: 0 0 5px #00ff66; }
         .warning { background: rgba(255, 0, 255, 0.15); border-left: 3px solid #f0f; padding: 6px; border-radius: 10px; margin-top: 8px; font-size: 0.65rem; color: #0ff; }
         .tide-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
         .tide-table td, .tide-table th { padding: 8px 4px; border-bottom: 1px solid #0ff3; text-align: center; }
         .tide-table th { background: rgba(0, 255, 255, 0.2); font-weight: bold; color: #0ff; }
-        .tide-table td { color: #00ff66; text-shadow: 0 0 3px #00ff66; }
         .species-list { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0; }
-        .species-tag { background: #0ff2; border-radius: 20px; padding: 3px 8px; font-size: 0.6rem; border: 1px solid #0ff; cursor: pointer; transition: all 0.2s; color: #00ff66; text-shadow: 0 0 3px #00ff66; }
+        .species-tag { background: #0ff2; border-radius: 20px; padding: 3px 8px; font-size: 0.6rem; border: 1px solid #0ff; cursor: pointer; transition: all 0.2s; }
         .species-tag:hover { background: #f0f2; transform: scale(1.05); }
         .gauge { background: #0a0f1a; border-radius: 20px; height: 6px; margin: 6px 0; overflow: hidden; }
         .gauge-fill { height: 100%; background: linear-gradient(90deg, #0ff, #f0f); width: 0%; border-radius: 20px; transition: width 0.3s; }
-        .value-big { font-size: 0.9rem; font-weight: bold; color: #00ff66; text-shadow: 0 0 5px #00ff66; }
         .fishing-detail { background: rgba(0, 255, 255, 0.05); border-radius: 12px; padding: 8px; margin: 6px 0; }
         .last-update { text-align: right; font-size: 0.6rem; margin-bottom: 8px; color: #0ff; }
         footer { text-align: center; margin-top: 20px; padding-top: 12px; border-top: 1px solid #0ff; font-size: 0.55rem; line-height: 1.4; color: #0ff; }
@@ -318,35 +327,14 @@
             <div class="card-header"><span>🌙</span><h2>MAREAS OFICIALES · INSTITUTO HIDROGRÁFICO MARINA</h2></div>
             <table class="tide-table">
                 <thead>
-                    <tr>
-                        <th>🌕 PLEAMAR</th>
-                        <th>🌑 BAJAMAR</th>
-                        <th>HORA</th>
-                    </tr>
-                </thead>
+                    32d<th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th> </thead>
                 <tbody>
-                    <tr>
-                        <td>3.334m 🌊</td>
-                        <td>--</td>
-                        <td>04:52</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>0.678m 🌊</td>
-                        <td>10:46</td>
-                    </tr>
-                    <tr>
-                        <td>3.215m 🌊</td>
-                        <td>--</td>
-                        <td>17:12</td>
-                    </tr>
-                    <tr>
-                        <td>--</td>
-                        <td>0.696m 🌊</td>
-                        <td>23:16</td>
-                    </tr>
+                    32d<td>3.334m 🌊<td>--<td>04:52</td>
+                    32d<td>--<td>0.678m 🌊<td>10:46</td>
+                    32d<td>3.215m 🌊<td>--<td>17:12</td>
+                    32d<td>--<td>0.696m 🌊<td>23:16</td>
                 </tbody>
-            </table>
+             m²
             <div style="background:#0ff1; border-radius: 16px; padding: 8px; margin-top: 8px;">
                 <div>🌙 FASE LUNAR: <strong id="faseLuna">--</strong> | 💡 ILUMINACIÓN: <span id="iluminacionLuna">--%</span></div>
                 <div>📊 COEFICIENTE MAREA: <strong id="coeficienteMarea" style="color:#00ff66">77</strong></div>
@@ -443,6 +431,75 @@
     let windChart = null;
     let waveHistoryChart = null;
     let fishingIndexChart = null;
+    
+    // ============================================
+    // 🎨 FUNCIÓN PARA APLICAR COLOR DINÁMICO A LOS VALORES
+    // ============================================
+    function applyColorToValue(element, value, thresholds = {}) {
+        if (!element) return;
+        // Eliminar clases anteriores
+        element.classList.remove('valor-cyan', 'valor-magenta', 'valor-amarillo', 'valor-rojo');
+        
+        // Umbrales por defecto si no se especifican
+        const low = thresholds.low !== undefined ? thresholds.low : 0.5;
+        const medium = thresholds.medium !== undefined ? thresholds.medium : 1.2;
+        const high = thresholds.high !== undefined ? thresholds.high : 2.0;
+        
+        if (value >= high) {
+            element.classList.add('valor-rojo');
+        } else if (value >= medium) {
+            element.classList.add('valor-amarillo');
+        } else if (value >= low) {
+            element.classList.add('valor-magenta');
+        } else {
+            element.classList.add('valor-cyan');
+        }
+    }
+    
+    // Función específica para índice de pesca
+    function applyFishingIndexColor(element, value) {
+        if (!element) return;
+        element.classList.remove('valor-cyan', 'valor-magenta', 'valor-amarillo', 'valor-rojo');
+        if (value >= 80) {
+            element.classList.add('valor-rojo'); // Excelente
+        } else if (value >= 65) {
+            element.classList.add('valor-amarillo'); // Muy bueno
+        } else if (value >= 50) {
+            element.classList.add('valor-magenta'); // Favorable
+        } else {
+            element.classList.add('valor-cyan'); // Regular
+        }
+    }
+    
+    // Función para temperatura
+    function applyTempColor(element, value) {
+        if (!element) return;
+        element.classList.remove('valor-cyan', 'valor-magenta', 'valor-amarillo', 'valor-rojo');
+        if (value < 12 || value > 28) {
+            element.classList.add('valor-rojo');
+        } else if (value < 14 || value > 26) {
+            element.classList.add('valor-amarillo');
+        } else if (value >= 16 && value <= 24) {
+            element.classList.add('valor-magenta');
+        } else {
+            element.classList.add('valor-cyan');
+        }
+    }
+    
+    // Función para viento
+    function applyWindColor(element, value) {
+        if (!element) return;
+        element.classList.remove('valor-cyan', 'valor-magenta', 'valor-amarillo', 'valor-rojo');
+        if (value > 35) {
+            element.classList.add('valor-rojo');
+        } else if (value > 25) {
+            element.classList.add('valor-amarillo');
+        } else if (value > 15) {
+            element.classList.add('valor-magenta');
+        } else {
+            element.classList.add('valor-cyan');
+        }
+    }
     
     // ============================================
     // 🕒 PERSISTENCIA CON RESET AUTOMÁTICO CADA 24h Y 1 PUNTO POR ACTUALIZACIÓN
@@ -601,6 +658,13 @@
                     if (currentTemp) document.getElementById('seaTemp').textContent = `${currentTemp.toFixed(1)}°C`;
                     document.getElementById('visibilidadAgua').textContent = `${transparency} m`;
                     
+                    // Aplicar colores dinámicos a las medidas
+                    applyColorToValue(document.getElementById('olaAltura'), currentWave, { low: 0.5, medium: 1.2, high: 2.0 });
+                    applyColorToValue(document.getElementById('wavePeriod'), currentPeriod, { low: 5, medium: 8, high: 12 });
+                    applyColorToValue(document.getElementById('wavePower'), wavePower, { low: 100, medium: 300, high: 600 });
+                    applyColorToValue(document.getElementById('marFondo'), parseFloat(swellHeight), { low: 0.5, medium: 1.2, high: 2.0 });
+                    applyTempColor(document.getElementById('seaTemp'), currentTemp || 15.2);
+                    
                     if (currentWave > 2.5) document.getElementById('avisoMar').innerHTML = '⚠️⚠️ AVISO ROJO: OLEAJE PELIGROSO > 2.5m';
                     else if (currentWave > 1.5) document.getElementById('avisoMar').innerHTML = '⚠️ AVISO AMARILLO: OLEAJE FUERTE';
                     else document.getElementById('avisoMar').innerHTML = '✅ CONDICIONES FAVORABLES PARA PESCA';
@@ -620,6 +684,10 @@
                 document.getElementById('seaTemp').textContent = '15.2°C';
                 document.getElementById('visibilidadAgua').textContent = '6.7 m';
                 document.getElementById('avisoMar').innerHTML = '✅ CONDICIONES FAVORABLES (datos de respaldo)';
+                applyColorToValue(document.getElementById('olaAltura'), 0.45, { low: 0.5, medium: 1.2, high: 2.0 });
+                applyColorToValue(document.getElementById('wavePeriod'), 4.2, { low: 5, medium: 8, high: 12 });
+                applyColorToValue(document.getElementById('wavePower'), 125, { low: 100, medium: 300, high: 600 });
+                applyTempColor(document.getElementById('seaTemp'), 15.2);
                 resolve({ currentWave: 0.45, currentPeriod: 4.2, currentTemp: 15.2, wavePower: 125, swellHeight: 0.8, swellPeriod: 8.5, transparency: 6.7 });
             }
         });
@@ -657,6 +725,13 @@
                     document.getElementById('windMedio').textContent = `${wind} km/h`;
                     document.getElementById('windRacha').textContent = `${gust} km/h`;
                     
+                    // Aplicar colores dinámicos
+                    applyTempColor(document.getElementById('tempActual'), temp);
+                    applyWindColor(document.getElementById('windMedio'), wind);
+                    applyWindColor(document.getElementById('windRacha'), gust);
+                    applyColorToValue(document.getElementById('presion'), pressure, { low: 1010, medium: 1018, high: 1025 });
+                    applyColorToValue(document.getElementById('humedad'), hum, { low: 40, medium: 60, high: 80 });
+                    
                     const windDir = data.current.wind_direction_10m;
                     if (windDir !== undefined) {
                         const dirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
@@ -692,6 +767,8 @@
                 document.getElementById('windMedio').textContent = '18 km/h';
                 document.getElementById('windRacha').textContent = '28 km/h';
                 document.getElementById('windDir').textContent = 'SE';
+                applyTempColor(document.getElementById('tempActual'), 18);
+                applyWindColor(document.getElementById('windMedio'), 18);
                 resolve({ temp: 18, hum: 65, pressure: 1018, wind: 18, gust: 28 });
             }
         });
@@ -1064,8 +1141,8 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
         
-        // MATRIX RAIN CON EMOJIS
-        const emojisMatrix = ['🐵', '🍌', '🐵', '🍌', '🐒', '🍌', '🐵', '🍌'];
+        // MATRIX RAIN CON TEXTO COMPLETO 🍌🐵SUPERTILLA@DEV🐵🍌
+        const matrixText = '🍌🐵SUPERTILLA@DEV🐵🍌';
         const fontSize = 28;
         let columns = Math.floor(canvas.width / fontSize);
         let drops = [];
@@ -1085,15 +1162,14 @@
             ctx.font = `${fontSize}px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", "Orbitron", monospace`;
             
             for (let i = 0; i < drops.length; i++) {
-                const char = emojisMatrix[Math.floor(Math.random() * emojisMatrix.length)];
-                const x = i * fontSize;
-                const y = drops[i] * fontSize;
+                const charIndex = Math.floor(Math.random() * matrixText.length);
+                const char = matrixText[charIndex];
                 ctx.fillStyle = Math.random() > 0.97 ? '#ff66cc' : '#0ff';
                 ctx.shadowBlur = 8;
                 ctx.shadowColor = '#0ff';
-                ctx.fillText(char, x, y);
+                ctx.fillText(char, i * fontSize, drops[i] * fontSize);
                 
-                if (y > canvas.height && Math.random() > 0.975) {
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
                 drops[i]++;
@@ -1143,6 +1219,7 @@
             
             document.getElementById('fishingIndex').textContent = `${fishingIdx}/100`;
             document.getElementById('fishGauge').style.width = `${fishingIdx}%`;
+            applyFishingIndexColor(document.getElementById('fishingIndex'), fishingIdx);
             
             // ========== 1. GUARDAR ÍNDICE DE PESCA (añadir 1 punto) ==========
             historicoFishingIndex.push(fishingIdx);
