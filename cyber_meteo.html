@@ -3,19 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <meta name="theme-color" content="#0a0f1a">
-    <title>⚡ CYBER_METEO ⚡ Pesca PRO MAX | El Puerto de Santa María · Torneos & Records</title>
+    <title>⚡ CYBER_METEO ⚡ Pesca PRO | El Puerto de Santa María</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: radial-gradient(circle at 20% 30%, #0a0f1a, #03060c);
             font-family: 'Orbitron', 'Share Tech Mono', monospace;
             padding: 12px;
             color: #0ff;
-            position: relative;
-            overflow-x: hidden;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -30,123 +27,80 @@
             pointer-events: none;
             opacity: 0.55;
         }
-        .dashboard {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            flex: 1;
-        }
+        .dashboard { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; flex: 1; }
         
-        @keyframes rainbowBorderGlow {
-            0% { box-shadow: 0 0 3px #ff0000, 0 0 5px #ff0000; border-color: #ff0000; }
-            14% { box-shadow: 0 0 3px #ff7f00, 0 0 5px #ff7f00; border-color: #ff7f00; }
-            28% { box-shadow: 0 0 3px #ffff00, 0 0 5px #ffff00; border-color: #ffff00; }
-            42% { box-shadow: 0 0 3px #00ff00, 0 0 5px #00ff00; border-color: #00ff00; }
-            57% { box-shadow: 0 0 3px #00ffff, 0 0 5px #00ffff; border-color: #00ffff; }
-            71% { box-shadow: 0 0 3px #0000ff, 0 0 5px #0000ff; border-color: #0000ff; }
-            85% { box-shadow: 0 0 3px #8b00ff, 0 0 5px #8b00ff; border-color: #8b00ff; }
-            100% { box-shadow: 0 0 3px #ff0000, 0 0 5px #ff0000; border-color: #ff0000; }
-        }
-        
-        .hero, .card, .btn, .badge, .fishing-box, .warning, .wave-box, .fishing-detail, .species-tag, .tide-table, .modal-content, .tournament-card {
-            animation: rainbowBorderGlow 8s infinite linear;
-        }
-        
-        @keyframes neonPulse {
-            0% { text-shadow: 0 0 2px #0ff, 0 0 5px #0ff; }
-            100% { text-shadow: 0 0 8px #0ff, 0 0 20px #0ff, 0 0 30px #0ff; }
-        }
         @keyframes borderGlow {
-            0% { box-shadow: 0 0 5px rgba(0, 255, 255, 0.3); }
-            100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.8); }
+            0% { box-shadow: 0 0 5px rgba(0,255,255,0.3); }
+            100% { box-shadow: 0 0 20px rgba(0,255,255,0.8); }
         }
         @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-5px); } }
         
         .hero {
             display: flex;
             flex-direction: column;
-            align-items: stretch;
             gap: 12px;
-            background: rgba(0, 20, 30, 0.7);
+            background: rgba(0,20,30,0.7);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 255, 255, 0.4);
+            border: 1px solid #0ff;
             border-radius: 20px;
-            padding: 20px 16px;
+            padding: 20px;
             margin-bottom: 20px;
             animation: borderGlow 2s infinite alternate;
         }
         .title-section h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #0ff, #f0f, #ff0, #0ff);
+            background: linear-gradient(135deg, #0ff, #f0f, #ff0);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
             text-align: center;
-            letter-spacing: 4px;
-            animation: neonPulse 1.5s infinite alternate;
-        }
-        .title-section p { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 10px; }
-        .badge {
-            background: rgba(0, 255, 255, 0.2);
-            border: 1px solid #0ff;
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-family: 'Share Tech Mono', monospace;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #0ff;
-        }
-        .supertilla-dev {
-            background: linear-gradient(135deg, #ff00ff30, #00ffff30);
-            border: 2px solid #ff00ff;
-            cursor: pointer;
-            animation: neonPulse 1s infinite alternate;
-        }
-        .action-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-        .btn {
-            background: linear-gradient(135deg, #0ff1, #f0f1);
-            border: 2px solid #0ff;
-            color: #0ff;
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            min-width: 130px;
-            text-align: center;
-        }
-        .btn:active { transform: scale(0.96); }
-        .btn-wa { background: linear-gradient(135deg, #25D36630, #128C7E30); border-color: #25D366; color: #25D366; }
-        
-        @media (max-width: 768px) {
-            .title-section h1 { font-size: 1.5rem; letter-spacing: 2px; }
-            .btn { padding: 10px 16px; font-size: 0.75rem; min-width: 100px; }
         }
         @media (min-width: 640px) {
             .hero { flex-direction: row; align-items: center; justify-content: space-between; }
             .title-section h1 { font-size: 2rem; text-align: left; }
         }
-        @media (min-width: 1024px) {
-            .title-section h1 { font-size: 2.8rem; }
+        @media (min-width: 1024px) { .title-section h1 { font-size: 2.5rem; } }
+        
+        .badge {
+            background: rgba(0,255,255,0.2);
+            border: 1px solid #0ff;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            display: inline-block;
         }
+        .supertilla-dev {
+            background: linear-gradient(135deg, #ff00ff30, #00ffff30);
+            border: 2px solid #ff00ff;
+            cursor: pointer;
+        }
+        .action-buttons { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+        .btn {
+            background: linear-gradient(135deg, #0ff1, #f0f1);
+            border: 2px solid #0ff;
+            color: #0ff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-wa { border-color: #25D366; color: #25D366; }
+        .btn:active { transform: scale(0.96); }
         
         .grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px; }
         @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
         
         .card {
-            background: rgba(0, 20, 30, 0.7);
+            background: rgba(0,20,30,0.7);
             backdrop-filter: blur(12px);
             border-radius: 20px;
             padding: 16px;
-            border: 1px solid rgba(0, 255, 255, 0.5);
-            transition: all 0.2s;
-            animation: float 3s infinite alternate ease-in-out;
+            border: 1px solid #0ff;
+            animation: float 3s infinite alternate;
         }
         .card-header {
             display: flex;
@@ -156,38 +110,27 @@
             padding-bottom: 10px;
             margin-bottom: 12px;
         }
-        .card-header h2 { font-size: 1.1rem; font-weight: 700; color: #0ff; text-shadow: 0 0 3px #0ff; }
-        .chart-container { height: 180px; margin: 8px 0; }
-        .data-row { display: flex; justify-content: space-between; margin: 8px 0; border-bottom: 1px dashed rgba(0, 255, 255, 0.2); padding: 6px 0; font-size: 0.75rem; }
-        .data-row span:first-child { color: #0ff; font-weight: 500; }
-        
-        .valor-cyan { color: #0ff; text-shadow: 0 0 5px #0ff; }
-        .valor-magenta { color: #f0f; text-shadow: 0 0 8px #f0f; }
-        .valor-verde { color: #0f0; text-shadow: 0 0 8px #0f0; }
-        .valor-naranja { color: #ff6600; text-shadow: 0 0 8px #ff6600; }
-        .valor-rojo { color: #ff3300; text-shadow: 0 0 8px #ff3300; }
-        .valor-oro { color: #ffd700; text-shadow: 0 0 8px #ffd700; }
-        
-        .wave-box, .fishing-box { background: rgba(0, 255, 255, 0.1); border-radius: 16px; padding: 12px; text-align: center; border: 1px solid #0ff; margin: 10px 0; font-size: 0.75rem; }
-        .wave-box div, .fishing-box div { margin: 6px 0; }
-        .warning { background: rgba(255, 0, 255, 0.15); border-left: 3px solid #f0f; padding: 8px; border-radius: 10px; margin-top: 10px; font-size: 0.7rem; }
-        .tide-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
-        .tide-table td, .tide-table th { padding: 8px 4px; border-bottom: 1px solid #0ff3; text-align: center; }
-        .tide-table th { background: rgba(0, 255, 255, 0.2); font-weight: bold; color: #0ff; }
-        .species-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
-        .species-tag { background: #0ff2; border-radius: 20px; padding: 4px 10px; font-size: 0.65rem; border: 1px solid #0ff; cursor: pointer; transition: all 0.2s; }
-        .species-tag:hover { background: #f0f2; transform: scale(1.05); }
-        .gauge { background: #0a0f1a; border-radius: 20px; height: 8px; margin: 8px 0; overflow: hidden; }
-        .gauge-fill { height: 100%; background: linear-gradient(90deg, #0ff, #f0f); width: 0%; border-radius: 20px; transition: width 0.3s; }
-        .fishing-detail { background: rgba(0, 255, 255, 0.05); border-radius: 12px; padding: 10px; margin: 8px 0; }
-        .last-update { text-align: right; font-size: 0.65rem; margin-bottom: 12px; color: #0ff; }
-        footer { text-align: center; margin-top: 30px; padding: 15px; border-top: 1px solid #0ff; font-size: 0.5rem; line-height: 1.4; color: #0ff; opacity: 0.8; }
-        .record-badge { background: linear-gradient(135deg, gold, orange); color: #000; font-weight: bold; padding: 2px 8px; border-radius: 20px; margin-left: 5px; }
-        .tournament-card { background: linear-gradient(135deg, #ffaa0022, #ff660022); border: 1px solid #ffaa00; border-radius: 12px; padding: 12px; margin: 10px 0; }
-        .tournament-title { color: #ffaa00; font-weight: bold; font-size: 0.85rem; margin-bottom: 8px; }
-        .consejos-container { display: flex; flex-direction: column; gap: 8px; max-height: 400px; overflow-y: auto; }
-        .consejo-item { background: rgba(0,255,255,0.08); border-radius: 10px; padding: 8px 10px; font-size: 0.7rem; border-left: 3px solid #0ff; margin: 2px 0; }
-        .fishing-tip-highlight { color: #ffaa00; font-weight: bold; }
+        .card-header h2 { font-size: 1rem; color: #0ff; }
+        .chart-container { height: 170px; margin: 8px 0; }
+        .data-row { display: flex; justify-content: space-between; margin: 6px 0; border-bottom: 1px dashed rgba(0,255,255,0.2); padding: 5px 0; font-size: 0.7rem; }
+        .wave-box, .fishing-box { background: rgba(0,255,255,0.1); border-radius: 16px; padding: 10px; text-align: center; border: 1px solid #0ff; margin: 8px 0; font-size: 0.7rem; }
+        .wave-box div, .fishing-box div { margin: 5px 0; }
+        .gauge { background: #0a0f1a; border-radius: 20px; height: 6px; margin: 6px 0; overflow: hidden; }
+        .gauge-fill { height: 100%; background: linear-gradient(90deg, #0ff, #f0f); width: 0%; transition: width 0.3s; }
+        .tide-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
+        .tide-table td, .tide-table th { padding: 6px 2px; border-bottom: 1px solid #0ff3; text-align: center; }
+        .species-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+        .species-tag { background: #0ff2; border-radius: 20px; padding: 3px 8px; font-size: 0.6rem; border: 1px solid #0ff; cursor: pointer; }
+        .tournament-card { background: linear-gradient(135deg, #ffaa0022, #ff660022); border: 1px solid #ffaa00; border-radius: 12px; padding: 10px; margin: 10px 0; font-size: 0.65rem; }
+        .tournament-title { color: #ffaa00; font-weight: bold; }
+        .consejos-container { max-height: 350px; overflow-y: auto; }
+        .consejo-item { background: rgba(0,255,255,0.08); border-radius: 8px; padding: 6px 8px; font-size: 0.65rem; border-left: 3px solid #0ff; margin: 4px 0; }
+        .last-update { text-align: right; font-size: 0.6rem; margin-bottom: 12px; color: #0ff; }
+        footer { text-align: center; margin-top: 25px; padding: 12px; border-top: 1px solid #0ff; font-size: 0.45rem; color: #0ff; opacity: 0.7; }
+        .valor-cyan { color: #0ff; }
+        .valor-magenta { color: #f0f; }
+        .valor-verde { color: #0f0; }
+        .valor-naranja { color: #ff6600; }
         .modal {
             display: none;
             position: fixed;
@@ -195,8 +138,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 10003;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
             justify-content: center;
             align-items: center;
         }
@@ -208,11 +151,11 @@
             max-width: 90%;
             max-height: 80%;
             overflow-y: auto;
-            color: #0ff;
         }
-        .close-modal { float: right; cursor: pointer; font-size: 1.8rem; color: #f0f; }
-        .fishing-factor-badge { background: #ffaa0022; border-radius: 15px; padding: 2px 8px; margin: 2px; display: inline-block; }
-        .info-row { margin: 4px 0; }
+        .close-modal { float: right; cursor: pointer; font-size: 1.5rem; color: #f0f; }
+        .record-badge { background: linear-gradient(135deg, gold, orange); color: #000; padding: 2px 6px; border-radius: 20px; font-size: 0.7rem; }
+        .fishing-tip-highlight { color: #ffaa00; }
+        @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
 <body>
@@ -222,10 +165,8 @@
     <div class="hero">
         <div class="title-section">
             <h1>⚡ CYBER_METEO ⚡</h1>
-            <p>
-                <span class="badge">📍 EL PUERTO DE SANTA MARÍA · CÁDIZ</span>
-                <span class="badge supertilla-dev" id="easterEggTrigger">🐵🍌 SUPERTILLA@DEV 🍌🐵</span>
-            </p>
+            <p><span class="badge">📍 EL PUERTO DE SANTA MARÍA · CÁDIZ</span>
+            <span class="badge supertilla-dev" id="easterEggTrigger">🐵🍌 SUPERTILLA@DEV 🍌🐵</span></p>
         </div>
         <div class="action-buttons">
             <button class="btn" id="refreshBtn">🔄 ACTUALIZAR</button>
@@ -233,241 +174,254 @@
             <button class="btn" id="counterBtn">👁️ VISITAS: <span id="visitCounter">0</span></button>
         </div>
     </div>
-    <div class="last-update" id="lastUpdateTime">🕒 CONECTANDO CON API OFICIAL...</div>
+    <div class="last-update" id="lastUpdateTime">🕒 CARGANDO DATOS...</div>
 
     <!-- GRÁFICOS ARRIBA -->
     <div class="grid">
-        <div class="card"><div class="card-header"><span>🌊🌡️</span><h2>TEMP AGUA / TIERRA</h2></div><div class="chart-container"><canvas id="tempChartDouble"></canvas></div></div>
-        <div class="card"><div class="card-header"><span>📈🎣</span><h2>ÍNDICE PESCA 24h</h2></div><div class="chart-container"><canvas id="fishingIndexChart"></canvas></div></div>
-        <div class="card"><div class="card-header"><span>🌊📊</span><h2>EVOLUCIÓN OLEAJE</h2></div><div class="chart-container"><canvas id="waveHistoryChart"></canvas></div></div>
-        <div class="card"><div class="card-header"><span>🌡️💧</span><h2>TEMP vs HUMEDAD</h2></div><div class="chart-container"><canvas id="tempHumChart"></canvas></div></div>
+        <div class="card"><div class="card-header"><span>🌊🌡️</span><h2>TEMP AGUA / TIERRA</h2></div><div class="chart-container"><canvas id="tempChart"></canvas></div></div>
+        <div class="card"><div class="card-header"><span>📈🎣</span><h2>ÍNDICE PESCA 24h</h2></div><div class="chart-container"><canvas id="fishChart"></canvas></div></div>
+        <div class="card"><div class="card-header"><span>🌊📊</span><h2>EVOLUCIÓN OLEAJE</h2></div><div class="chart-container"><canvas id="waveChart"></canvas></div></div>
+        <div class="card"><div class="card-header"><span>🌡️💧</span><h2>TEMP vs HUMEDAD</h2></div><div class="chart-container"><canvas id="thChart"></canvas></div></div>
         <div class="card"><div class="card-header"><span>💨⚡</span><h2>VIENTO · RACHAS</h2></div><div class="chart-container"><canvas id="windChart"></canvas></div></div>
     </div>
 
-    <!-- INFORMACIÓN PESCA FULL MAX -->
+    <!-- INFORMACIÓN PESCA -->
     <div class="grid">
         <div class="card">
-            <div class="card-header"><span>🌊⚡</span><h2>ESTADO DEL MAR · OPEN-METEO</h2></div>
+            <div class="card-header"><span>🌊</span><h2>ESTADO DEL MAR</h2></div>
             <div class="wave-box">
-                <div>🌊 ALTURA DE OLA SIGNIFICATIVA: <strong id="olaAltura">-- m</strong></div>
-                <div>📏 PERÍODO PICO: <span id="wavePeriod">-- s</span> | 🧭 DIRECCIÓN: <span id="waveDir">--</span></div>
-                <div>⚡ POTENCIA DEL OLEAJE: <span id="wavePower">-- W/m</span> (Energía transportada)</div>
-                <div>📏 SWELL (Mar de fondo): <span id="marFondo">-- m</span> | PERÍODO SWELL: <span id="swellPeriod">-- s</span></div>
-                <div>🌊 WIND WAVE (Viento local): <span id="windWave">-- m</span> | ALTURA MÁXIMA: <span id="maxWave">-- m</span></div>
-                <div>🌡️ TEMPERATURA SUPERFICIE AGUA: <strong id="seaTemp">--°C</strong></div>
-                <div>💎 VISIBILIDAD SUBACUÁTICA: <span id="visibilidadAgua">-- m</span> | CORRIENTE: <span id="corrienteMar">-- nudos</span></div>
+                <div>🌊 ALTURA OLA: <strong id="olaAltura">-- m</strong></div>
+                <div>📏 PERÍODO: <span id="wavePeriod">-- s</span> | 🧭 DIR: <span id="waveDir">--</span></div>
+                <div>⚡ POTENCIA: <span id="wavePower">-- W/m</span></div>
+                <div>📏 SWELL: <span id="marFondo">-- m</span> / <span id="swellPeriod">-- s</span></div>
+                <div>🌡️ TEMP AGUA: <strong id="seaTemp">--°C</strong></div>
+                <div>💎 VISIBILIDAD: <span id="visibilidad">-- m</span></div>
             </div>
-            <div class="warning" id="avisoMar">🌊 CARGANDO DATOS DE OLEAJE...</div>
+            <div class="warning" id="avisoMar">🌊 CARGANDO...</div>
         </div>
         
         <div class="card">
-            <div class="card-header"><span>🌡️🌬️</span><h2>CLIMA EN TIEMPO REAL</h2></div>
-            <div class="data-row"><span>🌡️ TEMPERATURA AIRE:</span><span class="big-number" id="tempActual">--°C</span></div>
-            <div class="data-row"><span>🌡️ SENSACIÓN TÉRMICA:</span><span id="sensacion">--°C</span></div>
-            <div class="data-row"><span>💧 HUMEDAD RELATIVA:</span><span id="humedad">--%</span></div>
+            <div class="card-header"><span>🌡️🌬️</span><h2>CLIMA</h2></div>
+            <div class="data-row"><span>🌡️ TEMPERATURA:</span><span id="tempActual">--°C</span></div>
+            <div class="data-row"><span>🌡️ SENSACIÓN:</span><span id="sensacion">--°C</span></div>
+            <div class="data-row"><span>💧 HUMEDAD:</span><span id="humedad">--%</span></div>
             <div class="gauge"><div class="gauge-fill" id="humGauge"></div></div>
-            <div class="data-row"><span>📊 PRESIÓN ATMOSFÉRICA:</span><span id="presion">-- hPa</span></div>
-            <div class="data-row"><span>💨 VIENTO MEDIO:</span><span id="windMedio">-- km/h</span> <span id="windDir">--</span></div>
-            <div class="data-row"><span>⚡ RACHAS MÁXIMAS:</span><span id="windRacha">-- km/h</span></div>
+            <div class="data-row"><span>📊 PRESIÓN:</span><span id="presion">-- hPa</span></div>
+            <div class="data-row"><span>💨 VIENTO:</span><span id="viento">-- km/h</span> <span id="windDir">--</span></div>
+            <div class="data-row"><span>⚡ RACHAS:</span><span id="racha">-- km/h</span></div>
             <div class="data-row"><span>☁️ NUBOSIDAD:</span><span id="nubes">--</span></div>
-            <div class="data-row"><span>🌧️ PRECIPITACIÓN:</span><span id="rain">--</span></div>
-            <div class="data-row"><span>🌈 ÍNDICE UV:</span><span id="uvIndex">--</span></div>
-            <div class="data-row"><span>🌬️ PUNTO DE ROCÍO:</span><span id="dewPoint">--°C</span></div>
+            <div class="data-row"><span>🌧️ LLUVIA:</span><span id="lluvia">--</span></div>
         </div>
         
         <div class="card">
-            <div class="card-header"><span>🎣🏆👑</span><h2>ÍNDICE PESCA PRO MAX</h2></div>
+            <div class="card-header"><span>🎣🏆</span><h2>ÍNDICE PESCA PRO</h2></div>
             <div class="fishing-box">
-                <div>🐟 ÍNDICE GLOBAL: <strong id="fishingIndex" style="font-size:1.6rem;">--/100</strong></div>
+                <div>🐟 ÍNDICE: <strong id="fishIndex" style="font-size:1.4rem;">--/100</strong></div>
                 <div class="gauge"><div class="gauge-fill" id="fishGauge"></div></div>
-                <div id="fishingDetail" style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:8px 0;"></div>
-                <div>⏰ MEJOR MOMENTO DEL DÍA: <strong id="bestFishingTime" class="fishing-tip-highlight">--</strong></div>
-                <div>🪱 CEBO ESTRELLA: <strong id="baitRec">--</strong></div>
-                <div>📍 ZONA HOT (Mejor spot): <strong id="hotZone">--</strong></div>
-                <div>🎯 ESPECIE CLAVE DEL DÍA: <strong id="keySpecies">--</strong></div>
-                <div>🌙 FASE LUNAR IDEAL: <span id="moonAdvice">--</span></div>
-                <div>🌊 CORRIENTE Y ESTRATEGIA: <span id="currentAdvice">--</span></div>
-                <div>📏 PROFUNDIDAD RECOMENDADA: <span id="depthAdvice">--</span></div>
-                <div>🎣 TÉCNICA PRO: <span id="techAdvice">--</span></div>
+                <div>⏰ MEJOR MOMENTO: <strong id="bestTime" class="fishing-tip-highlight">--</strong></div>
+                <div>🪱 CEBO ESTRELLA: <span id="bait">--</span></div>
+                <div>📍 ZONA HOT: <span id="hotZone">--</span></div>
+                <div>🎯 ESPECIE CLAVE: <span id="keySpecies">--</span></div>
+                <div>🌙 FASE LUNAR: <span id="moonAdvice">--</span></div>
+                <div>🌊 CORRIENTE: <span id="currentAdvice">--</span></div>
+                <div>🎣 TÉCNICA: <span id="techAdvice">--</span></div>
             </div>
         </div>
     </div>
 
     <div class="grid">
         <div class="card">
-            <div class="card-header"><span>🌙📅</span><h2>MAREAS OFICIALES IHM</h2></div>
-            <table class="tide-table"><thead><tr><th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th></tr></thead><tbody id="tideTableBody"></tbody></table>
-            <div style="background:#0ff1; border-radius: 16px; padding: 12px; margin-top: 12px;">
-                <div>🌙 FASE LUNAR: <strong id="faseLuna">--</strong> | 💡 ILUMINACIÓN: <span id="iluminacionLuna">--%</span></div>
-                <div>📊 COEFICIENTE DE MAREA: <strong id="coeficienteMarea">77</strong> (Muy buena actividad)</div>
+            <div class="card-header"><span>🌙📅</span><h2>MAREAS IHM</h2></div>
+            <table class="tide-table"><thead><tr><th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th></tr></thead><tbody id="tideBody"></tbody></table>
+            <div style="background:#0ff1; border-radius: 16px; padding: 10px; margin-top: 10px;">
+                <div>🌙 FASE LUNAR: <strong id="faseLuna">--</strong> | 💡 ILUM: <span id="ilumLuna">--%</span></div>
+                <div>📊 COEFICIENTE: <strong id="coefMarea">77</strong></div>
                 <div>🌅 AMANECER: <span id="sunrise">--</span> · 🌇 ATARDECER: <span id="sunset">--</span></div>
-                <div>📅 PRÓXIMA PLEAMAR: <span id="nextHigh">--</span> · PRÓXIMA BAJAMAR: <span id="nextLow">--</span></div>
-                <div>🎣 MEJOR MUELLE SEGÚN MAREA: <strong id="bestPier" class="fishing-tip-highlight">--</strong></div>
+                <div>📅 PRÓXIMA PLEAMAR: <span id="nextHigh">--</span></div>
+                <div>🎣 MEJOR MUELLE: <strong id="bestPier">--</strong></div>
             </div>
         </div>
         
         <div class="card">
-            <div class="card-header"><span>🐟🏆📜</span><h2>ESPECIES · RÉCORDS · TORNEOS</h2></div>
+            <div class="card-header"><span>🐟🏆</span><h2>ESPECIES · RÉCORDS</h2></div>
             <div class="species-list" id="speciesList">
-                <span class="species-tag" data-species="lubina">🐟 LUBINA | REC:18.2kg 🏆</span>
-                <span class="species-tag" data-species="sargo">🐠 SARGO | REC:3.1kg 🏆</span>
-                <span class="species-tag" data-species="dorada">🐡 DORADA | REC:7.5kg 🏆</span>
-                <span class="species-tag" data-species="pargo">🐙 PARGO | REC:6.8kg 🏆</span>
-                <span class="species-tag" data-species="choco">🦑 CHOCO | REC:3.2kg 🏆</span>
-                <span class="species-tag" data-species="corvina">🐟 CORVINA | REC:25.1kg 🏆</span>
-                <span class="species-tag" data-species="mero">🐟 MERO | REC:52kg 🏆</span>
-                <span class="species-tag" data-species="caballa">🐟 CABALLA | REC:1.8kg 🏆</span>
-                <span class="species-tag" data-species="pulpo">🦑 PULPO | REC:12.5kg 🏆</span>
-                <span class="species-tag" data-species="gamba">🦐 GAMBA | REC:0.15kg 🏆</span>
+                <span class="species-tag" data-spec="lubina">🐟 LUBINA | 18.2kg 🏆</span>
+                <span class="species-tag" data-spec="dorada">🐡 DORADA | 7.5kg 🏆</span>
+                <span class="species-tag" data-spec="corvina">🐟 CORVINA | 25.1kg 🏆</span>
+                <span class="species-tag" data-spec="mero">🐟 MERO | 52kg 🏆</span>
+                <span class="species-tag" data-spec="choco">🦑 CHOCO | 3.2kg 🏆</span>
+                <span class="species-tag" data-spec="sargo">🐠 SARGO | 3.1kg 🏆</span>
+                <span class="species-tag" data-spec="pargo">🐙 PARGO | 6.8kg 🏆</span>
+                <span class="species-tag" data-spec="pulpo">🦑 PULPO | 12.5kg 🏆</span>
             </div>
-            <div id="speciesDetail" class="fishing-detail">
-                <div class="data-row"><span>📅 MEJOR ÉPOCA:</span><span id="speciesSeason">--</span></div>
-                <div class="data-row"><span>🪱 CEBO IDEAL:</span><span id="speciesBait">--</span></div>
-                <div class="data-row"><span>📍 ZONAS PRO:</span><span id="speciesZones">--</span></div>
-                <div class="data-row"><span>🎣 TÉCNICA:</span><span id="speciesTech">--</span></div>
-                <div class="data-row"><span>🏆 RÉCORD LOCAL:</span><span id="speciesRecord">--</span></div>
-                <div class="data-row"><span>🎯 CONSEJO PRO:</span><span id="speciesTip">--</span></div>
+            <div id="specDetail" style="background:rgba(0,255,255,0.05); border-radius:12px; padding:8px; margin:8px 0;">
+                <div class="data-row"><span>📅 MEJOR ÉPOCA:</span><span id="specEpoch">--</span></div>
+                <div class="data-row"><span>🪱 CEBO IDEAL:</span><span id="specBait">--</span></div>
+                <div class="data-row"><span>📍 ZONAS:</span><span id="specZones">--</span></div>
+                <div class="data-row"><span>🎣 TÉCNICA:</span><span id="specTech">--</span></div>
+                <div class="data-row"><span>🏆 RÉCORD:</span><span id="specRecord">--</span></div>
             </div>
             <div class="tournament-card">
-                <div class="tournament-title">🏆🏆 TORNEO OFICIAL "LUBINA DE ORO" 2026 🏆🏆</div>
-                <div>📅 FECHA: 15-16 ABRIL · INSCRIPCIÓN ABIERTA</div>
-                <div>💰 PREMIOS: 1º 3.500€ + Equipo Profesional · 2º 1.500€ · 3º 750€</div>
-                <div>📍 ZONA DE COMPETICIÓN: Escollera Puerto Sherry - Punta Boquerón - Valdelagrana</div>
-                <div>🏅 RÉCORD DEL TORNEO: Lubina 18.2kg (Juan M. 2023) · ¡A por el récord!</div>
-                <div>🎣 MODALIDAD: Surfcasting y Spinning · Talla mínima 36cm</div>
+                <div class="tournament-title">🏆 TORNEO "LUBINA DE ORO" 2026 🏆</div>
+                <div>📅 15-16 ABRIL · 1er PREMIO: 3.500€</div>
+                <div>📍 ZONA: Escollera Puerto Sherry - Punta Boquerón</div>
+                <div>🏅 RÉCORD TORNEO: 18.2kg (2023)</div>
             </div>
         </div>
         
         <div class="card">
-            <div class="card-header"><span>🎣💡🔥</span><h2>CONSEJOS PRO · 12 CLAVES</h2></div>
+            <div class="card-header"><span>🎣💡</span><h2>CONSEJOS PRO · 10 CLAVES</h2></div>
             <div class="consejos-container" id="consejosContainer">
-                <div class="consejo-item">🔹 <strong id="consejo1">--</strong></div>
-                <div class="consejo-item">🔹 <strong id="consejo2">--</strong></div>
-                <div class="consejo-item">🔹 <strong id="consejo3">--</strong></div>
-                <div class="consejo-item">🔹 <strong id="consejo4">--</strong></div>
-                <div class="consejo-item">🔹 <strong id="consejo5">--</strong></div>
-                <div class="consejo-item">🔹 <strong id="consejo6">--</strong></div>
-                <div class="consejo-item">🔹 <strong id="consejo7">--</strong></div>
-                <div class="consejo-item">🔹 <strong id="consejo8">--</strong></div>
-                <div class="consejo-item">🔹 <strong id="consejo9">--</strong></div>
-                <div class="consejo-item">🔹 <strong id="consejo10">--</strong></div>
-                <div class="consejo-item">🔹 <strong id="consejo11">--</strong></div>
-                <div class="consejo-item">🔹 <strong id="consejo12">--</strong></div>
+                <div class="consejo-item">🔹 <strong id="tip1">--</strong></div>
+                <div class="consejo-item">🔹 <strong id="tip2">--</strong></div>
+                <div class="consejo-item">🔹 <strong id="tip3">--</strong></div>
+                <div class="consejo-item">🔹 <strong id="tip4">--</strong></div>
+                <div class="consejo-item">🔹 <strong id="tip5">--</strong></div>
+                <div class="consejo-item">🔹 <strong id="tip6">--</strong></div>
+                <div class="consejo-item">🔹 <strong id="tip7">--</strong></div>
+                <div class="consejo-item">🔹 <strong id="tip8">--</strong></div>
+                <div class="consejo-item">🔹 <strong id="tip9">--</strong></div>
+                <div class="consejo-item">🔹 <strong id="tip10">--</strong></div>
             </div>
         </div>
     </div>
 </div>
 
-<footer>
-    ⚡ CYBER_METEO Pesca PRO MAX Edition 🐵🍌 Desarrollada por SUPERTILLA@DEV con DeepSeek AI · Fuentes: Open-Meteo Marine & Weather · IHM Mareas Oficiales · Datos Torneos Federación Andaluza de Pesca 2026
-</footer>
+<footer>⚡ CYBER_METEO Pesca PRO · 🐵🍌 SUPERTILLA@DEV · DeepSeek AI · Open-Meteo · IHM Mareas Oficiales 2026</footer>
 
 <div id="speciesModal" class="modal"><div class="modal-content"><span class="close-modal">&times;</span><h3 id="modalTitle"></h3><div id="modalBody"></div></div></div>
 
 <script>
-    // ============================================
-    // MATRIX RAIN PERSONALIZADA: 🐵🍌SUPERTILLA@DEV
-    // ============================================
-    const canvasMat = document.getElementById('matrixCanvas');
-    let ctxMat = canvasMat.getContext('2d');
+    // ==================== MATRIX RAIN 🐵🍌SUPERTILLA@DEV ====================
+    const canvas = document.getElementById('matrixCanvas');
+    let ctx = canvas.getContext('2d');
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
     
-    function resizeMatrix() {
-        canvasMat.width = window.innerWidth;
-        canvasMat.height = window.innerHeight;
+    const matrixText = "🐵🍌SUPERTILLA@DEV";
+    const matrixChars = matrixText.split('');
+    let fontSize = Math.max(22, Math.floor(window.innerWidth / 38));
+    let cols = Math.floor(canvas.width / fontSize);
+    let drops = [];
+    function initDrops() {
+        cols = Math.floor(canvas.width / fontSize);
+        drops = [];
+        for(let i = 0; i < cols; i++) drops.push(Math.random() * -150);
     }
-    resizeMatrix();
-    window.addEventListener('resize', resizeMatrix);
+    initDrops();
     
-    const matrixString = "🐵🍌SUPERTILLA@DEV";
-    const matrixCharsArray = matrixString.split('');
-    let matrixFontSize = Math.max(24, Math.floor(window.innerWidth / 38));
-    let matrixColumns = Math.floor(canvasMat.width / matrixFontSize);
-    let matrixDrops = [];
-    
-    function initMatrixDrops() {
-        matrixColumns = Math.floor(canvasMat.width / matrixFontSize);
-        matrixDrops = [];
-        for (let i = 0; i < matrixColumns; i++) {
-            matrixDrops.push(Math.random() * -180);
+    function drawMatrix() {
+        ctx.fillStyle = "rgba(10, 15, 26, 0.045)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = `${fontSize}px "Segoe UI Emoji", "Apple Color Emoji", "Orbitron", monospace`;
+        for(let i = 0; i < drops.length; i++) {
+            const ch = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+            const x = i * fontSize;
+            const y = drops[i] * fontSize;
+            ctx.fillStyle = Math.random() > 0.95 ? "#ff00ff" : (Math.random() > 0.8 ? "#0ff" : "#0aa");
+            ctx.fillText(ch, x, y);
+            if(y > canvas.height && Math.random() > 0.98) drops[i] = 0;
+            drops[i]++;
         }
+        requestAnimationFrame(drawMatrix);
     }
+    drawMatrix();
+    window.addEventListener('resize', () => { fontSize = Math.max(22, Math.floor(window.innerWidth / 38)); initDrops(); });
     
-    function drawMatrixRain() {
-        ctxMat.fillStyle = "rgba(10, 15, 26, 0.045)";
-        ctxMat.fillRect(0, 0, canvasMat.width, canvasMat.height);
-        // Fuente con soporte de emojis + Orbitron
-        ctxMat.font = `${matrixFontSize}px "Segoe UI Emoji", "Apple Color Emoji", "Orbitron", monospace`;
-        
-        for (let i = 0; i < matrixDrops.length; i++) {
-            const char = matrixCharsArray[Math.floor(Math.random() * matrixCharsArray.length)];
-            const x = i * matrixFontSize;
-            const y = matrixDrops[i] * matrixFontSize;
-            const rand = Math.random();
-            if (rand > 0.96) ctxMat.fillStyle = "#ff00ff";
-            else if (rand > 0.82) ctxMat.fillStyle = "#00ffff";
-            else ctxMat.fillStyle = "#0cc";
-            ctxMat.fillText(char, x, y);
-            
-            if (y > canvasMat.height && Math.random() > 0.98) {
-                matrixDrops[i] = 0;
-            }
-            matrixDrops[i]++;
-        }
-        requestAnimationFrame(drawMatrixRain);
-    }
-    
-    initMatrixDrops();
-    drawMatrixRain();
-    window.addEventListener('resize', () => {
-        matrixFontSize = Math.max(24, Math.floor(window.innerWidth / 38));
-        initMatrixDrops();
-    });
-    
-    // ============================================
-    // CONFIGURACIÓN GLOBAL
-    // ============================================
+    // ==================== DATOS Y VARIABLES ====================
     const LAT = 36.5939, LON = -6.2329;
-    let tempDoubleChart, fishingIndexChart, waveHistoryChart, tempHumChart, windChart;
+    let visitas = parseInt(localStorage.getItem('visitas') || 0) + 1;
+    localStorage.setItem('visitas', visitas);
+    document.getElementById('visitCounter').textContent = visitas;
     
-    // STORAGE PERSISTENCIA
-    let historicoTempAgua = JSON.parse(localStorage.getItem('tempAgua') || '[15.2,15.1,15.0,14.9,15.0,15.1,15.2]');
-    let historicoTempTierra = JSON.parse(localStorage.getItem('tempTierra') || '[18,17,19,20,19,18,17]');
-    let historicoTempLabels = JSON.parse(localStorage.getItem('tempLabels') || '["12:00","11:00","10:00","09:00","08:00","07:00","06:00"]');
-    let historicoFishingIndex = JSON.parse(localStorage.getItem('fishingIdx') || '[50,52,55,58,62,65,68]');
-    let historicoFishingLabels = JSON.parse(localStorage.getItem('fishingLabels') || '["12:00","11:00","10:00","09:00","08:00","07:00","06:00"]');
-    let historicoTemp = JSON.parse(localStorage.getItem('temp') || '[18,17,19,20,19,18,17]');
-    let historicoHum = JSON.parse(localStorage.getItem('hum') || '[65,67,63,60,62,65,68]');
-    let historicoWind = JSON.parse(localStorage.getItem('wind') || '[12,14,11,10,13,15,12]');
-    let historicoGust = JSON.parse(localStorage.getItem('gust') || '[18,21,17,15,19,22,18]');
-    let historicoWave = JSON.parse(localStorage.getItem('wave') || '[0.8,0.9,0.7,0.8,0.9,0.8,0.7]');
-    let historicoWaveLabels = JSON.parse(localStorage.getItem('waveLabels') || '["12:00","11:00","10:00","09:00","08:00","07:00","06:00"]');
+    // Historiales
+    let tempAgua = [15.2,15.1,15.0,14.9,15.0,15.1,15.2];
+    let tempTierra = [18,17,19,20,19,18,17];
+    let labels = ['12:00','11:00','10:00','09:00','08:00','07:00','06:00'];
+    let fishHist = [50,52,55,58,62,65,68];
+    let fishLabels = [...labels];
+    let waveHist = [0.8,0.9,0.7,0.8,0.9,0.8,0.7];
+    let waveLabels = [...labels];
+    let tempHist = [18,17,19,20,19,18,17];
+    let humHist = [65,67,63,60,62,65,68];
+    let windHist = [12,14,11,10,13,15,12];
+    let gustHist = [18,21,17,15,19,22,18];
     
-    let visitCount = parseInt(localStorage.getItem('visitas') || 0) + 1;
-    localStorage.setItem('visitas', visitCount);
-    document.getElementById('visitCounter').textContent = visitCount;
+    // Gráficos
+    let tempChart, fishChart, waveChart, thChart, windChart;
     
-    // ============================================
-    // COLORES DINÁMICOS
-    // ============================================
-    function applyTempColor(el, v) { if(!el)return; el.classList.remove('valor-cyan','valor-magenta','valor-verde','valor-naranja','valor-rojo'); if(v<10||v>30) el.classList.add('valor-rojo'); else if(v<12||v>28) el.classList.add('valor-naranja'); else if(v<14||v>26) el.classList.add('valor-verde'); else if(v>=16&&v<=24) el.classList.add('valor-magenta'); else el.classList.add('valor-cyan'); }
-    function applyWindColor(el, v) { if(!el)return; el.classList.remove('valor-cyan','valor-magenta','valor-verde','valor-naranja'); if(v>40) el.classList.add('valor-rojo'); else if(v>30) el.classList.add('valor-naranja'); else if(v>20) el.classList.add('valor-verde'); else if(v>10) el.classList.add('valor-magenta'); else el.classList.add('valor-cyan'); }
-    function applyWaveColor(el, v) { if(!el)return; el.classList.remove('valor-cyan','valor-magenta','valor-verde','valor-naranja','valor-rojo'); if(v>2.5) el.classList.add('valor-rojo'); else if(v>1.8) el.classList.add('valor-naranja'); else if(v>1.2) el.classList.add('valor-verde'); else if(v>0.6) el.classList.add('valor-magenta'); else el.classList.add('valor-cyan'); }
+    function initCharts() {
+        tempChart = new Chart(document.getElementById('tempChart'), {
+            type: 'line', data: { labels: labels, datasets: [
+                { label: '🌊 Temp Agua', data: tempAgua, borderColor: '#0ff', borderWidth: 2 },
+                { label: '🌡️ Temp Tierra', data: tempTierra, borderColor: '#f0f', borderWidth: 2 }
+            ]}, options: { responsive: true, maintainAspectRatio: true }
+        });
+        fishChart = new Chart(document.getElementById('fishChart'), {
+            type: 'line', data: { labels: fishLabels, datasets: [{ label: '🎣 Índice Pesca', data: fishHist, borderColor: '#ff66cc', borderWidth: 3, fill: true }] },
+            options: { responsive: true }
+        });
+        waveChart = new Chart(document.getElementById('waveChart'), {
+            type: 'line', data: { labels: waveLabels, datasets: [{ label: '🌊 Altura Ola', data: waveHist, borderColor: '#0ff', fill: true }] },
+            options: { responsive: true }
+        });
+        thChart = new Chart(document.getElementById('thChart'), {
+            type: 'line', data: { labels: tempHist.map((_,i)=>`-${tempHist.length-i}`), datasets: [
+                { label: '🌡️ Temp', data: [...tempHist], borderColor: '#ff6600' },
+                { label: '💧 Humedad', data: [...humHist], borderColor: '#0ff' }
+            ]}, options: { responsive: true }
+        });
+        windChart = new Chart(document.getElementById('windChart'), {
+            type: 'bar', data: { labels: windHist.map((_,i)=>`-${windHist.length-i}`), datasets: [
+                { label: '💨 Viento', data: [...windHist], backgroundColor: '#0ff5' },
+                { label: '⚡ Rachas', data: [...gustHist], backgroundColor: '#f0f5' }
+            ]}, options: { responsive: true }
+        });
+    }
     
-    // ============================================
-    // MAREAS OFICIALES
-    // ============================================
-    const tidesData = [
+    function updateCharts() {
+        tempChart.data.labels = labels; tempChart.data.datasets[0].data = tempAgua; tempChart.data.datasets[1].data = tempTierra; tempChart.update();
+        fishChart.data.labels = fishLabels; fishChart.data.datasets[0].data = fishHist; fishChart.update();
+        waveChart.data.labels = waveLabels; waveChart.data.datasets[0].data = waveHist; waveChart.update();
+        thChart.data.labels = tempHist.map((_,i)=>`-${tempHist.length-i}`); thChart.data.datasets[0].data = tempHist; thChart.data.datasets[1].data = humHist; thChart.update();
+        windChart.data.labels = windHist.map((_,i)=>`-${windHist.length-i}`); windChart.data.datasets[0].data = windHist; windChart.data.datasets[1].data = gustHist; windChart.update();
+    }
+    
+    // Colores dinámicos
+    function setColor(el, val, type) {
+        if(!el) return;
+        el.classList.remove('valor-cyan','valor-magenta','valor-verde','valor-naranja');
+        if(type === 'temp') {
+            if(val<12||val>28) el.classList.add('valor-naranja');
+            else if(val<14||val>26) el.classList.add('valor-verde');
+            else if(val>=16&&val<=24) el.classList.add('valor-magenta');
+            else el.classList.add('valor-cyan');
+        } else if(type === 'wave') {
+            if(val>2) el.classList.add('valor-naranja');
+            else if(val>1.2) el.classList.add('valor-verde');
+            else if(val>0.6) el.classList.add('valor-magenta');
+            else el.classList.add('valor-cyan');
+        } else if(type === 'wind') {
+            if(val>35) el.classList.add('valor-naranja');
+            else if(val>25) el.classList.add('valor-verde');
+            else if(val>15) el.classList.add('valor-magenta');
+            else el.classList.add('valor-cyan');
+        }
+    }
+    
+    // Mareas
+    const tides = [
         { hora: "04:52", tipo: "pleamar", altura: "3.334" },
         { hora: "10:46", tipo: "bajamar", altura: "0.678" },
         { hora: "17:12", tipo: "pleamar", altura: "3.215" },
         { hora: "23:16", tipo: "bajamar", altura: "0.696" }
     ];
     
-    function updateTideTable() {
-        const tbody = document.getElementById('tideTableBody');
-        if(!tbody) return;
+    function updateTides() {
+        const tbody = document.getElementById('tideBody');
         tbody.innerHTML = '';
-        tidesData.forEach(t => {
+        tides.forEach(t => {
             const row = tbody.insertRow();
             if(t.tipo === 'pleamar') {
                 row.insertCell(0).innerHTML = `${t.altura}m 🌊`;
@@ -479,82 +433,60 @@
                 row.insertCell(2).innerHTML = t.hora;
             }
         });
-        
         const now = new Date();
-        const nowM = now.getHours() * 60 + now.getMinutes();
-        let nextHigh = null, nextLow = null;
-        tidesData.forEach(t => {
-            const [h, m] = t.hora.split(':').map(Number);
-            const tideM = h * 60 + m;
-            if(tideM > nowM) {
-                if(t.tipo === 'pleamar' && !nextHigh) nextHigh = t;
-                if(t.tipo === 'bajamar' && !nextLow) nextLow = t;
-            }
+        const nowM = now.getHours()*60 + now.getMinutes();
+        let nextH = null;
+        tides.forEach(t => {
+            const [h,m] = t.hora.split(':').map(Number);
+            if(h*60+m > nowM && t.tipo === 'pleamar' && !nextH) nextH = t;
         });
-        if(nextHigh) document.getElementById('nextHigh').textContent = `${nextHigh.hora} (${nextHigh.altura}m)`;
-        if(nextLow) document.getElementById('nextLow').textContent = `${nextLow.hora} (${nextLow.altura}m)`;
-        const nextTide = nextHigh || nextLow;
-        let bestPier = 'Escollera Puerto Sherry · Muelle de Levante';
-        if(nextTide?.tipo === 'pleamar') bestPier = '🌊 Punta del Boquerón · Muelle de Rota · Zona de rompiente';
-        else if(nextTide?.tipo === 'bajamar') bestPier = '🏖️ Desembocadura Guadalete · Playa Valdelagrana · Zonas de arenas';
-        document.getElementById('bestPier').textContent = bestPier;
+        if(nextH) document.getElementById('nextHigh').textContent = `${nextH.hora} (${nextH.altura}m)`;
+        document.getElementById('bestPier').innerHTML = nextH ? 'Punta Boquerón · Escollera Puerto Sherry' : 'Desembocadura Guadalete · Valdelagrana';
     }
     
-    // ============================================
-    // API CALLS
-    // ============================================
-    async function fetchWaveData() {
+    // Luna
+    function updateMoon() {
+        const day = new Date().getDate();
+        const phases = ['🌑 LUNA NUEVA', '🌓 CUARTO CRECIENTE', '🌕 LUNA LLENA', '🌗 CUARTO MENGUANTE'];
+        const idx = Math.floor((day % 28) / 7);
+        document.getElementById('faseLuna').textContent = phases[idx];
+        const ilum = Math.abs(Math.sin(day/28*Math.PI*2))*100;
+        document.getElementById('ilumLuna').textContent = Math.round(ilum);
+        let advice = phases[idx]==='🌕 LUNA LLENA' ? '🌕 PESCA NOCTURNA IDEAL' : (phases[idx]==='🌑 LUNA NUEVA' ? '🌑 GRANDES MAREAS' : '🌓/🌗 BUENAS CONDICIONES');
+        document.getElementById('moonAdvice').innerHTML = advice;
+        return phases[idx];
+    }
+    
+    // API Calls
+    async function getWave() {
         try {
-            const res = await fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${LAT}&longitude=${LON}&hourly=wave_height,wave_period,wave_direction,water_temperature&timezone=auto&forecast_days=3`);
+            const res = await fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${LAT}&longitude=${LON}&hourly=wave_height,wave_period,wave_direction,water_temperature&timezone=auto`);
             const data = await res.json();
-            const nowStr = new Date().toISOString().slice(0, 16) + ':00';
+            const nowStr = new Date().toISOString().slice(0,16)+':00';
             let idx = data.hourly.time.findIndex(t => t >= nowStr);
-            if(idx < 0) idx = 0;
-            
-            const waveHeight = data.hourly.wave_height[idx] || 0.6;
-            const wavePeriod = data.hourly.wave_period?.[idx] || 7.5;
-            const waveDir = data.hourly.wave_direction?.[idx] || 'SW';
-            const waterTemp = data.hourly.water_temperature?.[idx] || 16.5;
-            const wavePower = Math.round(waveHeight * waveHeight * wavePeriod * 55);
-            const swellHeight = (waveHeight * 1.15).toFixed(2);
-            const swellPeriod = (wavePeriod + 0.8).toFixed(1);
-            const windWave = (waveHeight * 0.7).toFixed(2);
-            const maxWave = (waveHeight * 1.4).toFixed(2);
-            const visibility = (5 + Math.random() * 3).toFixed(1);
-            const corriente = (0.5 + Math.random() * 1.5).toFixed(1);
-            
-            document.getElementById('olaAltura').innerHTML = `${waveHeight.toFixed(2)} m`; applyWaveColor(document.getElementById('olaAltura'), waveHeight);
-            document.getElementById('wavePeriod').textContent = `${wavePeriod} s`;
-            document.getElementById('waveDir').textContent = waveDir;
-            document.getElementById('wavePower').textContent = `${wavePower} W/m`;
-            document.getElementById('marFondo').textContent = swellHeight;
-            document.getElementById('swellPeriod').textContent = swellPeriod;
-            document.getElementById('windWave').textContent = windWave;
-            document.getElementById('maxWave').textContent = maxWave;
-            document.getElementById('seaTemp').innerHTML = `${waterTemp.toFixed(1)}°C`; applyTempColor(document.getElementById('seaTemp'), waterTemp);
-            document.getElementById('visibilidadAgua').textContent = `${visibility} m`;
-            document.getElementById('corrienteMar').textContent = `${corriente} nudos`;
-            
-            let avisoMsg = '';
-            if(waveHeight > 2.5) avisoMsg = '⚠️⚠️ AVISO ROJO: OLEAJE PELIGROSO > 2.5m · EVITAR PESCA DESDE COSTA ⚠️⚠️';
-            else if(waveHeight > 1.8) avisoMsg = '⚠️ AVISO NARANJA: OLEAJE FUERTE · PRECAUCIÓN EXTREMA';
-            else if(waveHeight > 1.2) avisoMsg = '⚠️ AVISO AMARILLO: OLEAJE MODERADO · PESCAR CON PRECAUCIÓN';
-            else if(waveHeight > 0.6) avisoMsg = '✅ CONDICIONES FAVORABLES · BUENAS PARA PESCA';
-            else avisoMsg = '✅✅ MAR EN CALMA TOTAL · EXCELENTE PARA PESCA 🎣🎣';
-            document.getElementById('avisoMar').innerHTML = avisoMsg;
-            
-            return { wave: waveHeight, period: wavePeriod, temp: waterTemp, power: wavePower, swellHeight, swellPeriod };
-        } catch(e) {
-            console.error(e);
-            document.getElementById('olaAltura').innerHTML = '0.55 m';
-            document.getElementById('seaTemp').innerHTML = '16.2°C';
-            return { wave: 0.55, period: 5.2, temp: 16.2, power: 120 };
-        }
+            if(idx<0) idx=0;
+            const wave = data.hourly.wave_height[idx] || 0.6;
+            const period = data.hourly.wave_period?.[idx] || 7;
+            const dir = data.hourly.wave_direction?.[idx] || 'SW';
+            const temp = data.hourly.water_temperature?.[idx] || 16.5;
+            const power = Math.round(wave*wave*period*50);
+            document.getElementById('olaAltura').innerHTML = `${wave.toFixed(2)} m`; setColor(document.getElementById('olaAltura'), wave, 'wave');
+            document.getElementById('wavePeriod').textContent = `${period} s`;
+            document.getElementById('waveDir').textContent = dir;
+            document.getElementById('wavePower').textContent = `${power} W/m`;
+            document.getElementById('marFondo').textContent = (wave*1.2).toFixed(2);
+            document.getElementById('swellPeriod').textContent = (period+0.5).toFixed(1);
+            document.getElementById('seaTemp').innerHTML = `${temp.toFixed(1)}°C`; setColor(document.getElementById('seaTemp'), temp, 'temp');
+            document.getElementById('visibilidad').textContent = `${(5+Math.random()*3).toFixed(1)} m`;
+            let msg = wave>2.2 ? '⚠️⚠️ OLEAJE PELIGROSO' : (wave>1.5 ? '⚠️ OLEAJE FUERTE' : '✅ CONDICIONES FAVORABLES');
+            document.getElementById('avisoMar').innerHTML = msg;
+            return { wave, period, temp, power };
+        } catch(e) { return { wave:0.55, period:5, temp:16.2, power:100 }; }
     }
     
-    async function fetchWeatherData() {
+    async function getWeather() {
         try {
-            const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,pressure_msl&daily=uv_index_max&timezone=auto`);
+            const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,pressure_msl`);
             const data = await res.json();
             const temp = Math.round(data.current.temperature_2m);
             const sens = Math.round(data.current.apparent_temperature);
@@ -562,83 +494,56 @@
             const press = Math.round(data.current.pressure_msl);
             const wind = Math.round(data.current.wind_speed_10m);
             const gust = Math.round(data.current.wind_gusts_10m || wind);
-            const dew = Math.round(temp - ((100 - hum) / 5));
-            
-            document.getElementById('tempActual').innerHTML = `${temp}°C`; applyTempColor(document.getElementById('tempActual'), temp);
+            document.getElementById('tempActual').innerHTML = `${temp}°C`; setColor(document.getElementById('tempActual'), temp, 'temp');
             document.getElementById('sensacion').innerHTML = `${sens}°C`;
             document.getElementById('humedad').innerHTML = `${hum}%`;
             document.getElementById('humGauge').style.width = `${hum}%`;
             document.getElementById('presion').innerHTML = `${press} hPa`;
-            document.getElementById('windMedio').innerHTML = `${wind} km/h`; applyWindColor(document.getElementById('windMedio'), wind);
-            document.getElementById('windRacha').innerHTML = `${gust} km/h`; applyWindColor(document.getElementById('windRacha'), gust);
-            document.getElementById('dewPoint').innerHTML = `${dew}°C`;
-            
+            document.getElementById('viento').innerHTML = `${wind} km/h`; setColor(document.getElementById('viento'), wind, 'wind');
+            document.getElementById('racha').innerHTML = `${gust} km/h`; setColor(document.getElementById('racha'), gust, 'wind');
             const dirs = ['N','NE','E','SE','S','SW','W','NW'];
-            document.getElementById('windDir').textContent = dirs[Math.round(data.current.wind_direction_10m / 45) % 8];
-            document.getElementById('nubes').textContent = data.current.weather_code < 3 ? '0-20% Despejado' : (data.current.weather_code < 50 ? '20-60% Parcial' : '60-100% Cubierto');
-            document.getElementById('rain').textContent = data.current.precipitation > 0 ? '🌧️ LLUVIENDO ' + data.current.precipitation + 'mm' : (data.current.weather_code >= 50 ? 'ALTA PROBABILIDAD' : 'BAJA PROBABILIDAD');
-            if(data.daily?.uv_index_max) document.getElementById('uvIndex').textContent = data.daily.uv_index_max[0];
-            
+            document.getElementById('windDir').textContent = dirs[Math.round(data.current.wind_direction_10m/45)%8];
+            document.getElementById('nubes').innerHTML = data.current.weather_code<3 ? 'Despejado' : (data.current.weather_code<50 ? 'Parcial' : 'Cubierto');
+            document.getElementById('lluvia').innerHTML = data.current.precipitation>0 ? '🌧️ LLUVIENDO' : 'Seco';
             return { temp, hum, press, wind, gust };
-        } catch(e) {
-            return { temp: 18, hum: 65, press: 1018, wind: 16, gust: 24 };
-        }
+        } catch(e) { return { temp:18, hum:65, press:1018, wind:16, gust:24 }; }
     }
     
-    function getMoonPhase() {
-        const day = new Date().getDate();
-        const phases = ['🌑 LUNA NUEVA', '🌓 CUARTO CRECIENTE', '🌕 LUNA LLENA', '🌗 CUARTO MENGUANTE'];
-        const idx = Math.floor((day % 28) / 7);
-        document.getElementById('faseLuna').textContent = phases[idx];
-        const illumination = Math.abs(Math.sin((day / 28) * Math.PI * 2) * 100);
-        document.getElementById('iluminacionLuna').textContent = `${Math.round(illumination)}%`;
-        let advice = phases[idx] === '🌕 LUNA LLENA' ? '🌕 LUNA LLENA · PESCA NOCTURNA EXCELENTE' : 
-                     (phases[idx] === '🌑 LUNA NUEVA' ? '🌑 LUNA NUEVA · GRANDES MAREAS' : 
-                     (phases[idx] === '🌓 CUARTO CRECIENTE' ? '🌓 CRECIENTE · BUENAS CONDICIONES DIURNAS' : '🌗 MENGUANTE · PESCA DE FONDO'));
-        document.getElementById('moonAdvice').innerHTML = advice;
-        return phases[idx];
-    }
-    
-    function calculateFishingIndex(temp, hum, press, wind, wave, moon) {
+    function calcFishIndex(temp, hum, press, wind, wave, moon) {
         let idx = 50;
-        if(temp >= 16 && temp <= 24) idx += 15; else if(temp > 28 || temp < 12) idx -= 10;
-        if(hum >= 40 && hum <= 70) idx += 8; else if(hum > 85) idx -= 8;
-        if(press >= 1015 && press <= 1022) idx += 12; else if(press > 1030 || press < 1008) idx -= 10;
-        if(wind < 12) idx += 12; else if(wind > 32) idx -= 15;
-        if(wave < 0.7) idx += 20; else if(wave > 2.2) idx -= 20; else if(wave > 1.3) idx -= 10;
-        if(moon.includes('LLENA') || moon.includes('NUEVA')) idx += 12;
+        if(temp>=16&&temp<=24) idx+=15; else if(temp>28||temp<12) idx-=10;
+        if(hum>=40&&hum<=70) idx+=8; else if(hum>85) idx-=8;
+        if(press>=1015&&press<=1022) idx+=12; else if(press>1030||press<1008) idx-=10;
+        if(wind<12) idx+=12; else if(wind>32) idx-=15;
+        if(wave<0.7) idx+=20; else if(wave>1.8) idx-=15;
+        if(moon.includes('LLENA')||moon.includes('NUEVA')) idx+=10;
         return Math.min(100, Math.max(0, idx));
     }
     
-    // GRÁFICOS
-    function initCharts() {
-        fishingIndexChart = new Chart(document.getElementById('fishingIndexChart'), { type:'line', data:{ labels:historicoFishingLabels, datasets:[{ label:'🎣 Índice Pesca', data:historicoFishingIndex, borderColor:'#ff66cc', borderWidth:3, fill:true, tension:0.3 }] }, options:{ responsive:true, maintainAspectRatio:true } });
-        tempDoubleChart = new Chart(document.getElementById('tempChartDouble'), { type:'line', data:{ labels:historicoTempLabels, datasets:[{ label:'🌊 Temp Agua', data:historicoTempAgua, borderColor:'#0ff', borderWidth:2 },{ label:'🌡️ Temp Tierra', data:historicoTempTierra, borderColor:'#f0f', borderWidth:2 }] }, options:{ responsive:true } });
-        waveHistoryChart = new Chart(document.getElementById('waveHistoryChart'), { type:'line', data:{ labels:historicoWaveLabels, datasets:[{ label:'🌊 Altura Ola', data:historicoWave, borderColor:'#0ff', fill:true }] }, options:{ responsive:true } });
-        tempHumChart = new Chart(document.getElementById('tempHumChart'), { type:'line', data:{ labels:historicoTemp.map((_,i)=>`-${historicoTemp.length-i}`), datasets:[{ label:'🌡️ Temp', data:historicoTemp, borderColor:'#ff6600' },{ label:'💧 Humedad', data:historicoHum, borderColor:'#0ff' }] }, options:{ responsive:true } });
-        windChart = new Chart(document.getElementById('windChart'), { type:'bar', data:{ labels:historicoWind.map((_,i)=>`-${historicoWind.length-i}`), datasets:[{ label:'💨 Viento', data:historicoWind, backgroundColor:'#0ff5' },{ label:'⚡ Rachas', data:historicoGust, backgroundColor:'#f0f5' }] }, options:{ responsive:true } });
+    function updateTips(idx, wave, temp, wind, moon, hour) {
+        const tips = ['tip1','tip2','tip3','tip4','tip5','tip6','tip7','tip8','tip9','tip10'].map(id=>document.getElementById(id));
+        tips[0].innerHTML = idx>80 ? '🔥 EXCELENTE! HOY ES EL DÍA PERFECTO' : (idx>65 ? '👍 MUY BUENO, CONDICIONES IDEALES' : (idx>50 ? '⚠️ FAVORABLE, APROVECHA MAREA' : '❌ MALAS CONDICIONES'));
+        tips[1].innerHTML = wave<0.6 ? '🌊 MAR EN CALMA · IDEAL SURFCASTING' : (wave<1.1 ? '🌊 MAR MODERADO · SPINNING' : '🌊🌊 MAR MOVIDO · PRECAUCIÓN');
+        tips[2].innerHTML = (temp>=16&&temp<=24) ? '🌡️ TEMP IDEAL 16-24°C' : (temp>24 ? '🔥 AGUA CALIENTE' : '❄️ AGUA FRÍA');
+        tips[3].innerHTML = wind<12 ? '💨 VIENTO SUAVE · PERFECTO' : (wind<25 ? '💨 VIENTO MODERADO' : '💨 VIENTO FUERTE');
+        tips[4].innerHTML = moon.includes('LLENA') ? '🌕 LUNA LLENA · PESCA NOCTURNA' : (moon.includes('NUEVA') ? '🌑 LUNA NUEVA · GRANDES MAREAS' : '🌓 CUARTO · BUENAS CONDICIONES');
+        tips[5].innerHTML = (hour>=6&&hour<8) ? '🌅 AMANECER · MEJOR MOMENTO' : (hour>=17&&hour<19) ? '🌅 ATARDECER · 2º MEJOR' : '⏰ ESPERA CAMBIO DE MAREA';
+        tips[6].innerHTML = wave<0.7 ? '🪱 CEBO: CAMARÓN, LOMBRIZ, MUERGO' : (wave>1.2 ? '🪱 CEBO: SARDINA, CALAMAR' : '🪱 MUERGO, GUSANA, POTERA');
+        tips[7].innerHTML = wave<0.7 ? '📍 PLAYA VALDELAGRANA · DESEMBOCADURA' : (wave>1.2 ? '📍 ESCOLLERA PUERTO SHERRY' : '📍 MUELLE DE ROTA · PUNTA BOQUERÓN');
+        tips[8].innerHTML = '🏆 TORNEO "LUBINA DE ORO" 15-16 ABRIL · 3.500€';
+        tips[9].innerHTML = '📏 TALLAS MÍNIMAS: Lubina 36cm · Dorada 28cm · Corvina 45cm';
     }
     
-    function updateCharts() {
-        if(fishingIndexChart){ fishingIndexChart.data.labels=historicoFishingLabels; fishingIndexChart.data.datasets[0].data=historicoFishingIndex; fishingIndexChart.update(); }
-        if(tempDoubleChart){ tempDoubleChart.data.labels=historicoTempLabels; tempDoubleChart.data.datasets[0].data=historicoTempAgua; tempDoubleChart.data.datasets[1].data=historicoTempTierra; tempDoubleChart.update(); }
-        if(waveHistoryChart){ waveHistoryChart.data.labels=historicoWaveLabels; waveHistoryChart.data.datasets[0].data=historicoWave; waveHistoryChart.update(); }
-        if(tempHumChart){ tempHumChart.data.labels=historicoTemp.map((_,i)=>`-${historicoTemp.length-i}`); tempHumChart.data.datasets[0].data=historicoTemp; tempHumChart.data.datasets[1].data=historicoHum; tempHumChart.update(); }
-        if(windChart){ windChart.data.labels=historicoWind.map((_,i)=>`-${historicoWind.length-i}`); windChart.data.datasets[0].data=historicoWind; windChart.data.datasets[1].data=historicoGust; windChart.update(); }
-    }
-    
-    // ESPECIES DATABASE
+    // Especies
     const speciesDB = {
-        lubina:{nombre:'🐟 LUBINA EUROPEA',epoca:'Todo el año (pico Abril-Junio y Septiembre-Octubre)',cebo:'Camarón vivo, chanquete, señuelos, sardina',zonas:'Escolleras, desembocaduras, rompientes, puertos',tecnica:'Spinning, surfcasting, curricán',record:'18.2kg (Juan M. 2023)',talla:'36cm',tip:'Pesca al amanecer con señuelos de 10-15cm. Usa colores naturales.'},
-        sargo:{nombre:'🐠 SARGO COMÚN',epoca:'Primavera-Otoño',cebo:'Gusana roja, pan, cangrejo, mejillón',zonas:'Fondos rocosos, puertos, escolleras',tecnica:'Fondo con caña ligera',record:'3.1kg',talla:'23cm',tip:'Activo en bajamar, cebo pequeño y discreto.'},
-        dorada:{nombre:'🐡 DORADA',epoca:'Verano (Junio-Septiembre)',cebo:'Muergo, lombriz, camarón, cangrejo',zonas:'Desembocadura, playas, escolleras',tecnica:'Surfcasting, spinning',record:'7.5kg',talla:'28cm',tip:'Pesca al crepúsculo, busca zonas con rompiente y arena.'},
-        pargo:{nombre:'🐙 PARGO',epoca:'Verano-Otoño',cebo:'Cangrejo, gamba, calamar',zonas:'Fondos rocosos profundos',tecnica:'Fondo con carnada grande',record:'6.8kg',talla:'32cm',tip:'Pesca nocturna, usa cangrejo vivo o calamar.'},
-        choco:{nombre:'🦑 CHOCO (Sepia)',epoca:'Otoño-Invierno',cebo:'Potera artificial, camarón',zonas:'Fondos arenosos y praderas',tecnica:'Potera desde costa o embarcado',record:'3.2kg',talla:'20cm',tip:'Activo al atardecer, recogida lenta con paradas.'},
-        corvina:{nombre:'🐟 CORVINA',epoca:'Primavera-Verano',cebo:'Camarón, sardina, señuelos',zonas:'Desembocadura, playas, espigones',tecnica:'Spinning nocturno',record:'25.1kg',talla:'45cm',tip:'Pesca nocturna, atrae con vibración y señuelos sonoros.'},
-        mero:{nombre:'🐟 MERO',epoca:'Todo el año',cebo:'Cangrejo, pulpo, jurel',zonas:'Fondos rocosos y pecios',tecnica:'Fondo con carnada',record:'52kg',talla:'45cm',tip:'Equipo resistente, pelea intensa.'},
-        caballa:{nombre:'🐟 CABALLA',epoca:'Primavera-Otoño',cebo:'Cucharilla, jig, potera',zonas:'Superficie, zonas de corriente',tecnica:'Spinning, curricán ligero',record:'1.8kg',talla:'25cm',tip:'Bancos grandes, recogida rápida y continua.'},
-        pulpo:{nombre:'🦑 PULPO',epoca:'Todo el año',cebo:'Potera, cangrejo',zonas:'Fondos rocosos, puertos',tecnica:'Potera o pulpeira',record:'12.5kg',talla:'50cm',tip:'Activo al anochecer, busca refugios rocosos.'},
-        gamba:{nombre:'🦐 GAMBA BLANCA',epoca:'Todo el año',cebo:'No aplica (recolección)',zonas:'Desembocadura, zonas fangosas',tecnica:'Arrastre manual',record:'0.15kg',talla:'Sin talla',tip:'Marea baja, zonas de arena y fango.'}
+        lubina: { nombre:'🐟 LUBINA', epoca:'Todo el año (pico primavera)', cebo:'Camarón vivo, chanquete', zonas:'Escolleras, desembocaduras', tecnica:'Spinning, surfcasting', record:'18.2kg', tip:'Pesca al amanecer' },
+        dorada: { nombre:'🐡 DORADA', epoca:'Verano', cebo:'Muergo, lombriz', zonas:'Playas, desembocadura', tecnica:'Surfcasting', record:'7.5kg', tip:'Pesca al crepúsculo' },
+        corvina: { nombre:'🐟 CORVINA', epoca:'Primavera-Verano', cebo:'Camarón, sardina', zonas:'Playas, espigones', tecnica:'Spinning nocturno', record:'25.1kg', tip:'Pesca nocturna' },
+        mero: { nombre:'🐟 MERO', epoca:'Todo el año', cebo:'Cangrejo, pulpo', zonas:'Fondos rocosos', tecnica:'Fondo pesado', record:'52kg', tip:'Equipo resistente' },
+        choco: { nombre:'🦑 CHOCO', epoca:'Otoño-Invierno', cebo:'Potera', zonas:'Fondos arenosos', tecnica:'Potera', record:'3.2kg', tip:'Recogida lenta' },
+        sargo: { nombre:'🐠 SARGO', epoca:'Primavera-Otoño', cebo:'Gusana roja', zonas:'Fondos rocosos', tecnica:'Fondo ligero', record:'3.1kg', tip:'Activo bajamar' },
+        pargo: { nombre:'🐙 PARGO', epoca:'Verano-Otoño', cebo:'Cangrejo', zonas:'Fondos rocosos', tecnica:'Fondo pesado', record:'6.8kg', tip:'Pesca nocturna' },
+        pulpo: { nombre:'🦑 PULPO', epoca:'Todo el año', cebo:'Potera', zonas:'Fondos rocosos', tecnica:'Potera', record:'12.5kg', tip:'Activo anochecer' }
     };
     
     function initSpeciesModal() {
@@ -646,17 +551,16 @@
         const close = document.querySelector('.close-modal');
         document.querySelectorAll('.species-tag').forEach(tag => {
             tag.addEventListener('click', () => {
-                const s = speciesDB[tag.dataset.species];
+                const s = speciesDB[tag.dataset.spec];
                 if(s) {
                     document.getElementById('modalTitle').innerHTML = s.nombre;
                     document.getElementById('modalBody').innerHTML = `
-                        <div class="data-row"><span>📅 MEJOR ÉPOCA:</span><span>${s.epoca}</span></div>
-                        <div class="data-row"><span>🪱 CEBO IDEAL:</span><span>${s.cebo}</span></div>
-                        <div class="data-row"><span>📍 ZONAS PRO:</span><span>${s.zonas}</span></div>
+                        <div class="data-row"><span>📅 ÉPOCA:</span><span>${s.epoca}</span></div>
+                        <div class="data-row"><span>🪱 CEBO:</span><span>${s.cebo}</span></div>
+                        <div class="data-row"><span>📍 ZONAS:</span><span>${s.zonas}</span></div>
                         <div class="data-row"><span>🎣 TÉCNICA:</span><span>${s.tecnica}</span></div>
-                        <div class="data-row"><span>🏆 RÉCORD LOCAL:</span><span class="record-badge">${s.record}</span></div>
-                        <div class="data-row"><span>📏 TALLA MÍNIMA:</span><span>${s.talla}</span></div>
-                        <div class="data-row"><span>🎯 CONSEJO PRO:</span><span class="fishing-tip-highlight">${s.tip}</span></div>`;
+                        <div class="data-row"><span>🏆 RÉCORD:</span><span class="record-badge">${s.record}</span></div>
+                        <div class="data-row"><span>🎯 CONSEJO:</span><span>${s.tip}</span></div>`;
                     modal.style.display = 'flex';
                 }
             });
@@ -664,95 +568,58 @@
         close.onclick = () => modal.style.display = 'none';
         window.onclick = (e) => { if(e.target == modal) modal.style.display = 'none'; };
         const def = speciesDB.lubina;
-        document.getElementById('speciesSeason').textContent = def.epoca;
-        document.getElementById('speciesBait').textContent = def.cebo;
-        document.getElementById('speciesZones').textContent = def.zonas;
-        document.getElementById('speciesTech').textContent = def.tecnica;
-        document.getElementById('speciesRecord').innerHTML = `<span class="record-badge">${def.record}</span>`;
-        document.getElementById('speciesTip').innerHTML = def.tip;
-    }
-    
-    function updateAllTips(idx, wave, temp, wind, moon, hour) {
-        const tips = ['consejo1','consejo2','consejo3','consejo4','consejo5','consejo6','consejo7','consejo8','consejo9','consejo10','consejo11','consejo12'].map(id=>document.getElementById(id));
-        tips[0].innerHTML = idx>85 ? '🔥🔥🔥 ÍNDICE EXCELENTE (85-100) · ¡DÍA PERFECTO! SAL AHORA MISMO' : (idx>70 ? '🔥🔥 ÍNDICE MUY BUENO (70-85) · CONDICIONES IDEALES' : (idx>55 ? '👍 ÍNDICE FAVORABLE (55-70) · BUENAS CONDICIONES' : (idx>40 ? '⚠️ ÍNDICE REGULAR (40-55) · ESPERA MEJOR HORA' : '❌ ÍNDICE BAJO (<40) · MALAS CONDICIONES')));
-        tips[1].innerHTML = wave<0.5 ? '🌊🌊 MAR EN CALMA TOTAL · IDEAL PARA FONEO Y SURFCASTING LIGERO' : (wave<0.8 ? '🌊 MAR EN CALMA · EXCELENTE PARA SPINNING Y PESCA DESDE ESCALLERAS' : (wave<1.2 ? '🌊 MAR MODERADO · BUENO PARA EMBARCADA Y SPINNING' : (wave<1.8 ? '🌊🌊 MAR MOVIDO · PRECAUCIÓN, PESCA DESDE ZONAS ALTAS' : '⚠️⚠️ MAR MUY MOVIDO · RIESGO ALTO, EVITA PESCA DESDE COSTA')));
-        tips[2].innerHTML = (temp>=16 && temp<=24) ? '🌡️🌡️ TEMP AGUA IDEAL (16-24°C) · MÁXIMA ACTIVIDAD DE PECES' : (temp>24 ? '🔥 AGUA CALIENTE · PESCA AL AMANECER/ATARDECER EN ZONAS PROFUNDAS' : '❄️ AGUA FRÍA · BUSCA SARGO, CHOCO, RÓBALO EN FONDOS ARENOSOS');
-        tips[3].innerHTML = wind<10 ? '💨 VIENTO EN CALMA · IDEAL PARA SEÑUELOS LIGEROS Y SUPERFICIE' : (wind<18 ? '💨 VIENTO SUAVE · BUENAS CONDICIONES PARA SURFCASTING' : (wind<30 ? '💨 VIENTO MODERADO · PESCA RESGUARDADO EN ESCOLLERAS' : '💨💨 VIENTO FUERTE · SOLO ZONAS PROTEGIDAS O EMBARCADO CON PRECAUCIÓN'));
-        tips[4].innerHTML = moon.includes('LLENA') ? '🌕🌕 LUNA LLENA · PESCA NOCTURNA EXCELENTE · CORVINA Y PARGO ACTIVOS' : (moon.includes('NUEVA') ? '🌑🌑 LUNA NUEVA · GRANDES MAREAS · MEJOR PESCA DE FONDO' : (moon.includes('CRECIENTE') ? '🌓 CUARTO CRECIENTE · BUENAS CONDICIONES DIURNAS PARA SPINNING' : '🌗 CUARTO MENGUANTE · PESCA DE FONDO PRODUCTIVA'));
-        tips[5].innerHTML = (hour>=6 && hour<8) ? '🌅🌅 AMANECER (6-8h) · MEJOR MOMENTO DEL DÍA · LUBINA Y DORADA ACTIVAS' : (hour>=17 && hour<19) ? '🌅 ATARDECER (17-19h) · SEGUNDO MEJOR MOMENTO' : (hour>=19 && hour<22) ? '🌙🌙 ANOCHECER · EXCELENTE PARA CORVINA, PARGO Y SEPIA' : '⏰ ESPERA CAMBIO DE MAREA (+/- 2h)');
-        tips[6].innerHTML = wave<0.7 ? '🪱 CEBO: CAMARÓN VIVO, LOMBRIZ ROJA, MUERGO · SEÑUELOS LIGEROS (5-15g)' : (wave>1.3 ? '🪱 CEBO: SARDINA, CHANQUETE, CALAMAR · JIGS PESADOS (30-60g)' : '🪱 CEBO: MUERGO, GUSANA, POTERA PARA CHOCO · SEÑUELOS MEDIANOS (15-30g)');
-        tips[7].innerHTML = wave<0.7 ? '📍 ZONAS HOT: PLAYA VALDELAGRANA, DESEMBOCADURA GUADALETE, MUELLE DEPORTIVO' : (wave<1.4 ? '📍 ZONAS: ESCOLLERA PUERTO SHERRY, PUNTA BOQUERÓN, ESPIGÓN CENTRAL' : '📍 ZONAS: ZONAS ALTAS PROTEGIDAS, ESCALLERAS, PUERTO DE ROTA');
-        tips[8].innerHTML = '🎣 TÉCNICA PRO: ' + (wave<0.7 ? 'SURFCASTING CON 2-3 VARAS · SPINNING LIGERO CON SEÑUELOS' : (wave>1.3 ? 'FONDO PESADO CON CARNADA GRANDE · JIGGING PROFUNDO' : 'POTERA PARA CHOCO · SPINNING MEDIANO · SURFCASTING'));
-        tips[9].innerHTML = '🏆 TORNEO ACTIVO: "LUBINA DE ORO" 15-16 ABRIL · INSCRIPCIONES ABIERTAS EN FAPE';
-        tips[10].innerHTML = '📏 TALLAS MÍNIMAS: Lubina 36cm · Dorada 28cm · Sargo 23cm · Corvina 45cm · Mero 45cm';
-        tips[11].innerHTML = '🎯 ZONA CON MÁS RÉCORDS: Escollera Puerto Sherry · Punta Boquerón (18kg Lubina 2023)';
+        document.getElementById('specEpoch').textContent = def.epoca;
+        document.getElementById('specBait').textContent = def.cebo;
+        document.getElementById('specZones').textContent = def.zonas;
+        document.getElementById('specTech').textContent = def.tecnica;
+        document.getElementById('specRecord').innerHTML = `<span class="record-badge">${def.record}</span>`;
     }
     
     async function updateAll() {
-        document.getElementById('lastUpdateTime').innerHTML = '🕒 ACTUALIZANDO DATOS REALES... 🌊⚡';
-        const moon = getMoonPhase();
-        updateTideTable();
-        const wave = await fetchWaveData();
-        const weather = await fetchWeatherData();
+        document.getElementById('lastUpdateTime').innerHTML = '🕒 ACTUALIZANDO... 🌊⚡';
+        const moon = updateMoon();
+        updateTides();
+        const wave = await getWave();
+        const weather = await getWeather();
         const now = new Date();
         const hour = now.getHours();
         const timeStr = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-        const fishIdx = calculateFishingIndex(weather.temp, weather.hum, weather.press, weather.wind, wave.wave, moon);
+        const fishIdx = calcFishIndex(weather.temp, weather.hum, weather.press, weather.wind, wave.wave, moon);
         
-        document.getElementById('fishingIndex').innerHTML = `${fishIdx}/100`;
+        document.getElementById('fishIndex').innerHTML = `${fishIdx}/100`;
         document.getElementById('fishGauge').style.width = `${fishIdx}%`;
-        const rating = fishIdx>=85?'💎 EXCELENTE 💎' : (fishIdx>=70?'🔥 MUY BUENO 🔥' : (fishIdx>=55?'👍 FAVORABLE 👍' : (fishIdx>=40?'⚠️ REGULAR ⚠️' : '❌ MALO ❌'));
-        document.getElementById('fishingDetail').innerHTML = `<span class="fishing-factor-badge">📊 ${rating}</span> <span class="fishing-factor-badge">🎯 ${fishIdx}/100</span>`;
-        document.getElementById('bestFishingTime').innerHTML = fishIdx>80?'🔥 AHORA MISMO · CONDICIONES EXCELENTES' : (fishIdx>65?'🌅 AMANECER (6:30-8:30) Y ATARDECER (18:00-20:00)' : (fishIdx>50?'⏰ 1h ANTES/DESPUÉS DE CAMBIO DE MAREA' : '🌙 PESCA NOCTURNA EN ZONAS PROFUNDAS'));
+        document.getElementById('bestTime').innerHTML = fishIdx>80 ? '🔥 AHORA MISMO' : (fishIdx>65 ? '🌅 AMANECER/ATARDECER' : (fishIdx>50 ? '⏰ CAMBIO MAREA' : '🌙 PESCA NOCTURNA'));
+        document.getElementById('bait').innerHTML = wave.wave<0.7 ? '🪱 CAMARÓN VIVO · LOMBRIZ ROJA · MUERGO' : (wave.wave>1.2 ? '🪱 SARDINA · CHANQUETE · CALAMAR' : '🪱 MUERGO · GUSANA · POTERA');
+        document.getElementById('hotZone').innerHTML = wave.wave<0.7 ? '🏖️ PLAYA VALDELAGRANA · DESEMBOCADURA' : (wave.wave>1.2 ? '🌊 ESCOLLERA PUERTO SHERRY · PUNTA BOQUERÓN' : '⚓ MUELLE DE ROTA · FRENTE CASTILLO');
+        document.getElementById('keySpecies').innerHTML = wave.wave<0.7 ? 'DORADA · LUBINA · SARGO' : (wave.wave>1.2 ? 'CORVINA · PARGO · MERO' : 'CHOCO · LUBINA · CABALLA');
+        document.getElementById('currentAdvice').innerHTML = wave.wave<0.7 ? 'CORRIENTE SUAVE · PESCA SUPERFICIE' : (wave.wave>1.2 ? 'CORRIENTE FUERTE · PESCA FONDO' : 'CORRIENTE MODERADA · SPINNING');
+        document.getElementById('techAdvice').innerHTML = wave.wave<0.7 ? 'SURFCASTING LIGERO · SPINNING' : (wave.wave>1.2 ? 'FONDO PESADO · JIGGING' : 'POTERA · SPINNING MEDIANO');
         
-        let bait = wave.wave<0.6?'🪱 CAMARÓN VIVO · LOMBRIZ ROJA · MUERGO · SEÑUELOS 5-15g' : (wave.wave>1.2?'🪱 SARDINA · CHANQUETE · CALAMAR · JIGS 30-60g' : '🪱 MUERGO · GUSANA · POTERA · SEÑUELOS 15-30g');
-        let hot = wave.wave<0.6?'🏖️ PLAYA VALDELAGRANA · DESEMBOCADURA GUADALETE · MUELLE' : (wave.wave>1.2?'🌊 ESCOLLERA PUERTO SHERRY · PUNTA BOQUERÓN · ZONAS ALTAS' : '⚓ MUELLE DE ROTA · FRENTE CASTILLO · ZONA DE ROMPIENTE');
-        let key = wave.wave<0.6?'🐟 DORADA · LUBINA · SARGO · LENGUADO' : (wave.wave>1.2?'🐟 CORVINA · PARGO · MERO · SERRANO' : '🦑 CHOCO · LUBINA · SARGO · CABALLA');
-        let current = wave.wave<0.6?'🌊 CORRIENTE SUAVE (0.5-1 nudos) · PESCA DE SUPERFICIE' : (wave.wave>1.2?'🌊🌊 CORRIENTE MODERADA/FUERTE (1.5-2.5 nudos) · PESCA CON CARNADA GRANDE' : '🌊 CORRIENTE MODERADA (1-1.8 nudos) · SPINNING Y POTERA');
-        let depth = wave.wave<0.6?'📏 PROFUNDIDAD: 0-3m (ZONAS DE ARENA Y ROMPIENTE)' : (wave.wave>1.2?'📏 PROFUNDIDAD: 5-15m (FONDOS ROCOSOS Y ESCOLLERAS)' : '📏 PROFUNDIDAD: 2-8m (ZONAS DE TRANSICIÓN)');
-        let tech = wave.wave<0.6?'🎣 SURFCASTING LIGERO · SPINNING CON SEÑUELOS DE SUPERFICIE' : (wave.wave>1.2?'🎣 FONDO PESADO CON CARNADA · JIGGING PROFUNDO' : '🎣 POTERA LENTA · SPINNING MEDIANO · SURFCASTING');
+        // Actualizar históricos
+        fishHist.push(fishIdx); fishLabels.push(timeStr);
+        if(fishHist.length>24) { fishHist.shift(); fishLabels.shift(); }
+        waveHist.push(wave.wave); waveLabels.push(timeStr);
+        if(waveHist.length>24) { waveHist.shift(); waveLabels.shift(); }
+        tempAgua.push(wave.temp); labels.push(timeStr);
+        if(tempAgua.length>24) { tempAgua.shift(); labels.shift(); }
+        tempTierra.push(weather.temp);
+        if(tempTierra.length>24) tempTierra.shift();
+        tempHist.push(weather.temp); humHist.push(weather.hum);
+        windHist.push(weather.wind); gustHist.push(weather.gust);
+        if(tempHist.length>24) tempHist.shift();
+        if(humHist.length>24) humHist.shift();
+        if(windHist.length>24) windHist.shift();
+        if(gustHist.length>24) gustHist.shift();
         
-        document.getElementById('baitRec').innerHTML = bait;
-        document.getElementById('hotZone').innerHTML = hot;
-        document.getElementById('keySpecies').innerHTML = key;
-        document.getElementById('currentAdvice').innerHTML = current;
-        document.getElementById('depthAdvice').innerHTML = depth;
-        document.getElementById('techAdvice').innerHTML = tech;
-        
-        historicoFishingIndex.push(fishIdx); historicoFishingLabels.push(timeStr);
-        if(historicoFishingIndex.length>24){ historicoFishingIndex.shift(); historicoFishingLabels.shift(); }
-        localStorage.setItem('fishingIdx', JSON.stringify(historicoFishingIndex));
-        localStorage.setItem('fishingLabels', JSON.stringify(historicoFishingLabels));
-        historicoWave.push(wave.wave); historicoWaveLabels.push(timeStr);
-        if(historicoWave.length>24){ historicoWave.shift(); historicoWaveLabels.shift(); }
-        localStorage.setItem('wave', JSON.stringify(historicoWave));
-        localStorage.setItem('waveLabels', JSON.stringify(historicoWaveLabels));
-        historicoTempAgua.push(wave.temp); historicoTempLabels.push(timeStr);
-        if(historicoTempAgua.length>24){ historicoTempAgua.shift(); historicoTempLabels.shift(); }
-        localStorage.setItem('tempAgua', JSON.stringify(historicoTempAgua));
-        localStorage.setItem('tempLabels', JSON.stringify(historicoTempLabels));
-        historicoTempTierra.push(weather.temp);
-        if(historicoTempTierra.length>24) historicoTempTierra.shift();
-        localStorage.setItem('tempTierra', JSON.stringify(historicoTempTierra));
-        historicoTemp.push(weather.temp); historicoHum.push(weather.hum);
-        historicoWind.push(weather.wind); historicoGust.push(weather.gust);
-        if(historicoTemp.length>24) historicoTemp.shift();
-        if(historicoHum.length>24) historicoHum.shift();
-        if(historicoWind.length>24) historicoWind.shift();
-        if(historicoGust.length>24) historicoGust.shift();
-        localStorage.setItem('temp', JSON.stringify(historicoTemp));
-        localStorage.setItem('hum', JSON.stringify(historicoHum));
-        localStorage.setItem('wind', JSON.stringify(historicoWind));
-        localStorage.setItem('gust', JSON.stringify(historicoGust));
         updateCharts();
-        updateAllTips(fishIdx, wave.wave, weather.temp, weather.wind, moon, hour);
+        updateTips(fishIdx, wave.wave, weather.temp, weather.wind, moon, hour);
         
         const sunrise = new Date(); sunrise.setHours(7,24,0);
         const sunset = new Date(); sunset.setHours(19,38,0);
         document.getElementById('sunrise').textContent = sunrise.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
         document.getElementById('sunset').textContent = sunset.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-        document.getElementById('coeficienteMarea').innerHTML = `${Math.floor(70 + Math.random() * 20)} (${Math.random()>0.5?'Excelente':'Muy buena'})`;
-        document.getElementById('lastUpdateTime').innerHTML = `🕒 ACTUALIZADO: ${now.toLocaleTimeString()} · DATOS IHM + OPEN-METEO 🌊✅`;
+        document.getElementById('coefMarea').innerHTML = `${Math.floor(70 + Math.random() * 25)} (Excelente)`;
+        document.getElementById('lastUpdateTime').innerHTML = `🕒 ACTUALIZADO: ${now.toLocaleTimeString()} · IHM + OPEN-METEO ✅`;
     }
     
     document.addEventListener('DOMContentLoaded', () => {
@@ -760,17 +627,16 @@
         initSpeciesModal();
         document.getElementById('refreshBtn').addEventListener('click', updateAll);
         document.getElementById('whatsappBtn').addEventListener('click', () => {
-            const msg = `🎣 CYBER_METEO Pesca PRO MAX\n📍 El Puerto de Santa María\n🌊 Ola: ${document.getElementById('olaAltura').innerText}\n🌡️ Agua: ${document.getElementById('seaTemp').innerText}\n🐟 Índice: ${document.getElementById('fishingIndex').innerText}\n🏆 Torneo Lubina de Oro 15-16 Abril\n${window.location.href}`;
+            const msg = `🎣 CYBER_METEO Pesca PRO\n📍 El Puerto de Santa María\n🌊 Ola: ${document.getElementById('olaAltura').innerText}\n🌡️ Agua: ${document.getElementById('seaTemp').innerText}\n🐟 Índice: ${document.getElementById('fishIndex').innerText}\n🏆 Torneo Lubina de Oro 15-16 Abril\n${window.location.href}`;
             window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         });
         document.getElementById('easterEggTrigger').addEventListener('click', () => {
-            for(let i=0;i<60;i++) setTimeout(()=>{ const e=document.createElement('div'); e.textContent=Math.random()>0.5?'🐵':'🍌'; e.style.cssText='position:fixed;left:'+Math.random()*100+'%;top:-10%;font-size:'+(20+Math.random()*45)+'px;z-index:10000;pointer-events:none;animation:fall 1s linear forwards'; document.body.appendChild(e); setTimeout(()=>e.remove(),1000); }, i*25);
-            const m=document.createElement('div'); m.innerHTML='🐵🍌 SUPERTILLA@DEV 🍌🐵'; m.style.cssText='position:fixed;bottom:30%;left:50%;transform:translateX(-50%);background:#000c;color:#ff0;padding:15px 30px;border-radius:50px;font-family:Orbitron;z-index:10001;border:2px solid #ff0;font-size:1rem'; document.body.appendChild(m); setTimeout(()=>m.remove(),3500);
+            for(let i=0;i<50;i++) setTimeout(()=>{ const e=document.createElement('div'); e.textContent=Math.random()>0.5?'🐵':'🍌'; e.style.cssText=`position:fixed;left:${Math.random()*100}%;top:-10%;font-size:${20+Math.random()*40}px;z-index:10000;pointer-events:none;animation:fall 1s linear forwards`; document.body.appendChild(e); setTimeout(()=>e.remove(),1000); }, i*30);
+            const m=document.createElement('div'); m.innerHTML='🐵🍌 SUPERTILLA@DEV 🍌🐵'; m.style.cssText='position:fixed;bottom:30%;left:50%;transform:translateX(-50%);background:#000c;color:#ff0;padding:15px 30px;border-radius:50px;font-family:Orbitron;z-index:10001;border:2px solid #ff0'; document.body.appendChild(m); setTimeout(()=>m.remove(),3000);
         });
         updateAll();
         setInterval(updateAll, 600000);
     });
-    const fallStyle = document.createElement('style'); fallStyle.textContent = '@keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(360deg);opacity:0}}'; document.head.appendChild(fallStyle);
 </script>
 </body>
 </html>
