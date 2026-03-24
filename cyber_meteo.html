@@ -46,7 +46,6 @@
             flex: 1;
         }
 
-        /* EFECTO GLOW MÍNIMO ARCOÍRIS GIRATORIO */
         @keyframes rainbowGlow {
             0% { box-shadow: 0 0 3px #ff0000, 0 0 5px #ff0000, inset 0 0 2px #ff0000; border-color: #ff0000; }
             14% { box-shadow: 0 0 3px #ff7f00, 0 0 5px #ff7f00, inset 0 0 2px #ff7f00; border-color: #ff7f00; }
@@ -68,7 +67,7 @@
             100% { transform: translateY(-3px); }
         }
 
-        .hero, .card, .location-selector, .btn, .badge, .fishing-box, .tournament-card {
+        .hero, .card, .btn, .badge, .fishing-box, .tournament-card {
             animation: rainbowGlow 8s infinite linear, float 3s infinite alternate;
         }
 
@@ -94,7 +93,6 @@
             color: transparent;
             text-align: center;
             letter-spacing: 3px;
-            text-shadow: 0 0 5px rgba(0,255,255,0.3);
         }
 
         .title-section p {
@@ -208,7 +206,7 @@
         footer { text-align: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid #0ff; font-size: 0.55rem; opacity: 0.8; }
         .last-update { text-align: right; font-size: 0.6rem; margin-bottom: 8px; }
         
-        .info-modal, .credits-modal {
+        .credits-modal {
             position: fixed;
             top: 50%;
             left: 50%;
@@ -226,9 +224,9 @@
             max-width: 90%;
             animation: rainbowGlow 4s infinite linear;
         }
-        .info-modal h2, .credits-modal h2 { color: #ff00ff; font-size: 1.4rem; margin-bottom: 15px; }
-        .info-modal p, .credits-modal p { color: #0ff; margin: 10px 0; font-size: 0.85rem; }
-        .info-modal button, .credits-modal button { margin-top: 20px; padding: 10px 30px; background: #ff00ff; color: #000; border: none; border-radius: 40px; font-weight: bold; cursor: pointer; font-family: 'Orbitron'; box-shadow: 0 0 20px #ff00ff; }
+        .credits-modal h2 { color: #ff00ff; font-size: 1.4rem; margin-bottom: 15px; }
+        .credits-modal p { color: #0ff; margin: 10px 0; font-size: 0.85rem; }
+        .credits-modal button { margin-top: 20px; padding: 10px 30px; background: #ff00ff; color: #000; border: none; border-radius: 40px; font-weight: bold; cursor: pointer; font-family: 'Orbitron'; box-shadow: 0 0 20px #ff00ff; }
         
         .monkey-burst, .banana-burst {
             position: fixed;
@@ -266,8 +264,7 @@
         <div class="action-buttons">
             <button class="btn" id="refreshBtn">🔄 ACTUALIZAR</button>
             <button class="btn btn-wa" id="whatsappBtn">💬 COMPARTIR</button>
-            <button class="btn" id="infoBtn">ℹ️ INFO</button>
-            <button class="btn" id="creditsBtn">⚡ CRÉDITOS</button>
+            <button class="btn" id="creditsBtn">⚡ CRÉDITOS ⚡</button>
         </div>
     </div>
 
@@ -332,7 +329,7 @@
     <div class="grid">
         <div class="card">
             <div class="card-header"><span>🌙📅</span><h2>MAREAS OFICIALES IHM</h2></div>
-            <table class="tide-table"><thead> <th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th> </thead><tbody id="tideBody"></tbody></table>
+            <table class="tide-table"><thead> <th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th> </thead><tbody id="tideBody"></tbody> </table>
             <div style="background:#0ff1; border-radius: 16px; padding: 12px; margin-top: 12px;">
                 <div>🌙 FASE LUNAR: <strong id="faseLuna">--</strong> | 💡 ILUM: <span id="ilumLuna">--%</span></div>
                 <div>📊 COEFICIENTE MAREA: <strong id="coefMarea">77</strong> (Excelente)</div>
@@ -395,7 +392,7 @@
     </footer>
 </div>
 
-<div id="speciesModal" class="info-modal" style="display:none;"><div style="position:relative;"><span style="position:absolute;right:20px;top:10px;cursor:pointer;font-size:1.5rem;color:#f0f;" id="closeModalBtn">&times;</span><h3 id="modalTitle"></h3><div id="modalBody"></div></div></div>
+<div id="speciesModal" class="credits-modal" style="display:none;"><div style="position:relative;"><span style="position:absolute;right:20px;top:10px;cursor:pointer;font-size:1.5rem;color:#f0f;" id="closeModalBtn">&times;</span><h3 id="modalTitle"></h3><div id="modalBody"></div></div></div>
 
 <script>
     // ==================== MATRIX RAIN PERSONALIZADA: 🐵🍌SUPERTILLA@DEV ====================
@@ -409,7 +406,6 @@
     resizeMatrixCanvas();
     window.addEventListener('resize', resizeMatrixCanvas);
     
-    // Texto personalizado con emojis - tal como en el modelo
     const matrixCharsArr = ["🐵", "🍌", "S", "U", "P", "E", "R", "T", "I", "L", "L", "A", "@", "D", "E", "V", "🐵", "🍌"];
     let matrixFontSize = Math.max(20, Math.floor(window.innerWidth / 45));
     let matrixColumns = Math.floor(canvasMat.width / matrixFontSize);
@@ -426,7 +422,6 @@
     function drawMatrixRain() {
         ctxMat.fillStyle = "rgba(10, 15, 26, 0.05)";
         ctxMat.fillRect(0, 0, canvasMat.width, canvasMat.height);
-        // Fuente con soporte emoji + Orbitron
         ctxMat.font = `${matrixFontSize}px "Segoe UI Emoji", "Apple Color Emoji", "Orbitron", monospace`;
         
         for (let i = 0; i < matrixDrops.length; i++) {
@@ -459,7 +454,6 @@
     let visitas = parseInt(localStorage.getItem('visitas') || 0) + 1;
     localStorage.setItem('visitas', visitas);
     
-    // Historiales para gráficos
     let tempAgua = [15.2,15.1,15.0,14.9,15.0,15.1,15.2];
     let tempTierra = [18,17,19,20,19,18,17];
     let labels = ['12:00','11:00','10:00','09:00','08:00','07:00','06:00'];
@@ -527,7 +521,6 @@
         }
     }
     
-    // Mareas
     const tides = [
         { hora: "04:52", tipo: "pleamar", altura: "3.334" },
         { hora: "10:46", tipo: "bajamar", altura: "0.678" },
@@ -663,7 +656,6 @@
         return Math.min(100, Math.max(0, idx));
     }
     
-    // Especies DB
     const speciesDB = {
         lubina: { nombre:'🐟 LUBINA', epoca:'Todo el año (pico Abril-Junio)', cebo:'Camarón vivo, chanquete', zonas:'Escolleras, desembocaduras', tecnica:'Spinning, surfcasting', record:'18.2kg', tip:'Pesca al amanecer' },
         dorada: { nombre:'🐡 DORADA', epoca:'Verano', cebo:'Muergo, lombriz', zonas:'Playas, desembocadura', tecnica:'Surfcasting', record:'7.5kg', tip:'Pesca al crepúsculo' },
@@ -769,28 +761,9 @@
         document.getElementById('lastUpdateTime').innerHTML = `🕒 ACTUALIZADO: ${now.toLocaleTimeString()} · IHM + OPEN-METEO ✅`;
     }
     
-    // Easter Egg
     function triggerLluvia() {
         for(let i=0;i<50;i++) setTimeout(()=>{ const e=document.createElement('div'); e.textContent=Math.random()>0.5?'🐵':'🍌'; e.style.cssText=`position:fixed;left:${Math.random()*100}%;top:-10%;font-size:${20+Math.random()*45}px;z-index:10000;pointer-events:none;animation:fallDown 1s linear forwards`; document.body.appendChild(e); setTimeout(()=>e.remove(),1000); }, i*30);
         const m=document.createElement('div'); m.innerHTML='🐵🍌 SUPERTILLA@DEV 🍌🐵'; m.style.cssText='position:fixed;bottom:30%;left:50%;transform:translateX(-50%);background:#000c;color:#ff0;padding:15px 30px;border-radius:50px;font-family:Orbitron;z-index:10001;border:2px solid #ff0;font-size:1rem'; document.body.appendChild(m); setTimeout(()=>m.remove(),3500);
-    }
-    
-    function showInfo() {
-        const modal = document.createElement('div');
-        modal.className = 'info-modal';
-        modal.innerHTML = `
-            <h2>⚡ CYBER_METEO ⚡ Pesca PRO</h2>
-            <p>🌊 Aplicación de predicción marina en tiempo real</p>
-            <p>📡 Datos obtenidos vía Open-Meteo API</p>
-            <p>📍 El Puerto de Santa María · Cádiz</p>
-            <p>📊 5 gráficos interactivos con historial 24h</p>
-            <p>🎣 Especializada en pesca deportiva · Torneos · Récords</p>
-            <p>🐵 Desarrollada por 🍌SUPERTILLA@DEV con DeepSeek AI</p>
-            <p>🍌 Edición Especial Pesca Sergio Pepinelli</p>
-            <button id="closeInfoModal">🍌 CERRAR 🍌</button>
-        `;
-        document.body.appendChild(modal);
-        document.getElementById('closeInfoModal').addEventListener('click', () => { modal.remove(); triggerLluvia(); });
     }
     
     function showCredits() {
@@ -819,7 +792,6 @@
             const msg = `🎣 CYBER_METEO Pesca PRO\n📍 El Puerto de Santa María\n🌊 Ola: ${document.getElementById('olaAltura').innerText}\n🌡️ Agua: ${document.getElementById('seaTemp').innerText}\n🐟 Índice: ${document.getElementById('fishIndex').innerText}\n🏆 Torneo Lubina de Oro 15-16 Abril\n${window.location.href}`;
             window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         });
-        document.getElementById('infoBtn').addEventListener('click', showInfo);
         document.getElementById('creditsBtn').addEventListener('click', showCredits);
         document.getElementById('easterEggTrigger').addEventListener('click', triggerLluvia);
         updateAll();
