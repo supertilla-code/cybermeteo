@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <meta name="theme-color" content="#0a0f1a">
-    <title>⚡ CYBER_METEO ⚡ Pesca PRO | El Puerto de Santa María · Torneos & Records</title>
+    <title>⚡ CYBER_METEO ⚡ 🎣 PESCA 🎣 | El Puerto de Santa María · Torneos & Records</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
@@ -224,8 +224,17 @@
             max-width: 90%;
             animation: rainbowGlow 4s infinite linear;
         }
-        .credits-modal h2 { color: #ff00ff; font-size: 1.4rem; margin-bottom: 15px; }
-        .credits-modal p { color: #0ff; margin: 10px 0; font-size: 0.85rem; }
+        .credits-modal h2 { 
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0ff, #f0f, #ff0, #0ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        .credits-modal p { color: #0ff; margin: 12px 0; font-size: 0.9rem; text-shadow: 0 0 5px #0ff; }
         .credits-modal button { margin-top: 20px; padding: 10px 30px; background: #ff00ff; color: #000; border: none; border-radius: 40px; font-weight: bold; cursor: pointer; font-family: 'Orbitron'; box-shadow: 0 0 20px #ff00ff; }
         
         .monkey-burst, .banana-burst {
@@ -247,6 +256,35 @@
         .valor-naranja { color: #ff6600; text-shadow: 0 0 3px #ff6600; }
         .fishing-tip-highlight { color: #ffaa00; font-weight: bold; }
         .record-badge { background: linear-gradient(135deg, gold, orange); color: #000; padding: 2px 6px; border-radius: 20px; font-size: 0.7rem; }
+        
+        .easter-message {
+            position: fixed;
+            bottom: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000cc;
+            color: #ffaa00;
+            padding: 20px 40px;
+            border-radius: 60px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            font-size: 1.4rem;
+            text-align: center;
+            z-index: 10001;
+            box-shadow: 0 0 60px #ffaa00, 0 0 30px #ffaa00, inset 0 0 20px rgba(255,170,0,0.3);
+            border: 2px solid #ffaa00;
+            white-space: nowrap;
+            backdrop-filter: blur(20px);
+            animation: intenseGlow 0.5s infinite alternate;
+            text-shadow: 0 0 20px #ffaa00, 0 0 40px #ffaa00;
+        }
+        @keyframes intenseGlow {
+            0% { box-shadow: 0 0 30px #ffaa00, 0 0 60px #ffaa00; text-shadow: 0 0 15px #ffaa00; }
+            100% { box-shadow: 0 0 70px #ffaa00, 0 0 100px #ffaa00; text-shadow: 0 0 35px #ffaa00, 0 0 50px #ffaa00; }
+        }
+        @media (max-width: 600px) {
+            .easter-message { font-size: 1rem; padding: 12px 20px; white-space: nowrap; }
+        }
     </style>
 </head>
 <body>
@@ -255,7 +293,7 @@
 <div class="dashboard">
     <div class="hero">
         <div class="title-section">
-            <h1>⚡ CYBER_METEO ⚡ Pesca PRO</h1>
+            <h1>⚡ CYBER_METEO ⚡ 🎣 PESCA 🎣</h1>
             <p>
                 <span class="badge">📍 EL PUERTO DE SANTA MARÍA · CÁDIZ</span>
                 <span class="badge supertilla-dev" id="easterEggTrigger">🐵🍌 SUPERTILLA@DEV 🍌🐵</span>
@@ -329,7 +367,7 @@
     <div class="grid">
         <div class="card">
             <div class="card-header"><span>🌙📅</span><h2>MAREAS OFICIALES IHM</h2></div>
-            <table class="tide-table"><thead> <th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th> </thead><tbody id="tideBody"></tbody> </table>
+            <table class="tide-table"><thead> <th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th> </thead><tbody id="tideBody"></tbody>  </table>
             <div style="background:#0ff1; border-radius: 16px; padding: 12px; margin-top: 12px;">
                 <div>🌙 FASE LUNAR: <strong id="faseLuna">--</strong> | 💡 ILUM: <span id="ilumLuna">--%</span></div>
                 <div>📊 COEFICIENTE MAREA: <strong id="coefMarea">77</strong> (Excelente)</div>
@@ -388,7 +426,7 @@
     </div>
 
     <footer>
-        ⚡ CYBER_METEO Pesca PRO · 🐵🍌 SUPERTILLA@DEV 🍌🐵 · DeepSeek AI · Open-Meteo Marine & Weather · IHM Mareas Oficiales 2026
+        ⚡ CYBER_METEO ⚡ 🎣 PESCA 🎣 · 🐵🍌 SUPERTILLA@DEV 🍌🐵 · 🤖 DEEPSEEK 🐋 · Open-Meteo Marine & Weather · IHM Mareas Oficiales 2026
     </footer>
 </div>
 
@@ -762,18 +800,23 @@
     }
     
     function triggerLluvia() {
-        for(let i=0;i<50;i++) setTimeout(()=>{ const e=document.createElement('div'); e.textContent=Math.random()>0.5?'🐵':'🍌'; e.style.cssText=`position:fixed;left:${Math.random()*100}%;top:-10%;font-size:${20+Math.random()*45}px;z-index:10000;pointer-events:none;animation:fallDown 1s linear forwards`; document.body.appendChild(e); setTimeout(()=>e.remove(),1000); }, i*30);
-        const m=document.createElement('div'); m.innerHTML='🐵🍌 SUPERTILLA@DEV 🍌🐵'; m.style.cssText='position:fixed;bottom:30%;left:50%;transform:translateX(-50%);background:#000c;color:#ff0;padding:15px 30px;border-radius:50px;font-family:Orbitron;z-index:10001;border:2px solid #ff0;font-size:1rem'; document.body.appendChild(m); setTimeout(()=>m.remove(),3500);
+        for(let i=0;i<60;i++) setTimeout(()=>{ const e=document.createElement('div'); e.textContent=Math.random()>0.5?'🐵':'🍌'; e.style.cssText=`position:fixed;left:${Math.random()*100}%;top:-10%;font-size:${20+Math.random()*45}px;z-index:10000;pointer-events:none;animation:fallDown 1s linear forwards`; document.body.appendChild(e); setTimeout(()=>e.remove(),1000); }, i*25);
+        // Mensaje con glow intenso en amarillo
+        const m = document.createElement('div');
+        m.innerHTML = '🍌 SUPERTILLA@DEV 🍌';
+        m.className = 'easter-message';
+        document.body.appendChild(m);
+        setTimeout(() => m.remove(), 4000);
     }
     
     function showCredits() {
         const modal = document.createElement('div');
         modal.className = 'credits-modal';
         modal.innerHTML = `
-            <h2>⚡ CYBER_METEO ⚡</h2>
+            <h2>⚡ CYBER_METEO ⚡ 🎣 PESCA 🎣</h2>
             <p>🍌 EDICIÓN ESPECIAL PESCA PRO</p>
             <p>🐵 DESARROLLO: 🍌SUPERTILLA@DEV🍌</p>
-            <p>🤖 ASISTENCIA: DeepSeek AI</p>
+            <p>🤖 ASISTENCIA: 🤖 DEEPSEEK 🐋</p>
             <p>🌊 DATOS: Open-Meteo Marine & Weather · IHM Mareas</p>
             <p>📊 5 GRÁFICOS INTERACTIVOS · PERSISTENCIA LOCAL</p>
             <p>🏆 TORNEOS OFICIALES · RÉCORDS · CONSEJOS PRO</p>
@@ -789,7 +832,7 @@
         initSpeciesModal();
         document.getElementById('refreshBtn').addEventListener('click', updateAll);
         document.getElementById('whatsappBtn').addEventListener('click', () => {
-            const msg = `🎣 CYBER_METEO Pesca PRO\n📍 El Puerto de Santa María\n🌊 Ola: ${document.getElementById('olaAltura').innerText}\n🌡️ Agua: ${document.getElementById('seaTemp').innerText}\n🐟 Índice: ${document.getElementById('fishIndex').innerText}\n🏆 Torneo Lubina de Oro 15-16 Abril\n${window.location.href}`;
+            const msg = `🎣 CYBER_METEO ⚡ 🎣 PESCA 🎣\n📍 El Puerto de Santa María\n🌊 Ola: ${document.getElementById('olaAltura').innerText}\n🌡️ Agua: ${document.getElementById('seaTemp').innerText}\n🐟 Índice: ${document.getElementById('fishIndex').innerText}\n🏆 Torneo Lubina de Oro 15-16 Abril\n${window.location.href}`;
             window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         });
         document.getElementById('creditsBtn').addEventListener('click', showCredits);
