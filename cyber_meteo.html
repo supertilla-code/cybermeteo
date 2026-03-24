@@ -317,14 +317,36 @@
         <div class="card">
             <div class="card-header"><span>🌙</span><h2>MAREAS OFICIALES · INSTITUTO HIDROGRÁFICO MARINA</h2></div>
             <table class="tide-table">
-                <thead> <th>🌕 PLEAMAR</th><th>🌑 BAJAMAR</th><th>HORA</th> </thead>
+                <thead>
+                    <tr>
+                        <th>🌕 PLEAMAR</th>
+                        <th>🌑 BAJAMAR</th>
+                        <th>HORA</th>
+                    </tr>
+                </thead>
                 <tbody>
-                    32d<td>3.334m 🌊</td><td>--</td><td>04:52</td> </tr>
-                    32d<td>--</td><td>0.678m 🌊</td><td>10:46</td> </tr>
-                    32d<td>3.215m 🌊</td><td>--</td><td>17:12</td> </tr>
-                    32d<td>--</td><td>0.696m 🌊</td><td>23:16</td> </tr>
+                    <tr>
+                        <td>3.334m 🌊</td>
+                        <td>--</td>
+                        <td>04:52</td>
+                    </tr>
+                    <tr>
+                        <td>--</td>
+                        <td>0.678m 🌊</td>
+                        <td>10:46</td>
+                    </tr>
+                    <tr>
+                        <td>3.215m 🌊</td>
+                        <td>--</td>
+                        <td>17:12</td>
+                    </tr>
+                    <tr>
+                        <td>--</td>
+                        <td>0.696m 🌊</td>
+                        <td>23:16</td>
+                    </tr>
                 </tbody>
-             </table>
+            </table>
             <div style="background:#0ff1; border-radius: 16px; padding: 8px; margin-top: 8px;">
                 <div>🌙 FASE LUNAR: <strong id="faseLuna">--</strong> | 💡 ILUMINACIÓN: <span id="iluminacionLuna">--%</span></div>
                 <div>📊 COEFICIENTE MAREA: <strong id="coeficienteMarea" style="color:#00ff66">77</strong></div>
@@ -423,7 +445,7 @@
     let fishingIndexChart = null;
     
     // ============================================
-    // 🕒 PERSISTENCIA CON RESET AUTOMÁTICO CADA 24h
+    // 🕒 PERSISTENCIA CON RESET AUTOMÁTICO CADA 24h Y 1 PUNTO POR ACTUALIZACIÓN
     // ============================================
     const STORAGE_KEYS = {
         tempAgua: 'cyber_historico_temp_agua',
@@ -446,18 +468,18 @@
         const HOURS_24 = 24 * 60 * 60 * 1000;
         
         if (!lastReset || (now - parseInt(lastReset)) >= HOURS_24) {
-            // Resetear todos los historiales
+            const defaultLabels = ['12:00','11:00','10:00','09:00','08:00','07:00','06:00'];
             localStorage.setItem(STORAGE_KEYS.tempAgua, JSON.stringify([15.2, 15.1, 15.0, 14.9, 15.0, 15.1, 15.2]));
             localStorage.setItem(STORAGE_KEYS.tempTierra, JSON.stringify([18, 17, 19, 20, 19, 18, 17]));
-            localStorage.setItem(STORAGE_KEYS.tempLabels, JSON.stringify(['12:00','11:00','10:00','09:00','08:00','07:00','06:00']));
+            localStorage.setItem(STORAGE_KEYS.tempLabels, JSON.stringify(defaultLabels));
             localStorage.setItem(STORAGE_KEYS.fishingIndex, JSON.stringify([50, 52, 55, 58, 62, 65, 68]));
-            localStorage.setItem(STORAGE_KEYS.fishingLabels, JSON.stringify(['12:00','11:00','10:00','09:00','08:00','07:00','06:00']));
+            localStorage.setItem(STORAGE_KEYS.fishingLabels, JSON.stringify(defaultLabels));
             localStorage.setItem(STORAGE_KEYS.temp, JSON.stringify([18, 17, 19, 20, 19, 18, 17]));
             localStorage.setItem(STORAGE_KEYS.hum, JSON.stringify([65, 67, 63, 60, 62, 65, 68]));
             localStorage.setItem(STORAGE_KEYS.wind, JSON.stringify([12, 14, 11, 10, 13, 15, 12]));
             localStorage.setItem(STORAGE_KEYS.gust, JSON.stringify([18, 21, 17, 15, 19, 22, 18]));
             localStorage.setItem(STORAGE_KEYS.wave, JSON.stringify([0.8, 0.9, 0.7, 0.8, 0.9, 0.8, 0.7]));
-            localStorage.setItem(STORAGE_KEYS.waveLabels, JSON.stringify(['12:00','11:00','10:00','09:00','08:00','07:00','06:00']));
+            localStorage.setItem(STORAGE_KEYS.waveLabels, JSON.stringify(defaultLabels));
             localStorage.setItem(STORAGE_KEYS.lastReset, now.toString());
         }
     }
@@ -579,38 +601,9 @@
                     if (currentTemp) document.getElementById('seaTemp').textContent = `${currentTemp.toFixed(1)}°C`;
                     document.getElementById('visibilidadAgua').textContent = `${transparency} m`;
                     
-                    // Guardar temperatura del agua en historial
-                    if (currentTemp) {
-                        const nowHour = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-                        historicoTempAgua.push(currentTemp);
-                        historicoTempLabels.push(nowHour);
-                        if (historicoTempAgua.length > 24) { historicoTempAgua.shift(); historicoTempLabels.shift(); }
-                        localStorage.setItem(STORAGE_KEYS.tempAgua, JSON.stringify(historicoTempAgua));
-                        localStorage.setItem(STORAGE_KEYS.tempLabels, JSON.stringify(historicoTempLabels));
-                        if (tempDoubleChart) {
-                            tempDoubleChart.data.labels = [...historicoTempLabels];
-                            tempDoubleChart.data.datasets[0].data = [...historicoTempAgua];
-                            tempDoubleChart.data.datasets[1].data = [...historicoTempTierra];
-                            tempDoubleChart.update();
-                        }
-                    }
-                    
                     if (currentWave > 2.5) document.getElementById('avisoMar').innerHTML = '⚠️⚠️ AVISO ROJO: OLEAJE PELIGROSO > 2.5m';
                     else if (currentWave > 1.5) document.getElementById('avisoMar').innerHTML = '⚠️ AVISO AMARILLO: OLEAJE FUERTE';
                     else document.getElementById('avisoMar').innerHTML = '✅ CONDICIONES FAVORABLES PARA PESCA';
-                    
-                    const nowHour = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-                    historicoWave.push(currentWave);
-                    historicoWaveLabels.push(nowHour);
-                    if (historicoWave.length > 24) { historicoWave.shift(); historicoWaveLabels.shift(); }
-                    localStorage.setItem(STORAGE_KEYS.wave, JSON.stringify(historicoWave));
-                    localStorage.setItem(STORAGE_KEYS.waveLabels, JSON.stringify(historicoWaveLabels));
-                    
-                    if (waveHistoryChart) {
-                        waveHistoryChart.data.labels = [...historicoWaveLabels];
-                        waveHistoryChart.data.datasets[0].data = [...historicoWave];
-                        waveHistoryChart.update();
-                    }
                     
                     resolve({ currentWave, currentPeriod, currentTemp, wavePower, swellHeight, swellPeriod, transparency });
                 } else {
@@ -685,37 +678,6 @@
                     if (data.daily && data.daily.uv_index_max) {
                         document.getElementById('uvIndex').textContent = data.daily.uv_index_max[0];
                     }
-                    
-                    // Guardar temperatura tierra en historial
-                    const nowHour = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-                    historicoTempTierra.push(temp);
-                    if (historicoTempTierra.length > 24) historicoTempTierra.shift();
-                    if (historicoTempLabels.length > 24) historicoTempLabels.shift();
-                    localStorage.setItem(STORAGE_KEYS.tempTierra, JSON.stringify(historicoTempTierra));
-                    localStorage.setItem(STORAGE_KEYS.tempLabels, JSON.stringify(historicoTempLabels));
-                    if (tempDoubleChart) {
-                        tempDoubleChart.data.labels = [...historicoTempLabels];
-                        tempDoubleChart.data.datasets[0].data = [...historicoTempAgua];
-                        tempDoubleChart.data.datasets[1].data = [...historicoTempTierra];
-                        tempDoubleChart.update();
-                    }
-                    
-                    historicoTemp.push(temp);
-                    historicoHum.push(hum);
-                    historicoWind.push(wind);
-                    historicoGust.push(gust);
-                    if (historicoTemp.length > 24) historicoTemp.shift();
-                    if (historicoHum.length > 24) historicoHum.shift();
-                    if (historicoWind.length > 24) historicoWind.shift();
-                    if (historicoGust.length > 24) historicoGust.shift();
-                    
-                    localStorage.setItem(STORAGE_KEYS.temp, JSON.stringify(historicoTemp));
-                    localStorage.setItem(STORAGE_KEYS.hum, JSON.stringify(historicoHum));
-                    localStorage.setItem(STORAGE_KEYS.wind, JSON.stringify(historicoWind));
-                    localStorage.setItem(STORAGE_KEYS.gust, JSON.stringify(historicoGust));
-                    
-                    updateTempHumChart();
-                    updateWindChart();
                     
                     resolve({ temp, hum, pressure, wind, gust });
                 } else {
@@ -1161,7 +1123,7 @@
     }
     
     // ============================================
-    // 🔄 ACTUALIZACIÓN COMPLETA
+    // 🔄 ACTUALIZACIÓN COMPLETA (CADA ACTUALIZACIÓN AÑADE 1 PUNTO)
     // ============================================
     async function updateAllData() {
         document.getElementById('lastUpdateTime').innerHTML = `🕒 ACTUALIZANDO DATOS REALES... 🌊⚡`;
@@ -1171,6 +1133,7 @@
         const waveData = await fetchWaveData();
         const weatherData = await fetchWeatherData();
         const currentHour = new Date().getHours();
+        const nowHour = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
         
         if (waveData && weatherData) {
             const fishingIdx = calculateFishingIndex(
@@ -1181,8 +1144,7 @@
             document.getElementById('fishingIndex').textContent = `${fishingIdx}/100`;
             document.getElementById('fishGauge').style.width = `${fishingIdx}%`;
             
-            // Guardar índice de pesca en historial
-            const nowHour = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+            // ========== 1. GUARDAR ÍNDICE DE PESCA (añadir 1 punto) ==========
             historicoFishingIndex.push(fishingIdx);
             historicoFishingLabels.push(nowHour);
             if (historicoFishingIndex.length > 24) { historicoFishingIndex.shift(); historicoFishingLabels.shift(); }
@@ -1194,6 +1156,59 @@
                 fishingIndexChart.update();
             }
             
+            // ========== 2. GUARDAR OLEAJE (añadir 1 punto) ==========
+            historicoWave.push(waveData.currentWave);
+            historicoWaveLabels.push(nowHour);
+            if (historicoWave.length > 24) { historicoWave.shift(); historicoWaveLabels.shift(); }
+            localStorage.setItem(STORAGE_KEYS.wave, JSON.stringify(historicoWave));
+            localStorage.setItem(STORAGE_KEYS.waveLabels, JSON.stringify(historicoWaveLabels));
+            if (waveHistoryChart) {
+                waveHistoryChart.data.labels = [...historicoWaveLabels];
+                waveHistoryChart.data.datasets[0].data = [...historicoWave];
+                waveHistoryChart.update();
+            }
+            
+            // ========== 3. GUARDAR TEMPERATURA AGUA (añadir 1 punto) ==========
+            if (waveData.currentTemp) {
+                historicoTempAgua.push(waveData.currentTemp);
+                historicoTempLabels.push(nowHour);
+                if (historicoTempAgua.length > 24) { historicoTempAgua.shift(); historicoTempLabels.shift(); }
+                localStorage.setItem(STORAGE_KEYS.tempAgua, JSON.stringify(historicoTempAgua));
+                localStorage.setItem(STORAGE_KEYS.tempLabels, JSON.stringify(historicoTempLabels));
+            }
+            
+            // ========== 4. GUARDAR TEMPERATURA TIERRA (añadir 1 punto) ==========
+            historicoTempTierra.push(weatherData.temp);
+            if (historicoTempTierra.length > 24) historicoTempTierra.shift();
+            localStorage.setItem(STORAGE_KEYS.tempTierra, JSON.stringify(historicoTempTierra));
+            
+            // Actualizar gráfico doble
+            if (tempDoubleChart) {
+                tempDoubleChart.data.labels = [...historicoTempLabels];
+                tempDoubleChart.data.datasets[0].data = [...historicoTempAgua];
+                tempDoubleChart.data.datasets[1].data = [...historicoTempTierra];
+                tempDoubleChart.update();
+            }
+            
+            // ========== 5. GUARDAR HUMEDAD, VIENTO, RACHAS (añadir 1 punto c/u) ==========
+            historicoTemp.push(weatherData.temp);
+            historicoHum.push(weatherData.hum);
+            historicoWind.push(weatherData.wind);
+            historicoGust.push(weatherData.gust);
+            if (historicoTemp.length > 24) historicoTemp.shift();
+            if (historicoHum.length > 24) historicoHum.shift();
+            if (historicoWind.length > 24) historicoWind.shift();
+            if (historicoGust.length > 24) historicoGust.shift();
+            
+            localStorage.setItem(STORAGE_KEYS.temp, JSON.stringify(historicoTemp));
+            localStorage.setItem(STORAGE_KEYS.hum, JSON.stringify(historicoHum));
+            localStorage.setItem(STORAGE_KEYS.wind, JSON.stringify(historicoWind));
+            localStorage.setItem(STORAGE_KEYS.gust, JSON.stringify(historicoGust));
+            
+            updateTempHumChart();
+            updateWindChart();
+            
+            // ========== ACTUALIZAR DATOS EN PANTALLA ==========
             let bestTime = '';
             if (fishingIdx > 80) bestTime = '🔥 AHORA MISMO · CONDICIONES EXCELENTES 🎣';
             else if (fishingIdx > 65) bestTime = '🌅 AMANECER (7:00-8:30) Y ATARDECER (19:00-20:30)';
