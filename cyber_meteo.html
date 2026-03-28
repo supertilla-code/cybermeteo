@@ -8,35 +8,41 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root {
---cyan: #00ffff;
+--matrix:  #00ff41;
+--cyan:    #00ffff;
 --magenta: #ff00ff;
---yellow: #ffee00;
---orange: #ff6600;
---green: #00ff88;
---blue: #0044ff;
---red: #ff0033;
---bg-deep: #020508;
---bg-mid: #040d14;
---bg-card: rgba(2,15,25,0.85);
---glow-cyan: 0 0 8px #00ffff, 0 0 20px #00ffff44;
---glow-magenta: 0 0 8px #ff00ff, 0 0 20px #ff00ff44;
---glow-yellow: 0 0 8px #ffee00, 0 0 20px #ffee0044;
+--yellow:  #ffee00;
+--orange:  #ff6600;
+--green:   #00ff88;
+--blue:    #0044ff;
+--red:     #ff0033;
+--bg-deep: #0a0a0f;
+--bg-mid:  #050508;
+--bg-card: rgba(17,17,23,0.92);
+--glow-cyan:    0 0 10px #00ffff, 0 0 30px #00ffff88, 0 0 60px #00ffff33;
+--glow-magenta: 0 0 10px #ff00ff, 0 0 30px #ff00ff88, 0 0 60px #ff00ff33;
+--glow-yellow:  0 0 10px #ffee00, 0 0 30px #ffee0088, 0 0 60px #ffee0033;
+--glow-matrix:  0 0 10px #00ff41, 0 0 30px #00ff4188, 0 0 60px #00ff4133;
+--transition:   all 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { width: 100%; height: 100%; overflow-x: hidden; }
 body {
 background: var(--bg-deep);
+background-image: linear-gradient(rgba(0,255,65,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,65,0.07) 1px, transparent 1px);
+background-size: 24px 24px;
+animation: gridScroll 20s linear infinite;
 font-family: 'Share Tech Mono', monospace;
-color: var(--cyan);
+color: var(--matrix);
 min-height: 100vh;
 position: relative;
 }
+@keyframes gridScroll { from { background-position: 0 0; } to { background-position: 24px 24px; } }
 body::before {
 content: '';
 position: fixed;
 inset: 0;
-background: linear-gradient(rgba(0,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,255,0.025) 1px, transparent 1px);
-background-size: 40px 40px;
+background: radial-gradient(circle at 25% 50%, rgba(0,255,65,0.06) 0%, transparent 55%), radial-gradient(circle at 75% 30%, rgba(255,0,255,0.04) 0%, transparent 50%);
 z-index: 0;
 pointer-events: none;
 }
@@ -51,7 +57,7 @@ pointer-events: none;
 #matrixCanvas {
 position: fixed; top: 0; left: 0;
 width: 100%; height: 100%;
-z-index: 2; pointer-events: none; opacity: 0.45;
+z-index: 2; pointer-events: none; opacity: 0.20;
 }
 #nebulaCanvas {
 position: fixed; top: 0; left: 0;
@@ -61,15 +67,15 @@ z-index: 1; pointer-events: none; opacity: 0.15;
 .dashboard {
 max-width: 1600px;
 margin: 0 auto;
-padding: 10px 12px 30px;
+padding: 0 0 40px;
 position: relative;
 z-index: 10;
 }
 .hero {
 position: relative;
 background: linear-gradient(135deg, rgba(0,255,255,0.04), rgba(255,0,255,0.04));
-padding: 18px 22px;
-margin-bottom: 18px;
+padding: 14px 16px;
+margin-bottom: 0;
 clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
 }
 .hero::before {
@@ -150,169 +156,206 @@ animation: supertillaPulse 2s ease infinite;
 0%, 100% { box-shadow: 0 0 4px #ff00ff44; border-color: #ff00ff88; }
 50% { box-shadow: 0 0 14px #ff00ffaa, 0 0 28px #ff00ff44; border-color: #ff00ff; }
 }
-.action-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.action-buttons { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; width: 100%; }
 .btn {
 font-family: 'Orbitron', monospace;
-font-size: 0.65rem;
+font-size: 0.6rem;
 font-weight: 700;
 letter-spacing: 1px;
-padding: 9px 18px;
-background: transparent;
-border: 1px solid #00ffff;
-color: #00ffff;
+padding: 10px 14px;
+background: rgba(17,17,23,0.8);
+border: 1px solid rgba(0,255,65,0.5);
+color: var(--matrix);
 cursor: pointer;
-clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
-transition: all 0.2s;
+border-radius: 8px;
+transition: var(--transition);
 text-transform: uppercase;
-min-width: 100px;
+min-width: 80px;
+min-height: 42px;
 position: relative;
 overflow: hidden;
+-webkit-tap-highlight-color: transparent;
+touch-action: manipulation;
 }
-.btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #00ffff, #ff00ff); opacity: 0; transition: opacity 0.2s; }
-.btn:hover::before { opacity: 0.15; }
-.btn:hover { box-shadow: var(--glow-cyan); transform: translateY(-1px); }
+.btn::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--matrix), var(--cyan), var(--magenta)); transform: scaleX(0); transform-origin: left; transition: var(--transition); }
+.btn:hover::before { transform: scaleX(1); }
+.btn:hover { box-shadow: var(--glow-matrix); transform: translateY(-1px); }
 .btn span { position: relative; z-index: 1; }
 .btn-wa { border-color: #25D366; color: #25D366; }
 .btn-wa:hover { box-shadow: 0 0 8px #25D366, 0 0 20px #25D36644; }
-.btn-credits { border-color: #ff00ff; color: #ff00ff; }
+.btn-credits { border-color: rgba(255,0,255,0.5); color: #ff00ff; }
 .btn-credits:hover { box-shadow: var(--glow-magenta); }
-.btn-logger { border-color: #ffee00; color: #ffee00; }
+.btn-logger { border-color: rgba(255,238,0,0.5); color: #ffee00; }
 .status-bar {
 display: flex;
 justify-content: space-between;
 align-items: center;
 padding: 6px 14px;
-background: rgba(0,255,255,0.04);
-border: 1px solid #00ffff22;
+background: rgba(5,5,8,0.95);
+border-top: 1px solid rgba(0,255,65,0.2);
+border-bottom: 1px solid rgba(0,255,65,0.1);
 margin-bottom: 16px;
 font-size: 0.58rem;
 letter-spacing: 1px;
-clip-path: polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+flex-wrap: wrap;
+gap: 0.3rem;
 }
 .status-dot {
 display: inline-block;
-width: 6px; height: 6px;
+width: 7px; height: 7px;
 border-radius: 50%;
-background: #00ff88;
-box-shadow: 0 0 6px #00ff88;
+background: var(--matrix);
+box-shadow: 0 0 8px var(--matrix), 0 0 4px var(--cyan);
 animation: blink 1.5s ease infinite;
 margin-right: 6px;
 }
-@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
-.grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 14px; }
+@keyframes blink { 0%,100% { opacity: 1; background: var(--matrix); } 50% { opacity: 0.3; background: var(--cyan); } }
+.grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; padding: 0 12px; }
 @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 .card {
 background: var(--bg-card);
 backdrop-filter: blur(16px);
-border: 1px solid #00ffff33;
+border: 1px solid;
+border-image: linear-gradient(135deg, rgba(0,255,65,0.4), rgba(0,255,255,0.3), rgba(255,0,255,0.25)) 1;
+border-style: solid;
+border-radius: 12px;
 padding: 14px;
 position: relative;
-transition: all 0.3s;
-clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+transition: var(--transition);
+overflow: hidden;
 }
-.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, #00ffff88, transparent); }
-.card::after { content: ''; position: absolute; top: 0; right: 0; width: 12px; height: 12px; border-top: 1px solid #00ffff88; border-right: 1px solid #00ffff88; }
-.card:hover { transform: translateY(-4px); border-color: #00ffff77; box-shadow: 0 8px 30px rgba(0,255,255,0.12), inset 0 0 30px rgba(0,255,255,0.03); }
-.card-header { display: flex; align-items: center; gap: 8px; padding-bottom: 8px; margin-bottom: 10px; border-bottom: 1px solid #00ffff22; position: relative; }
-.card-header::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 40%; height: 1px; background: linear-gradient(90deg, #00ffff, transparent); }
-.card-icon { font-size: 1rem; filter: drop-shadow(0 0 4px currentColor); }
-.card-header h2 { font-family: 'Orbitron', monospace; font-size: 0.7rem; font-weight: 700; color: #00ffff; letter-spacing: 2px; text-transform: uppercase; }
-.card-tag { margin-left: auto; font-size: 0.5rem; padding: 2px 6px; border: 1px solid #00ffff33; color: #00ffff66; letter-spacing: 1px; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--matrix), var(--cyan), var(--magenta)); transform: scaleX(0); transform-origin: left; transition: var(--transition); border-radius: 12px 12px 0 0; }
+.card::after { display: none; }
+.card:hover::before { transform: scaleX(1); }
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,255,65,0.2), 0 0 25px rgba(0,255,255,0.15), inset 0 0 20px rgba(0,255,65,0.04); }
+.card-header { display: flex; align-items: center; gap: 8px; padding-bottom: 8px; margin-bottom: 10px; border-bottom: 1px solid rgba(0,255,65,0.15); position: relative; }
+.card-header::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 40%; height: 1px; background: linear-gradient(90deg, var(--matrix), transparent); }
+.card-icon { font-size: 1.1rem; filter: drop-shadow(0 0 6px var(--matrix)) drop-shadow(0 0 14px var(--cyan)); }
+.card-header h2 { font-family: 'Orbitron', monospace; font-size: 0.7rem; font-weight: 700; background: linear-gradient(135deg, var(--matrix), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: 2px; text-transform: uppercase; text-shadow: none; filter: drop-shadow(0 0 4px var(--matrix)); }
+.card-tag { margin-left: auto; font-size: 0.5rem; padding: 2px 8px; border-radius: 10px; background: rgba(0,255,65,0.1); border: 1px solid rgba(0,255,65,0.3); color: var(--matrix); letter-spacing: 1px; }
 .chart-container { height: 155px; margin: 8px 0; position: relative; }
-.data-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #00ffff11; font-size: 0.65rem; gap: 4px; }
+.data-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid rgba(0,255,65,0.08); font-size: 0.65rem; gap: 4px; }
 .data-row:last-child { border-bottom: none; }
-.data-label { color: #00ffff77; letter-spacing: 0.5px; }
-.data-value { color: #00ffff; font-weight: bold; text-align: right; }
+.data-label { color: var(--matrix); opacity: 0.65; letter-spacing: 0.5px; }
+.data-value { color: var(--cyan); font-weight: bold; text-align: right; }
 .wave-box, .fishing-box {
-background: linear-gradient(135deg, rgba(0,255,255,0.05), rgba(0,255,255,0.02));
-border: 1px solid #00ffff22;
+background: rgba(17,17,23,0.8);
+border: 1px solid rgba(0,255,65,0.2);
+border-radius: 10px;
 padding: 10px 12px;
 margin: 8px 0;
-position: relative;
-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
 }
-.wave-row, .fish-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 0.65rem; border-bottom: 1px solid #00ffff0d; }
+.wave-row, .fish-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 0.65rem; border-bottom: 1px solid rgba(0,255,65,0.06); }
 .wave-row:last-child, .fish-row:last-child { border-bottom: none; }
 .wave-label { color: #00ffff88; }
 .wave-val { color: #00ffff; font-weight: bold; }
 .warning { background: rgba(255,0,255,0.07); border-left: 2px solid #ff00ff; padding: 7px 10px; margin-top: 8px; font-size: 0.62rem; color: #ff00ffcc; }
 .warning::before { content: '▶'; margin-right: 4px; color: #ff00ff; animation: blink 1s infinite; }
 .gauge-wrap { margin: 8px 0; }
-.gauge { background: rgba(0,0,0,0.5); border: 1px solid #00ffff22; height: 8px; overflow: hidden; }
-.gauge-fill { height: 100%; width: 0%; transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1); }
-.gauge-fill-cyan { background: linear-gradient(90deg, #003344, #00ffff); box-shadow: 0 0 8px #00ffff88; }
-.gauge-fill-magenta { background: linear-gradient(90deg, #220033, #ff00ff); box-shadow: 0 0 8px #ff00ff88; }
+.gauge { background: rgba(0,0,0,0.5); border: 1px solid rgba(0,255,65,0.15); border-radius: 5px; height: 8px; overflow: hidden; }
+.gauge-fill { height: 100%; width: 0%; transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 5px; }
+.gauge-fill-cyan { background: linear-gradient(90deg, var(--magenta), var(--cyan), var(--matrix)); }
+.gauge-fill-magenta { background: linear-gradient(90deg, var(--magenta), var(--cyan), var(--matrix)); }
 .fish-index-display { text-align: center; padding: 12px 0 8px; }
-.fish-index-label { font-size: 0.55rem; letter-spacing: 3px; color: #00ffff66; margin-bottom: 4px; }
-.fish-index-number { font-family: 'Orbitron', monospace; font-size: 2.8rem; font-weight: 900; line-height: 1; }
-.fish-index-bar { height: 3px; margin: 8px auto 0; background: linear-gradient(90deg, #ff0033, #ffee00, #00ff88); max-width: 200px; }
-.fish-excelente { color: #ffee00; text-shadow: 0 0 20px #ffee0088; }
-.fish-muybueno { color: #00ff88; text-shadow: 0 0 20px #00ff8888; }
-.fish-favorable { color: #00ffff; text-shadow: 0 0 20px #00ffff88; }
-.fish-regular { color: #ff00ff; text-shadow: 0 0 20px #ff00ff; }
-.fish-malo { color: #ff0033; text-shadow: 0 0 20px #ff0033; }
+.fish-index-label { font-size: 0.55rem; letter-spacing: 3px; color: var(--magenta); margin-bottom: 4px; }
+.fish-index-number { font-family: 'Orbitron', monospace; font-size: 2.8rem; font-weight: 900; line-height: 1; filter: drop-shadow(0 0 4px currentColor); }
+.fish-excelente { color: var(--matrix); text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff4144; }
+.fish-muybueno { color: var(--cyan); text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff44; }
+.fish-favorable { color: var(--yellow); text-shadow: 0 0 5px #ffee00, 0 0 10px #ffee0044; }
+.fish-regular { color: var(--magenta); text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff44; }
+.fish-malo { color: var(--red); text-shadow: 0 0 5px #ff0033, 0 0 10px #ff003344; }
+.fish-index-bar { height: 3px; margin: 8px auto 0; background: linear-gradient(90deg, var(--magenta), var(--cyan), var(--matrix)); max-width: 200px; border-radius: 3px; box-shadow: 0 0 8px #00ff4166; }
 .tide-table { width: 100%; border-collapse: collapse; font-size: 0.62rem; margin-bottom: 10px; }
-.tide-table th { font-family: 'Orbitron', monospace; font-size: 0.55rem; color: #00ffff88; padding: 6px 4px; border-bottom: 1px solid #00ffff33; text-align: center; }
-.tide-table td { padding: 5px 4px; border-bottom: 1px solid #00ffff11; text-align: center; color: #00ffff; }
-.luna-box { background: linear-gradient(135deg, rgba(255,238,0,0.06), rgba(0,255,255,0.04)); border: 1px solid #ffee0033; padding: 10px; margin-top: 10px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%); }
-.luna-row { display: flex; justify-content: space-between; font-size: 0.63rem; padding: 3px 0; border-bottom: 1px solid #ffee000d; }
+.tide-table th { font-family: 'Orbitron', monospace; font-size: 0.55rem; color: var(--matrix); opacity: 0.65; padding: 6px 4px; border-bottom: 1px solid rgba(0,255,65,0.2); text-align: center; }
+.tide-table td { padding: 5px 4px; border-bottom: 1px solid rgba(0,255,65,0.07); text-align: center; color: var(--cyan); }
+.luna-box { background: rgba(17,17,23,0.8); border: 1px solid rgba(255,238,0,0.2); border-left: 3px solid var(--yellow); border-radius: 0 10px 10px 0; padding: 10px; margin-top: 10px; }
+.luna-row { display: flex; justify-content: space-between; font-size: 0.63rem; padding: 3px 0; border-bottom: 1px solid rgba(255,238,0,0.06); }
 .luna-row:last-child { border-bottom: none; }
-.luna-label { color: #ffee0077; }
+.luna-label { color: var(--matrix); opacity: 0.65; }
 .luna-val { color: #ffee00; font-weight: bold; }
 .species-list { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0; }
-.species-tag { font-size: 0.58rem; padding: 3px 10px; border: 1px solid #00ffff33; color: #00ffff99; cursor: pointer; transition: all 0.15s; clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%); background: rgba(0,255,255,0.05); }
-.species-tag:hover, .species-tag.active { background: rgba(0,255,255,0.15); color: #00ffff; border-color: #00ffff88; }
-.spec-detail { background: rgba(0,255,255,0.03); border: 1px solid #00ffff1a; padding: 8px 10px; margin: 8px 0; }
-.tournament-card { background: linear-gradient(135deg, rgba(255,170,0,0.08), rgba(255,102,0,0.05)); border: 1px solid #ffaa0044; border-left: 2px solid #ffaa00; padding: 10px 12px; margin: 8px 0; }
+.species-tag { font-size: 0.58rem; padding: 3px 10px; border-radius: 12px; border: 1px solid rgba(0,255,65,0.3); color: var(--matrix); cursor: pointer; transition: var(--transition); background: rgba(0,255,65,0.05); }
+.species-tag:hover, .species-tag.active { background: rgba(0,255,65,0.15); color: var(--cyan); border-color: rgba(0,255,255,0.5); box-shadow: var(--glow-cyan); }
+.spec-detail { background: rgba(17,17,23,0.6); border: 1px solid rgba(0,255,65,0.1); border-radius: 8px; padding: 8px 10px; margin: 8px 0; }
+.tournament-card { background: linear-gradient(135deg, rgba(255,170,0,0.08), rgba(255,102,0,0.05)); border: 1px solid rgba(255,170,0,0.22); border-left: 3px solid #ffaa00; border-radius: 0 8px 8px 0; padding: 10px 12px; margin: 8px 0; }
 .tournament-title { font-family: 'Orbitron', monospace; font-size: 0.65rem; color: #ffaa00; margin-bottom: 5px; }
-.tournament-info { font-size: 0.6rem; color: #ffaa0099; line-height: 1.6; }
+.tournament-info { font-size: 0.6rem; color: rgba(255,170,0,0.65); line-height: 1.6; }
 .consejos-container { max-height: 370px; overflow-y: auto; }
-.consejo-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 8px; margin: 3px 0; background: rgba(0,255,255,0.04); border-left: 2px solid #00ffff33; font-size: 0.62rem; }
-.consejo-num { font-family: 'Orbitron', monospace; font-size: 0.5rem; color: #00ffff44; min-width: 18px; }
+.consejo-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 8px; margin: 3px 0; background: rgba(0,255,65,0.03); border-left: 2px solid rgba(0,255,65,0.25); border-radius: 0 6px 6px 0; font-size: 0.62rem; }
+.consejo-num { font-family: 'Orbitron', monospace; font-size: 0.5rem; color: var(--matrix); opacity: 0.45; min-width: 18px; }
 .radar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 8px; }
 @media (min-width: 640px) { .radar-grid { grid-template-columns: repeat(4, 1fr); } }
-.radar-item { text-align: center; padding: 10px 6px; background: rgba(0,255,255,0.03); border: 1px solid #00ffff1a; clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px)); }
-.radar-value { font-family: 'Orbitron', monospace; font-size: 1.2rem; font-weight: 900; color: #00ffff; display: block; }
-.radar-label { font-size: 0.5rem; color: #00ffff55; margin-top: 2px; }
-.radar-item.highlight .radar-value { color: #ffee00; }
-.radar-item.warning-item .radar-value { color: #ff00ff; }
+.radar-item { text-align: center; padding: 10px 6px; background: rgba(17,17,23,0.7); border: 1px solid rgba(0,255,65,0.2); border-radius: 8px; transition: var(--transition); }
+.radar-item:hover { background: rgba(0,255,65,0.05); }
+.radar-value { font-family: 'Orbitron', monospace; font-size: 1.2rem; font-weight: 900; background: linear-gradient(135deg, var(--matrix), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; display: block; filter: drop-shadow(0 0 6px #00ff41) drop-shadow(0 0 12px #00ffff66); }
+.radar-label { font-size: 0.5rem; color: var(--magenta); margin-top: 2px; letter-spacing: 1px; }
+.radar-item.highlight .radar-value { background: linear-gradient(135deg, var(--yellow), var(--matrix)); -webkit-background-clip: text; background-clip: text; }
+.radar-item.warning-item .radar-value { background: linear-gradient(135deg, var(--magenta), #ff3366); -webkit-background-clip: text; background-clip: text; }
 .coef-number { font-family: 'Orbitron', monospace; font-size: 2rem; font-weight: 900; color: #ff00ff; }
-footer { margin-top: 24px; padding: 20px; border-top: 1px solid #00ffff22; text-align: center; }
-.footer-title { font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 900; letter-spacing: 3px; background: linear-gradient(90deg, #00ffff, #ff00ff, #ffee00); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 10px; }
+footer { margin-top: 24px; padding: 20px; background: linear-gradient(180deg, #050508 0%, #0a0a0f 100%); border-top: 2px solid; border-image: linear-gradient(90deg, var(--matrix), var(--cyan), var(--magenta)) 1; border-top-style: solid; text-align: center; }
+.footer-title { font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 900; letter-spacing: 3px; background: linear-gradient(90deg, var(--matrix), var(--cyan), var(--magenta)); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 10px; }
 .footer-dev { font-size: 0.6rem; color: #ffaa00; margin: 4px 0; }
-.footer-info { font-size: 0.52rem; color: #00ffff44; line-height: 2; }
+.footer-info { font-size: 0.52rem; color: var(--matrix); opacity: 0.45; line-height: 2; }
 .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); z-index: 10000; align-items: center; justify-content: center; }
 .modal-backdrop.open { display: flex; }
-.credits-modal { background: var(--bg-card); border: 1px solid #ff00ff; padding: 30px 28px; max-width: 420px; width: 90%; clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px)); }
-.modal-title { font-family: 'Orbitron', monospace; font-size: 1rem; font-weight: 900; text-align: center; background: linear-gradient(135deg, #ff00ff, #00ffff, #ffee00); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 16px; }
-.modal-line { padding: 6px 0; border-bottom: 1px solid #00ffff11; font-size: 0.65rem; display: flex; justify-content: space-between; }
-.modal-line .key { color: #00ffff66; }
-.modal-line .val { color: #00ffff; font-weight: bold; }
-.modal-close { margin-top: 20px; width: 100%; padding: 10px; background: rgba(255,0,255,0.1); border: 1px solid #ff00ff; color: #ff00ff; font-family: 'Orbitron', monospace; cursor: pointer; clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); }
-.modal-close:hover { background: rgba(255,0,255,0.2); }
-.easter-message { position: fixed; bottom: 28%; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.9); color: #ffaa00; padding: 14px 28px; font-family: 'Orbitron', monospace; font-size: 1rem; font-weight: 900; z-index: 10001; border: 1px solid #ffaa00; animation: easterPulse 0.4s ease infinite alternate; }
+.credits-modal { background: var(--bg-card); border: 1px solid; border-image: linear-gradient(135deg, var(--matrix), var(--cyan), var(--magenta)) 1; border-style: solid; border-radius: 16px; padding: 30px 28px; max-width: 420px; width: 90%; }
+.modal-title { font-family: 'Orbitron', monospace; font-size: 1rem; font-weight: 900; text-align: center; background: linear-gradient(135deg, var(--matrix), var(--cyan), var(--magenta)); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 16px; }
+.modal-line { padding: 6px 0; border-bottom: 1px solid rgba(0,255,65,0.08); font-size: 0.65rem; display: flex; justify-content: space-between; }
+.modal-line .key { color: var(--matrix); opacity: 0.6; }
+.modal-line .val { color: var(--cyan); font-weight: bold; }
+.modal-close { margin-top: 20px; width: 100%; padding: 10px; background: rgba(0,255,65,0.08); border: 1px solid var(--matrix); color: var(--matrix); font-family: 'Orbitron', monospace; cursor: pointer; border-radius: 8px; transition: var(--transition); }
+.modal-close:hover { background: rgba(0,255,65,0.18); box-shadow: var(--glow-matrix); }
+.easter-message { position: fixed; bottom: 20%; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.92); color: #ffaa00; padding: 6px 14px; font-family: 'Orbitron', monospace; font-size: clamp(0.5rem, 3vw, 0.7rem); font-weight: 900; z-index: 10001; border: 1px solid #ffaa00; border-radius: 8px; white-space: nowrap; max-width: 90vw; overflow: hidden; text-overflow: ellipsis; animation: easterPulse 0.4s ease infinite alternate; }
 @keyframes easterPulse { from { box-shadow: 0 0 20px #ffaa0066; } to { box-shadow: 0 0 50px #ffaa00cc; } }
 @keyframes fallDown { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
 .v-cyan { color: #00ffff !important; }
 .v-magenta { color: #ff00ff !important; }
-.v-green { color: #00ff88 !important; }
+.v-green { color: var(--matrix) !important; }
 .v-yellow { color: #ffee00 !important; }
 .v-orange { color: #ff6600 !important; }
-@media (max-width: 480px) { .main-title { font-size: 1rem; } .fish-index-number { font-size: 2.2rem; } .radar-value { font-size: 1rem; } }
-.card-corner-tl, .card-corner-br { position: absolute; width: 8px; height: 8px; pointer-events: none; }
-.card-corner-tl { top: -1px; left: -1px; border-top: 2px solid #00ffff88; border-left: 2px solid #00ffff88; }
-.card-corner-br { bottom: -1px; right: -1px; border-bottom: 2px solid #00ffff88; border-right: 2px solid #00ffff88; }
-.log-panel { display: none; position: fixed; bottom: 20px; right: 20px; width: 320px; max-height: 400px; background: var(--bg-card); border: 1px solid #00ff88; z-index: 9999; overflow: auto; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); }
+@media (max-width: 480px) {
+  .main-title { font-size: clamp(0.9rem, 5vw, 1.3rem); letter-spacing: 1px; }
+  .fish-index-number { font-size: 2.4rem; }
+  .radar-value { font-size: 1rem; }
+  .radar-grid { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .radar-item { padding: 8px 4px; }
+  .radar-label { font-size: 0.42rem; letter-spacing: 0; }
+  .chart-container { height: 130px; }
+  .card { padding: 12px 10px; }
+  .card-header h2 { font-size: 0.62rem; letter-spacing: 1px; }
+  .action-buttons { gap: 6px; }
+  .btn { min-width: 72px; font-size: 0.55rem; padding: 10px 10px; }
+  .hero { padding: 12px 14px; }
+  .status-bar { font-size: 0.52rem; padding: 6px 12px; }
+  .zone-detail-grid { grid-template-columns: 1fr; }
+  .wave-box, .fishing-box { padding: 8px 10px; }
+  .data-row { font-size: 0.6rem; }
+  .coef-number { font-size: 1.6rem; }
+  .fish-index-bar { max-width: 160px; }
+  .badge { font-size: 0.55rem; padding: 3px 8px; }
+  .title-sub { gap: 6px; }
+}
+@media (max-width: 360px) {
+  .radar-grid { grid-template-columns: repeat(4, 1fr); }
+  .main-title { font-size: 0.85rem; }
+  .btn span { display: none; }
+  .btn::after { content: attr(data-icon); font-size: 1rem; }
+}
+.card-corner-tl, .card-corner-br { display: none; }
+.log-panel { display: none; position: fixed; bottom: 20px; right: 20px; width: 320px; max-height: 400px; background: var(--bg-card); border: 1px solid var(--matrix); border-radius: 12px; z-index: 9999; overflow: auto; }
 .log-panel.open { display: block; }
-.log-header { padding: 10px; background: rgba(0,255,136,0.1); border-bottom: 1px solid #00ff88; font-size: 0.6rem; display: flex; justify-content: space-between; align-items: center; }
-.log-close { background: transparent; border: 1px solid #ff0033; color: #ff0033; padding: 2px 8px; cursor: pointer; font-size: 0.5rem; }
+.log-header { padding: 10px; background: rgba(0,255,65,0.08); border-bottom: 1px solid rgba(0,255,65,0.2); font-size: 0.6rem; display: flex; justify-content: space-between; align-items: center; border-radius: 12px 12px 0 0; }
+.log-close { background: transparent; border: 1px solid var(--red); color: var(--red); padding: 2px 8px; cursor: pointer; font-size: 0.5rem; border-radius: 4px; }
 .log-content { padding: 8px; font-size: 0.55rem; }
-.log-entry { padding: 4px 0; border-bottom: 1px solid #00ff8822; color: #00ff88; }
+.log-entry { padding: 4px 0; border-bottom: 1px solid rgba(0,255,65,0.1); color: var(--matrix); }
 .zone-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0; }
-.zone-item { background: rgba(0,255,255,0.03); border-left: 2px solid #00ffaa; padding: 6px 8px; font-size: 0.6rem; }
-.zone-name { color: #00ffaa; font-weight: bold; font-family: 'Orbitron', monospace; font-size: 0.65rem; }
-.zone-detail { color: #00ffffaa; margin-top: 3px; line-height: 1.3; }
+.zone-item { background: rgba(0,255,65,0.03); border-left: 2px solid var(--matrix); border-radius: 0 6px 6px 0; padding: 6px 8px; font-size: 0.6rem; }
+.zone-name { color: var(--matrix); font-weight: bold; font-family: 'Orbitron', monospace; font-size: 0.65rem; }
+.zone-detail { color: rgba(0,255,255,0.65); margin-top: 3px; line-height: 1.3; }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-mid); }
+::-webkit-scrollbar-thumb { background: linear-gradient(135deg, var(--matrix), var(--cyan)); border-radius: 4px; }
 </style>
 </head>
 <body>
@@ -328,28 +371,63 @@ footer { margin-top: 24px; padding: 20px; border-top: 1px solid #00ffff22; text-
 <div class="credits-modal">
 <div class="modal-title">⚡CYBER_METEO⚡</div>
 <div class="modal-line"><span class="key">EDICIÓN</span><span class="val">🎣 PESCA PRO · CÁDIZ</span></div>
-<div class="modal-line"><span class="key">ARQUITECTO</span><span class="val" style="color:#ffaa00">🍌🐵SUPERTILLA@DEV🐵🍌</span></div>
-<div class="modal-line"><span class="key">EJECUCIÓN IA</span><span class="val" style="color:#ff00ff">🤖 QWEN · ALIBABA</span></div>
+<div class="modal-line"><span class="key">ARQUITECTO</span><span class="val" style="color:#ffaa00">🍌🐵 SUPERTILLA@DEV 🐵🍌</span></div>
+<div class="modal-line"><span class="key">IA ESTRATEGIA</span><span class="val" style="color:#00ff41">❇️ CLAUDE · ANTHROPIC</span></div>
+<div class="modal-line"><span class="key">IA DISEÑO</span><span class="val" style="color:#ff00ff">🐋 DEEPSEEK · AI</span></div>
 <div class="modal-line"><span class="key">DATOS MAR</span><span class="val">OPEN-METEO MARINE API</span></div>
 <div class="modal-line"><span class="key">DATOS CLIMA</span><span class="val">OPEN-METEO WEATHER API</span></div>
 <div class="modal-line"><span class="key">MAREAS</span><span class="val">IHM OFICIAL</span></div>
 <div class="modal-line"><span class="key">CHARTS</span><span class="val">CHART.JS 4.4.0</span></div>
-<div class="modal-line"><span class="key">PERSISTENCIA</span><span class="val">LOCALSTORAGE 24H + LOGGER v3</span></div>
 <div class="modal-line"><span class="key">VERSIÓN</span><span class="val" style="color:#ffee00">v3.0 ULTRA PRO MAX</span></div>
-<div class="modal-line"><span class="key">UBICACIÓN</span><span class="val">36.59°N 6.23°W</span></div>
+<div class="modal-line"><span class="key">UBICACIÓN</span><span class="val">36.59°N 6.23°W · EL PUERTO</span></div>
 <button class="modal-close" id="closeCredits">🍌 CERRAR 🍌</button>
 </div>
 </div>
 
 <div class="dashboard">
 <div class="hero"><div class="hero-border"></div>
-<div class="hero-inner"><div class="title-block"><div class="cyber-label">SISTEMA METEOROLÓGICO · EL PUERTO DE SANTA MARÍA</div><h1 class="main-title">⚡CYBER_METEO⚡ 🎣PESCA</h1><div class="title-sub"><span class="badge">📍 BAHÍA CÁDIZ · 36.59°N 6.23°W</span><span class="badge badge-supertilla" id="easterEggTrigger">🐵🍌 SUPERTILLA@DEV 🍌🐵</span><span class="badge">⚡ TIEMPO REAL</span></div></div><div class="action-buttons"><button class="btn" id="refreshBtn"><span>🔄 ACTUALIZAR</span></button><button class="btn btn-wa" id="whatsappBtn"><span>💬 WHATSAPP</span></button><button class="btn btn-logger" id="loggerBtn"><span>📊 LOGS</span></button><button class="btn btn-credits" id="creditsBtn"><span>⚡ CRÉDITOS</span></button></div></div></div>
+<div class="hero-inner"><div class="title-block"><div class="cyber-label">SISTEMA METEOROLÓGICO · EL PUERTO DE SANTA MARÍA</div><h1 class="main-title">⚡CYBER_METEO⚡ 🎣PESCA</h1><div class="title-sub"><span class="badge">📍 BAHÍA CÁDIZ · 36.59°N 6.23°W</span><span class="badge badge-supertilla" id="easterEggTrigger">🐵🍌 SUPERTILLA@DEV 🍌🐵</span><span class="badge">⚡ TIEMPO REAL</span></div></div><div class="action-buttons"><button class="btn" id="refreshBtn" data-icon="🔄"><span>🔄 ACTUALIZAR</span></button><button class="btn btn-wa" id="whatsappBtn" data-icon="💬"><span>💬 WHATSAPP</span></button><button class="btn btn-logger" id="loggerBtn" data-icon="📊"><span>📊 LOGS</span></button><button class="btn btn-credits" id="creditsBtn" data-icon="⚡"><span>⚡ CRÉDITOS</span></button></div></div></div>
 
 <div class="status-bar"><div><span class="status-dot"></span><span id="lastUpdateTime">INICIALIZANDO...</span></div><div>EL PUERTO DE SANTA MARÍA · CÁDIZ</div></div>
 
-<div class="card" style="margin-bottom:14px;"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">🎯</span><h2>RESUMEN OPERACIONAL</h2><span class="card-tag">LIVE</span></div><div class="radar-grid"><div class="radar-item highlight"><span class="radar-value" id="radarFish">--</span><div class="radar-label">ÍNDICE PESCA</div></div><div class="radar-item"><span class="radar-value" id="radarOla">--</span><div class="radar-label">OLA (m)</div></div><div class="radar-item"><span class="radar-value" id="radarTemp">--</span><div class="radar-label">AGUA (°C)</div></div><div class="radar-item warning-item"><span class="radar-value" id="radarCoef">--</span><div class="radar-label">COEF. MAREA</div></div><div class="radar-item"><span class="radar-value" id="radarViento">--</span><div class="radar-label">VIENTO</div></div><div class="radar-item"><span class="radar-value" id="radarPress">--</span><div class="radar-label">PRESIÓN</div></div><div class="radar-item highlight"><span class="radar-value" id="radarLuna">🌕</span><div class="radar-label">LUNA</div></div><div class="radar-item"><span class="radar-value" id="radarSunrise">--</span><div class="radar-label">AMANECER</div></div></div></div>
+<div class="card" style="margin:12px 12px 12px;"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">🎯</span><h2>RESUMEN OPERACIONAL</h2><span class="card-tag">LIVE</span></div><div class="radar-grid"><div class="radar-item highlight"><span class="radar-value" id="radarFish">--</span><div class="radar-label">ÍNDICE PESCA</div></div><div class="radar-item"><span class="radar-value" id="radarOla">--</span><div class="radar-label">OLA (m)</div></div><div class="radar-item"><span class="radar-value" id="radarTemp">--</span><div class="radar-label">AGUA (°C)</div></div><div class="radar-item warning-item"><span class="radar-value" id="radarCoef">--</span><div class="radar-label">COEF. MAREA</div></div><div class="radar-item"><span class="radar-value" id="radarViento">--</span><div class="radar-label">VIENTO</div></div><div class="radar-item"><span class="radar-value" id="radarPress">--</span><div class="radar-label">PRESIÓN</div></div><div class="radar-item highlight"><span class="radar-value" id="radarLuna">🌕</span><div class="radar-label">LUNA</div></div><div class="radar-item"><span class="radar-value" id="radarSunrise">--</span><div class="radar-label">AMANECER</div></div></div></div>
 
-<div class="grid"><div class="card"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">🌊</span><h2>TEMP AGUA/TIERRA</h2><span class="card-tag">24H</span></div><div class="chart-container"><canvas id="tempChart"></canvas></div></div><div class="card"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">📈</span><h2>ÍNDICE PESCA</h2><span class="card-tag">24H</span></div><div class="chart-container"><canvas id="fishChart"></canvas></div></div><div class="card"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">🌊</span><h2>OLEAJE</h2><span class="card-tag">m</span></div><div class="chart-container"><canvas id="waveChart"></canvas></div></div><div class="card"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">🌡️</span><h2>TEMP/HUM</h2><span class="card-tag">%</span></div><div class="chart-container"><canvas id="thChart"></canvas></div></div><div class="card"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">💨</span><h2>VIENTO</h2><span class="card-tag">km/h</span></div><div class="chart-container"><canvas id="windChart"></canvas></div></div></div>
+<div class="grid"><div class="card"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">🌊</span><h2>TEMP AGUA/TIERRA</h2><span class="card-tag">24H</span></div><div class="chart-container"><canvas id="tempChart"></canvas></div></div><div class="card"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">📈</span><h2>ÍNDICE PESCA</h2><span class="card-tag">24H</span></div><div class="chart-container"><canvas id="fishChart"></canvas></div></div><div class="card"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">🌊</span><h2>OLEAJE</h2><span class="card-tag">m</span></div><div class="chart-container"><canvas id="waveChart"></canvas></div></div><div class="card"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">🌡️</span><h2>TEMP/HUM</h2><span class="card-tag">%</span></div><div class="chart-container"><canvas id="thChart"></canvas></div></div><div class="card"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">💨</span><h2>VIENTO</h2><span class="card-tag">km/h</span></div>
+<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;background:rgba(17,17,23,0.8);border:1px solid;border-image:linear-gradient(135deg,var(--cyan),var(--magenta)) 1;border-style:solid;border-radius:12px;padding:12px;">
+  <div style="width:90px;height:90px;flex-shrink:0;">
+    <svg viewBox="0 0 100 100" style="width:100%;height:100%;filter:drop-shadow(0 0 10px #00ffff) drop-shadow(0 0 20px rgba(0,255,65,0.5)) drop-shadow(0 0 4px #ff00ff66);">
+      <defs>
+        <linearGradient id="gradRoseCM" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00ffff"/><stop offset="100%" stop-color="#ff00ff"/>
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="50" r="45" fill="rgba(17,17,23,0.9)" stroke="url(#gradRoseCM)" stroke-width="1.5"/>
+      <text x="50" y="14" fill="#00ffff" font-size="9" font-family="Orbitron" text-anchor="middle" font-weight="bold">N</text>
+      <text x="86" y="54" fill="#00ffff" font-size="8" font-family="Orbitron" text-anchor="middle">E</text>
+      <text x="50" y="93" fill="#00ffff" font-size="9" font-family="Orbitron" text-anchor="middle">S</text>
+      <text x="14" y="54" fill="#00ffff" font-size="8" font-family="Orbitron" text-anchor="middle">W</text>
+      <text x="72" y="22" fill="#ff00ff" font-size="7" font-family="Orbitron" text-anchor="middle">NE</text>
+      <text x="78" y="72" fill="#ff00ff" font-size="7" font-family="Orbitron" text-anchor="middle">SE</text>
+      <text x="28" y="82" fill="#ff00ff" font-size="7" font-family="Orbitron" text-anchor="middle">SW</text>
+      <text x="22" y="30" fill="#ff00ff" font-size="7" font-family="Orbitron" text-anchor="middle">NW</text>
+      <line x1="50" y1="18" x2="50" y2="82" stroke="rgba(0,255,255,0.2)" stroke-width="0.8"/>
+      <line x1="18" y1="50" x2="82" y2="50" stroke="rgba(255,0,255,0.2)" stroke-width="0.8"/>
+      <line x1="32" y1="32" x2="68" y2="68" stroke="rgba(0,255,65,0.15)" stroke-width="0.6"/>
+      <line x1="68" y1="32" x2="32" y2="68" stroke="rgba(0,255,65,0.15)" stroke-width="0.6"/>
+      <g id="compassNeedleCM" transform="rotate(0,50,50)">
+        <polygon points="50,20 45,50 50,48 55,50" fill="#ff00ff" opacity="0.95"/>
+        <polygon points="50,80 45,50 50,52 55,50" fill="#00ffff" opacity="0.95"/>
+      </g>
+      <circle cx="50" cy="50" r="4" fill="url(#gradRoseCM)"/>
+    </svg>
+  </div>
+  <div style="flex:1;">
+    <div style="font-family:'Orbitron',monospace;font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--matrix));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;"><span id="windSpeedVal">--</span><span style="font-size:0.7rem;color:var(--magenta);"> km/h</span></div>
+    <div style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:var(--cyan);margin-top:4px;">DIR: <span id="windDirVal">--</span></div>
+    <div style="font-size:0.7rem;color:#ff3366;margin-top:3px;">⚡ Racha: <span id="windGustVal">--</span> km/h</div>
+  </div>
+</div>
+<div class="chart-container"><canvas id="windChart"></canvas></div></div>
 
 <div class="grid">
 <div class="card"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">🌊</span><h2>ESTADO DEL MAR</h2></div><div class="wave-box"><div class="wave-row"><span class="wave-label">🌊 ALTURA</span><span class="wave-val" id="olaAltura">--</span></div><div class="wave-row"><span class="wave-label">📏 PERÍODO</span><span class="wave-val" id="wavePeriod">--</span></div><div class="wave-row"><span class="wave-label">🧭 DIRECCIÓN</span><span class="wave-val" id="waveDir">--</span></div><div class="wave-row"><span class="wave-label">⚡ POTENCIA</span><span class="wave-val" id="wavePower">--</span></div><div class="wave-row"><span class="wave-label">📏 SWELL</span><span class="wave-val" id="marFondo">--</span></div><div class="wave-row"><span class="wave-label">⏱ PER. SWELL</span><span class="wave-val" id="swellPeriod">--</span></div><div class="wave-row"><span class="wave-label">🌊 WIND WAVE</span><span class="wave-val" id="windWave">--</span></div><div class="wave-row"><span class="wave-label">📊 OLA MÁX</span><span class="wave-val" id="maxWave">--</span></div><div class="wave-row"><span class="wave-label">🌡️ TEMP AGUA</span><span class="wave-val v-cyan" id="seaTemp">--</span></div><div class="wave-row"><span class="wave-label">💎 VISIBILIDAD</span><span class="wave-val" id="visibilidad">--</span></div><div class="wave-row"><span class="wave-label">🌀 CORRIENTE</span><span class="wave-val" id="corrienteMar">--</span></div></div><div class="warning" id="avisoMar">CARGANDO...</div></div>
@@ -370,7 +448,14 @@ footer { margin-top: 24px; padding: 20px; border-top: 1px solid #00ffff22; text-
 <div class="card"><div class="card-corner-tl"></div><div class="card-corner-br"></div><div class="card-header"><span class="card-icon">💡</span><h2>CONSEJOS</h2></div><div class="consejos-container"><div class="consejo-item"><span class="consejo-num">01</span><strong id="tip1">--</strong></div><div class="consejo-item"><span class="consejo-num">02</span><strong id="tip2">--</strong></div><div class="consejo-item"><span class="consejo-num">03</span><strong id="tip3">--</strong></div><div class="consejo-item"><span class="consejo-num">04</span><strong id="tip4">--</strong></div><div class="consejo-item"><span class="consejo-num">05</span><strong id="tip5">--</strong></div><div class="consejo-item"><span class="consejo-num">06</span><strong id="tip6">--</strong></div><div class="consejo-item"><span class="consejo-num">07</span><strong id="tip7">--</strong></div><div class="consejo-item"><span class="consejo-num">08</span><strong id="tip8">--</strong></div><div class="consejo-item"><span class="consejo-num">09</span><strong id="tip9">--</strong></div><div class="consejo-item"><span class="consejo-num">10</span><strong id="tip10">--</strong></div></div></div>
 </div>
 
-<footer><div class="footer-title">⚡CYBER_METEO⚡ </div><div class="footer-dev">🍌 ARQUITECTO: 🐵SUPERTILLA@DEV🐵</div><div class="footer-dev" style="color:#ff00ff;font-size:0.55rem;">🤖 IA: QWEN · ALIBABA CLOUD</div><div class="footer-info">DATOS: OPEN-METEO MARINE + WEATHER · IHM MAREAS<br>5 GRÁFICOS · LOGGER v3.0 · LOCALSTORAGE 24H · ALGORITMO PESCA PRO<br>EL PUERTO DE SANTA MARÍA · BAHÍA DE CÁDIZ · 36.59°N 6.23°W<br>© 2026 CYBER_METEO</div></footer>
+<footer>
+<div class="footer-title">⚡CYBER_METEO⚡ 🎣 PESCA EDITION</div>
+<div class="footer-dev" style="cursor:pointer;" id="footerEasterEgg">🍌🐵 SUPERTILLA@DEV 🐵🍌</div>
+<div class="footer-dev" style="color:#00ffff;font-size:0.55rem;margin-top:4px;">🤝 EN COLABORACIÓN CON</div>
+<div class="footer-dev" style="color:#00ff41;font-size:0.58rem;">❇️ CLAUDE · ANTHROPIC</div>
+<div class="footer-dev" style="color:#ff00ff;font-size:0.58rem;">🐋 DEEPSEEK · AI</div>
+<div class="footer-info" style="margin-top:8px;">DATOS: OPEN-METEO MARINE + WEATHER · IHM MAREAS<br>5 GRÁFICOS · LOGGER v3.0 · LOCALSTORAGE 24H · ALGORITMO PESCA PRO<br>EL PUERTO DE SANTA MARÍA · BAHÍA DE CÁDIZ · 36.59°N 6.23°W<br>© 2026 CYBER_METEO</div>
+</footer>
 </div>
 
 <script>
@@ -431,15 +516,33 @@ initStorage();
 let tempAgua=JSON.parse(localStorage.getItem(STORAGE.tempAgua)), tempTierra=JSON.parse(localStorage.getItem(STORAGE.tempTierra)), labels=JSON.parse(localStorage.getItem(STORAGE.labels)), fishHist=JSON.parse(localStorage.getItem(STORAGE.fishIdx)), fishLabels=JSON.parse(localStorage.getItem(STORAGE.fishLabels)), tempHist=JSON.parse(localStorage.getItem(STORAGE.temp)), humHist=JSON.parse(localStorage.getItem(STORAGE.hum)), windHist=JSON.parse(localStorage.getItem(STORAGE.wind)), gustHist=JSON.parse(localStorage.getItem(STORAGE.gust)), waveHist=JSON.parse(localStorage.getItem(STORAGE.wave)), waveLabels=JSON.parse(localStorage.getItem(STORAGE.waveLabels));
 
 // Charts
-Chart.defaults.color='#00ffff66'; Chart.defaults.borderColor='#00ffff11'; Chart.defaults.font.family="'Share Tech Mono', monospace";
-const chartOpts={responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:8,font:{size:9}}}},scales:{x:{grid:{color:'#00ffff08'},ticks:{maxTicksLimit:6,font:{size:8}}},y:{grid:{color:'#00ffff08'},ticks:{font:{size:8}}}}};
+Chart.defaults.color='rgba(0,255,255,0.6)'; Chart.defaults.borderColor='rgba(0,255,65,0.08)'; Chart.defaults.font.family="'Share Tech Mono', monospace";
+const chartOpts={responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:8,font:{size:9},color:'rgba(0,255,255,0.7)'}}},scales:{x:{grid:{color:'rgba(0,255,255,0.07)'},ticks:{maxTicksLimit:6,font:{size:8},color:'#ff00ff'}},y:{grid:{color:'rgba(0,255,255,0.07)'},ticks:{font:{size:8},color:'#00ffff'}}}};
 let tempChart,fishChart,waveChart,thChart,windChart;
-function initCharts(){ 
-  tempChart=new Chart(document.getElementById('tempChart'),{type:'line',data:{labels,datasets:[{label:'🌊 Agua',data:tempAgua,borderColor:'#00ffff',borderWidth:2,tension:0.4,pointRadius:2,fill:true,backgroundColor:'rgba(0,255,255,0.04)'},{label:'🌡️ Tierra',data:tempTierra,borderColor:'#ff00ff',borderWidth:2,tension:0.4,pointRadius:2,fill:true,backgroundColor:'rgba(255,0,255,0.04)'}]},options:chartOpts}); 
-  fishChart=new Chart(document.getElementById('fishChart'),{type:'line',data:{labels:fishLabels,datasets:[{label:'🎣 Índice Pesca',data:fishHist,borderColor:'#ffee00',borderWidth:2.5,tension:0.4,pointRadius:3,fill:true,backgroundColor:'rgba(255,238,0,0.06)'}]},options:chartOpts}); 
-  waveChart=new Chart(document.getElementById('waveChart'),{type:'line',data:{labels:waveLabels,datasets:[{label:'🌊 Altura Ola',data:waveHist,borderColor:'#00ff88',borderWidth:2,tension:0.4,pointRadius:2,fill:true,backgroundColor:'rgba(0,255,136,0.06)'}]},options:chartOpts}); 
-  thChart=new Chart(document.getElementById('thChart'),{type:'line',data:{labels:tempHist.map((_,i)=>`-${tempHist.length-i}h`),datasets:[{label:'🌡️ Temp',data:tempHist,borderColor:'#ff6600',borderWidth:2,tension:0.4,pointRadius:2},{label:'💧 Hum',data:humHist,borderColor:'#00ffff',borderWidth:2,tension:0.4,pointRadius:2}]},options:chartOpts}); 
-  windChart=new Chart(document.getElementById('windChart'),{type:'bar',data:{labels:windHist.map((_,i)=>`-${windHist.length-i}h`),datasets:[{label:'💨 Viento',data:windHist,backgroundColor:'rgba(0,255,255,0.3)',borderColor:'#00ffff',borderWidth:1},{label:'⚡ Rachas',data:gustHist,backgroundColor:'rgba(255,0,255,0.3)',borderColor:'#ff00ff',borderWidth:1}]},options:chartOpts}); 
+function initCharts(){
+  // Temp agua/tierra: cyan + matrix green con gradiente fill como el dashboard
+  const tCtx=document.getElementById('tempChart').getContext('2d');
+  const tGradA=tCtx.createLinearGradient(0,0,0,155); tGradA.addColorStop(0,'rgba(0,255,255,0.45)'); tGradA.addColorStop(1,'rgba(255,0,255,0)');
+  const tGradB=tCtx.createLinearGradient(0,0,0,155); tGradB.addColorStop(0,'rgba(0,255,65,0.35)'); tGradB.addColorStop(1,'rgba(0,255,65,0)');
+  tempChart=new Chart(tCtx,{type:'line',data:{labels,datasets:[{label:'🌊 Agua',data:tempAgua,borderColor:'#00ffff',backgroundColor:tGradA,borderWidth:2,tension:0.4,pointBackgroundColor:'#ff00ff',pointBorderColor:'#00ff41',pointRadius:3,fill:true},{label:'🌡️ Tierra',data:tempTierra,borderColor:'#00ff41',backgroundColor:tGradB,borderWidth:2,tension:0.4,pointBackgroundColor:'#00ffff',pointBorderColor:'#ff00ff',pointRadius:3,fill:true}]},options:chartOpts});
+
+  // Fish chart: magenta→cyan→matrix gradient fill
+  const fCtx=document.getElementById('fishChart').getContext('2d');
+  const fGrad=fCtx.createLinearGradient(0,0,0,155); fGrad.addColorStop(0,'rgba(0,255,65,0.45)'); fGrad.addColorStop(1,'rgba(255,0,255,0)');
+  fishChart=new Chart(fCtx,{type:'line',data:{labels:fishLabels,datasets:[{label:'🎣 Índice Pesca',data:fishHist,borderColor:'#00ff41',backgroundColor:fGrad,borderWidth:2.5,tension:0.4,pointBackgroundColor:'#ff00ff',pointBorderColor:'#00ffff',pointRadius:3,fill:true}]},options:chartOpts});
+
+  // Wave chart: cyan gradient
+  const wCtx=document.getElementById('waveChart').getContext('2d');
+  const wGrad=wCtx.createLinearGradient(0,0,0,155); wGrad.addColorStop(0,'rgba(0,255,255,0.4)'); wGrad.addColorStop(1,'rgba(0,255,65,0)');
+  waveChart=new Chart(wCtx,{type:'line',data:{labels:waveLabels,datasets:[{label:'🌊 Altura Ola',data:waveHist,borderColor:'#00ffff',backgroundColor:wGrad,borderWidth:2,tension:0.4,pointBackgroundColor:'#00ff41',pointBorderColor:'#ff00ff',pointRadius:3,fill:true}]},options:chartOpts});
+
+  // Temp/Hum
+  const thCtx=document.getElementById('thChart').getContext('2d');
+  const thGrad=thCtx.createLinearGradient(0,0,0,155); thGrad.addColorStop(0,'rgba(255,102,0,0.3)'); thGrad.addColorStop(1,'rgba(255,102,0,0)');
+  thChart=new Chart(thCtx,{type:'line',data:{labels:tempHist.map((_,i)=>`-${tempHist.length-i}h`),datasets:[{label:'🌡️ Temp',data:tempHist,borderColor:'#ff6600',backgroundColor:thGrad,borderWidth:2,tension:0.4,pointBackgroundColor:'#ff00ff',pointRadius:3,fill:true},{label:'💧 Hum',data:humHist,borderColor:'#00ffff',backgroundColor:'rgba(0,255,255,0.05)',borderWidth:2,tension:0.4,pointBackgroundColor:'#00ff41',pointRadius:3,fill:false}]},options:chartOpts});
+
+  // Wind: barras con gradiente magenta/cyan
+  windChart=new Chart(document.getElementById('windChart'),{type:'bar',data:{labels:windHist.map((_,i)=>`-${windHist.length-i}h`),datasets:[{label:'💨 Viento',data:windHist,backgroundColor:'rgba(0,255,65,0.35)',borderColor:'#00ff41',borderWidth:1},{label:'⚡ Rachas',data:gustHist,backgroundColor:'rgba(255,0,255,0.3)',borderColor:'#ff00ff',borderWidth:1}]},options:{...chartOpts,scales:{...chartOpts.scales,x:{...chartOpts.scales.x,stacked:false},y:{...chartOpts.scales.y,stacked:false}}}});
 }
 function updateCharts(){ 
   tempChart.update('none'); 
@@ -452,7 +555,7 @@ function updateCharts(){
 function saveStorage(){ localStorage.setItem(STORAGE.tempAgua,JSON.stringify(tempAgua)); localStorage.setItem(STORAGE.tempTierra,JSON.stringify(tempTierra)); localStorage.setItem(STORAGE.labels,JSON.stringify(labels)); localStorage.setItem(STORAGE.fishIdx,JSON.stringify(fishHist)); localStorage.setItem(STORAGE.fishLabels,JSON.stringify(fishLabels)); localStorage.setItem(STORAGE.temp,JSON.stringify(tempHist)); localStorage.setItem(STORAGE.hum,JSON.stringify(humHist)); localStorage.setItem(STORAGE.wind,JSON.stringify(windHist)); localStorage.setItem(STORAGE.gust,JSON.stringify(gustHist)); localStorage.setItem(STORAGE.wave,JSON.stringify(waveHist)); localStorage.setItem(STORAGE.waveLabels,JSON.stringify(waveLabels)); }
 
 // ==================== API CON REINTENTOS ====================
-async function fetchWithRetry(url, retries=2){ for(let i=0;i<=retries;i++){ try{ const controller=new AbortController(); const timeoutId=setTimeout(()=>controller.abort(),9000); const res=await fetch(url,{signal:controller.signal}); clearTimeout(timeoutId); if(res.ok) return await res.json(); }catch(e){ if(i===retries) throw e; await new Promise(r=>setTimeout(r,1200)); } } throw new Error('Failed'); }
+async function fetchWithRetry(url, retries=2){ for(let i=0;i<=retries;i++){ try{ const res=await fetch(url); if(res.ok) return await res.json(); }catch(e){ if(i===retries) throw e; await new Promise(r=>setTimeout(r,1200)); } } throw new Error('Failed'); }
 
 async function getWave(){
   try{
@@ -492,32 +595,41 @@ async function getWave(){
 
 async function getWeather(){
   try{
-    const data=await fetchWithRetry(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,wind_gusts_10m,pressure_msl&daily=uv_index_max`);
+    const data=await fetchWithRetry(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,pressure_msl,cloud_cover&daily=uv_index_max`);
     const temp=Math.round(data.current.temperature_2m);
     const sens=Math.round(data.current.apparent_temperature);
     const hum=data.current.relative_humidity_2m;
     const press=Math.round(data.current.pressure_msl);
     const wind=Math.round(data.current.wind_speed_10m);
     const gust=Math.round(data.current.wind_gusts_10m||wind);
+    const windDeg=data.current.wind_direction_10m||225;
     const uv=data.daily?.uv_index_max?.[0]||5;
+    const dirs=['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+    const windDirStr=dirs[Math.round(windDeg/22.5)%16];
     safeSet('tempActual',`${temp}°C`);
     safeSet('sensacion',`${sens}°C`);
     safeSet('humedad',`${hum}%`);
     safeSetStyle('humGauge','width',`${hum}%`);
     safeSet('presion',`${press} hPa`);
-    safeSet('viento',`${wind} km/h SW`);
+    safeSet('viento',`${wind} km/h ${windDirStr}`);
     safeSet('racha',`${gust} km/h`);
+    safeSet('windSpeedVal',wind);
+    safeSet('windDirVal',`${windDirStr} ${windDeg}°`);
+    safeSet('windGustVal',gust);
+    const needle=document.getElementById('compassNeedleCM');
+    if(needle) needle.setAttribute('transform',`rotate(${windDeg},50,50)`);
     safeSet('nubes',data.current.weather_code<3?'☀️ Despejado':data.current.weather_code<50?'⛅ Parcial':'☁️ Cubierto');
     safeSet('lluvia',data.current.precipitation>0?`🌧️ ${data.current.precipitation.toFixed(1)} mm`:'✅ Seco');
     safeSet('uvIndex',uv);
     safeSet('radarViento',wind);
     safeSet('radarPress',press);
-    return {temp,hum,press,wind,gust,uv};
+    return {temp,hum,press,wind,gust,uv,windDeg,windDirStr};
   }catch(e){
     safeSet('tempActual','18°C'); safeSet('sensacion','17°C'); safeSet('humedad','68%'); safeSetStyle('humGauge','width','68%');
     safeSet('presion','1017 hPa'); safeSet('viento','21 km/h SW'); safeSet('racha','29 km/h'); safeSet('nubes','⛅ Parcial');
     safeSet('lluvia','✅ Seco'); safeSet('uvIndex','5'); safeSet('radarViento','21'); safeSet('radarPress','1017');
-    return {temp:18,hum:68,press:1017,wind:21,gust:29,uv:5};
+    safeSet('windSpeedVal','21'); safeSet('windDirVal','SW 225°'); safeSet('windGustVal','29');
+    return {temp:18,hum:68,press:1017,wind:21,gust:29,uv:5,windDeg:225,windDirStr:'SW'};
   }
 }
 
@@ -589,9 +701,58 @@ function triggerLluvia(){
   document.body.appendChild(msg); 
   setTimeout(()=>msg.remove(),3000); 
 }
-function shareWhatsApp(){ const msg=`🎣 CYBER_METEO PESCA 🎣%0A📍 El Puerto · Cádiz%0A🌊 Ola: ${document.getElementById('olaAltura')?.textContent||'--'}%0A🌡️ Agua: ${document.getElementById('seaTemp')?.textContent||'--'}%0A💨 Viento: ${document.getElementById('viento')?.textContent||'--'}%0A🏆 ÍNDICE PESCA: ${document.getElementById('fishIndex')?.textContent||'--'}/100%0A🐵SUPERTILLA@DEV🐵`; window.open(`https://wa.me/?text=${msg}`,'_blank'); }
-function toggleLogPanel(){ const p=document.getElementById('logPanel'); if(p){ p.classList.toggle('open'); if(p.classList.contains('open')){ const logs=JSON.parse(localStorage.getItem('cybermeteo_log_v3')||'[]'); document.getElementById('logContent').innerHTML=`<div class="log-entry">📊 TOTAL REGISTROS: ${logs.length}</div><div class="log-entry">⚡ Último índice: ${logs[0]?.data?.fishIndex||'--'}</div><div class="log-entry">🐵SUPERTILLA@DEV🐵</div>`; } } }
-document.addEventListener('DOMContentLoaded',()=>{ initCharts(); initSpecies(); document.getElementById('refreshBtn')?.addEventListener('click',updateAll); document.getElementById('whatsappBtn')?.addEventListener('click',shareWhatsApp); document.getElementById('loggerBtn')?.addEventListener('click',toggleLogPanel); document.getElementById('creditsBtn')?.addEventListener('click',()=>document.getElementById('creditsBackdrop').classList.add('open')); document.getElementById('closeCredits')?.addEventListener('click',()=>{ document.getElementById('creditsBackdrop').classList.remove('open'); triggerLluvia(); }); document.getElementById('easterEggTrigger')?.addEventListener('click',triggerLluvia); updateAll(); setInterval(updateAll,600000); });
+function shareWhatsApp(){
+  const fi=document.getElementById('fishIndex')?.textContent||'--';
+  const ola=document.getElementById('olaAltura')?.textContent||'--';
+  const agua=document.getElementById('seaTemp')?.textContent||'--';
+  const viento=document.getElementById('windSpeedVal')?.textContent||'--';
+  const dir=document.getElementById('windDirVal')?.textContent||'--';
+  const luna=document.getElementById('faseLuna')?.textContent||'--';
+  const zona=document.getElementById('hotZone')?.textContent||'--';
+  const hora=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit',hour12:false});
+  const emoji=parseInt(fi)>=80?'🔥':parseInt(fi)>=65?'✅':parseInt(fi)>=50?'👍':'⚠️';
+  const msg=[
+    `${emoji} PESCA EN EL PUERTO · ${hora}`,
+    `🏆 ${fi}/100 · 🌊${ola} · 🌡️${agua} · 💨${viento}km/h`,
+    `📍 ${zona} · ${luna}`,
+    `👇 Datos en tiempo real`,
+    `https://supertilla-code.github.io/cybermeteo/cyber_meteo.html`,
+    `🐵🍌 SUPERTILLA@DEV`
+  ].join('%0A');
+  window.open(`https://wa.me/?text=${msg}`,'_blank');
+}
+function toggleLogPanel(){
+  const p=document.getElementById('logPanel');
+  if(p){
+    p.classList.toggle('open');
+    if(p.classList.contains('open')){
+      const logs=JSON.parse(localStorage.getItem('cybermeteo_log_v3')||'[]');
+      const html=logs.slice(0,20).map(l=>{
+        const d=l.data||{};
+        const t=l.timestamp?.slice(11,19)||'--:--:--';
+        const fecha=l.timestamp?.slice(0,10)||'--';
+        const fi=d.fishIndex??'--';
+        const color=fi>=80?'#00ff41':fi>=65?'#00ffff':fi>=50?'#ffee00':fi>=35?'#ff00ff':'#ff0033';
+        return `<div class="log-entry" style="border-bottom:1px solid rgba(0,255,65,0.1);padding:6px 0;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:#00ffff;font-size:0.55rem;">${fecha} ${t}</span>
+            <span style="color:${color};font-family:'Orbitron',monospace;font-weight:900;font-size:0.75rem;">${fi}<span style="font-size:0.45rem;color:#ffffff55;">/100</span></span>
+          </div>
+          <div style="font-size:0.52rem;color:var(--matrix);margin-top:2px;">🌊${d.waveHeight??'--'}m · 🌡️A:${d.waterTemp??'--'}°C · 🌡️T:${d.airTemp??'--'}°C · 💨${d.windSpeed??'--'}km/h</div>
+        </div>`;
+      }).join('');
+      document.getElementById('logContent').innerHTML=`
+        <div style="padding:6px 0 8px;border-bottom:1px solid rgba(0,255,65,0.2);margin-bottom:6px;">
+          <div style="color:var(--matrix);font-size:0.6rem;">📊 TOTAL REGISTROS: <strong>${logs.length}</strong></div>
+          <div style="color:#00ffff;font-size:0.55rem;margin-top:2px;">🔗 <a href="https://supertilla-code.github.io/cybermeteo/cyber_meteo.html" target="_blank" style="color:#00ffff;">cyber_meteo.html</a></div>
+        </div>
+        ${html||'<div class="log-entry">Sin registros aún</div>'}
+        <div style="text-align:center;padding:6px 0;font-size:0.5rem;color:#ff00ff;">🐵SUPERTILLA@DEV🐵</div>
+      `;
+    }
+  }
+}
+document.addEventListener('DOMContentLoaded',()=>{ initCharts(); initSpecies(); document.getElementById('refreshBtn')?.addEventListener('click',updateAll); document.getElementById('whatsappBtn')?.addEventListener('click',shareWhatsApp); document.getElementById('loggerBtn')?.addEventListener('click',toggleLogPanel); document.getElementById('creditsBtn')?.addEventListener('click',()=>document.getElementById('creditsBackdrop').classList.add('open')); document.getElementById('closeCredits')?.addEventListener('click',()=>{ document.getElementById('creditsBackdrop').classList.remove('open'); triggerLluvia(); }); document.getElementById('easterEggTrigger')?.addEventListener('click',triggerLluvia); document.getElementById('footerEasterEgg')?.addEventListener('click',triggerLluvia); updateAll(); setInterval(updateAll,600000); });
 </script>
 </body>
 </html>
